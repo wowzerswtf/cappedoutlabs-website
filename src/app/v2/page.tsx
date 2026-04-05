@@ -70,7 +70,7 @@ const solutions = [
   },
 ];
 
-export default function V2Page() {
+export default function HomePage() {
   return (
     <>
       {/* HERO — centered, clean, mesh gradient */}
