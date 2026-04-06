@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { LegalModal, PrivacyContent, TermsContent } from "@/components/LegalModal";
 
 const footerLinks = [
   { href: "/services", label: "Services" },
@@ -8,71 +12,92 @@ const footerLinks = [
 ];
 
 export function Footer() {
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
+
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="flex flex-col lg:flex-row justify-between gap-12">
-          {/* Left */}
-          <div className="max-w-sm">
-            <Link href="/" className="text-lg font-bold tracking-tight text-navy">
-              Capped Out Labs
-            </Link>
-            <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-              AI revenue infrastructure for operators who are serious about
-              growth — and serious about exit.
-            </p>
-            <p className="mt-2 text-xs text-text-secondary/60">
-              A Capped Out Media company
-            </p>
-          </div>
-
-          {/* Center */}
-          <div className="flex gap-8">
-            {footerLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-text-secondary hover:text-navy transition-colors"
-              >
-                {link.label}
+    <>
+      <footer className="border-t border-border">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
+          <div className="flex flex-col lg:flex-row justify-between gap-12">
+            {/* Left */}
+            <div className="max-w-sm">
+              <Link href="/" className="text-lg font-bold tracking-tight text-navy">
+                Capped Out Labs
               </Link>
-            ))}
+              <p className="mt-3 text-sm text-text-secondary leading-relaxed">
+                AI revenue infrastructure for operators who are serious about
+                growth — and serious about exit.
+              </p>
+              <p className="mt-2 text-xs text-text-secondary/60">
+                A Capped Out Media company
+              </p>
+            </div>
+
+            {/* Center */}
+            <div className="flex gap-8">
+              {footerLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-text-secondary hover:text-navy transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Right */}
+            <div className="max-w-xs">
+              <p className="text-sm text-text-secondary leading-relaxed">
+                Limited spots per quarter.
+              </p>
+              <Link
+                href="/apply"
+                className="inline-block mt-3 text-sm font-semibold text-electric hover:text-electric-dark transition-colors"
+              >
+                Apply for a discovery call &rarr;
+              </Link>
+            </div>
           </div>
 
-          {/* Right */}
-          <div className="max-w-xs">
-            <p className="text-sm text-text-secondary leading-relaxed">
-              Limited spots per quarter.
+          <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-text-secondary/50">
+              &copy; {new Date().getFullYear()} Capped Out Labs. All rights reserved.
             </p>
-            <Link
-              href="/apply"
-              className="inline-block mt-3 text-sm font-semibold text-electric hover:text-electric-dark transition-colors"
-            >
-              Apply for a discovery call &rarr;
-            </Link>
+            <div className="flex gap-6">
+              <button
+                onClick={() => setPrivacyOpen(true)}
+                className="text-xs text-text-secondary/50 hover:text-text-secondary transition-colors"
+              >
+                Privacy Policy
+              </button>
+              <button
+                onClick={() => setTermsOpen(true)}
+                className="text-xs text-text-secondary/50 hover:text-text-secondary transition-colors"
+              >
+                Terms of Service
+              </button>
+            </div>
           </div>
         </div>
+      </footer>
 
-        <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-text-secondary/50">
-            &copy; {new Date().getFullYear()} Capped Out Labs. All rights reserved.
-          </p>
-          <div className="flex gap-6">
-            <Link
-              href="/apply"
-              className="text-xs text-text-secondary/50 hover:text-text-secondary transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/apply"
-              className="text-xs text-text-secondary/50 hover:text-text-secondary transition-colors"
-            >
-              Terms of Service
-            </Link>
-          </div>
-        </div>
-      </div>
-    </footer>
+      <LegalModal
+        open={privacyOpen}
+        onClose={() => setPrivacyOpen(false)}
+        title="Privacy Policy"
+      >
+        <PrivacyContent />
+      </LegalModal>
+
+      <LegalModal
+        open={termsOpen}
+        onClose={() => setTermsOpen(false)}
+        title="Terms of Service"
+      >
+        <TermsContent />
+      </LegalModal>
+    </>
   );
 }
