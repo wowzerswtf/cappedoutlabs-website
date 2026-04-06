@@ -23,23 +23,24 @@ export function ApplyContent() {
   return (
     <>
       {/* HERO */}
-      <section className="relative bg-navy grid-pattern overflow-hidden">
-        <div className="noise-overlay" />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 mesh-gradient" />
+        <div className="absolute inset-0 dot-pattern" />
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="relative mx-auto max-w-7xl px-6 lg:px-8 pt-32 pb-16 lg:pt-40 lg:pb-20"
+          className="relative mx-auto max-w-4xl px-6 lg:px-8 pt-36 pb-16 lg:pt-44 lg:pb-20 text-center"
         >
           <motion.h1
             variants={fadeUp}
-            className="text-4xl md:text-5xl font-bold text-white leading-tight"
+            className="text-4xl md:text-5xl font-bold text-navy leading-tight"
           >
             Apply for a discovery call
           </motion.h1>
           <motion.p
             variants={fadeUp}
-            className="mt-4 text-lg text-white/60"
+            className="mt-4 text-lg text-text-secondary"
           >
             4 minutes. Real questions. We respond within 24 hours.
           </motion.p>
@@ -48,13 +49,15 @@ export function ApplyContent() {
 
       {/* FORM + SIDEBAR */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16 lg:py-24">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Form */}
             <div className="lg:col-span-3">
-              <Suspense fallback={null}>
-                <ApplicationForm />
-              </Suspense>
+              <div className="rounded-2xl border border-border bg-white p-6 lg:p-8">
+                <Suspense fallback={null}>
+                  <ApplicationForm />
+                </Suspense>
+              </div>
             </div>
 
             {/* Sidebar */}
@@ -64,18 +67,18 @@ export function ApplyContent() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="sticky top-24 space-y-10"
+                className="sticky top-28 space-y-8"
               >
-                <motion.div variants={fadeUp}>
+                <motion.div
+                  variants={fadeUp}
+                  className="rounded-2xl border border-border bg-surface/50 p-6"
+                >
                   <h3 className="text-lg font-bold text-navy mb-4">
                     What happens next
                   </h3>
                   <ol className="space-y-3">
                     {steps.map((step, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-3 text-sm text-text-primary"
-                      >
+                      <li key={i} className="flex items-start gap-3 text-sm text-text-primary">
                         <span className="flex-shrink-0 w-5 h-5 rounded-full bg-electric/10 text-electric text-xs font-bold flex items-center justify-center mt-0.5">
                           {i + 1}
                         </span>
@@ -87,14 +90,11 @@ export function ApplyContent() {
 
                 <motion.div
                   variants={fadeUp}
-                  className="border-t border-border pt-8"
+                  className="rounded-2xl border border-border bg-surface/50 p-6"
                 >
                   <ul className="space-y-3">
                     {trustSignals.map((signal, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2.5 text-sm text-text-secondary"
-                      >
+                      <li key={i} className="flex items-start gap-2.5 text-sm text-text-secondary">
                         <CheckCircle2 className="h-4 w-4 text-success mt-0.5 shrink-0" />
                         {signal}
                       </li>

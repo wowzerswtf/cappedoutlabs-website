@@ -34,3 +34,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Resend Email Setup
+
+Transactional emails (application confirmations) are sent via [Resend](https://resend.com).
+
+1. Go to [resend.com](https://resend.com) → Domains → Add `cappedoutlabs.com`
+2. Add the DNS records (MX, TXT) to your registrar
+3. Verify the domain in Resend dashboard
+4. Create an API key and set `RESEND_API_KEY` in `.env.local`
+5. Set `RESEND_FROM_EMAIL=hello@cappedoutlabs.com`
+6. Until the domain is verified, use `onboarding@resend.dev` as `RESEND_FROM_EMAIL` for testing
+
+### Test the email template
+
+```bash
+# Add RESEND_TEST_EMAIL to .env.local, then:
+npx tsx scripts/test-email.ts
+```

@@ -17,6 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/favicon.ico",
+  },
   title: {
     default: "Capped Out Labs — AI Revenue Infrastructure for Operators",
     template: "%s | Capped Out Labs",

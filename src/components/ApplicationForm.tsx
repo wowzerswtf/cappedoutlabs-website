@@ -99,34 +99,22 @@ export function ApplicationForm() {
       source: "cappedoutlabs.com",
     };
 
-    const webhookUrl = process.env.NEXT_PUBLIC_GHL_WEBHOOK_URL;
-
-    if (!webhookUrl) {
-      // Store in localStorage as fallback
-      try {
-        const existing = JSON.parse(
-          localStorage.getItem("cappedout_leads") || "[]"
-        );
-        existing.push(payload);
-        localStorage.setItem("cappedout_leads", JSON.stringify(existing));
-      } catch {
-        // silent
-      }
-      router.push("/thank-you");
-      return;
-    }
-
     try {
-      const res = await fetch(webhookUrl, {
+      const res = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("Webhook failed");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Submission failed");
+      }
+
       router.push("/thank-you");
-    } catch {
-      // Fallback: save locally
+    } catch (err) {
+      // Fallback: save locally for recovery
       try {
         const existing = JSON.parse(
           localStorage.getItem("cappedout_leads") || "[]"
@@ -137,7 +125,9 @@ export function ApplicationForm() {
         // silent
       }
       setError(
-        "There was an issue submitting your application. Your information has been saved — we'll follow up shortly."
+        err instanceof Error && err.message.includes("email us")
+          ? err.message
+          : "Something went wrong submitting your application. Please email us directly at hello@cappedoutlabs.com"
       );
       setLoading(false);
     }

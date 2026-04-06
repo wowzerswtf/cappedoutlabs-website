@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FAQAccordion, type FAQItem } from "@/components/FAQAccordion";
 import { CTABanner } from "@/components/CTABanner";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import { ArrowRight } from "lucide-react";
 
 const tierDetails = [
   {
@@ -29,6 +30,7 @@ const tierDetails = [
     price: "$50K–$150K",
     timeline: "6–10 weeks",
     applyValue: "AI Revenue Infrastructure $50K-$150K",
+    featured: true,
     whoFor:
       "Established businesses doing $3M+ that are ready to rebuild core workflows around AI.",
     deliverables: [
@@ -75,53 +77,32 @@ const tierDetails = [
 ];
 
 const processSteps = [
-  {
-    step: "01",
-    title: "Apply",
-    body: "4-minute application. We review within 24 hours.",
-  },
-  {
-    step: "02",
-    title: "Discovery",
-    body: "30-minute call. No pitch decks. Real conversation.",
-  },
-  {
-    step: "03",
-    title: "Build",
-    body: "We design, build, and deploy your system.",
-  },
-  {
-    step: "04",
-    title: "Handoff",
-    body: "Documentation, training, 30–90 day support.",
-  },
+  { step: "01", title: "Apply", body: "4-minute application. We review within 24 hours." },
+  { step: "02", title: "Discovery", body: "30-minute call. No pitch decks. Real conversation." },
+  { step: "03", title: "Build", body: "We design, build, and deploy your system." },
+  { step: "04", title: "Handoff", body: "Documentation, training, 30–90 day support." },
 ];
 
 const faqs: FAQItem[] = [
   {
     question: "We tried AI before and it didn't work.",
-    answer:
-      "Almost every time we hear this, what happened is someone installed a tool and hoped the team would use it. Installing tools is not transformation. Building systems is. We've never walked away from a client because their previous attempt failed — we use it as a diagnostic.",
+    answer: "Almost every time we hear this, what happened is someone installed a tool and hoped the team would use it. Installing tools is not transformation. Building systems is. We've never walked away from a client because their previous attempt failed — we use it as a diagnostic.",
   },
   {
     question: "Our data is a mess. Are we ready?",
-    answer:
-      "Data readiness is part of what we audit in week one. Most clients aren't ready — that's normal and expected. It's not a blocker.",
+    answer: "Data readiness is part of what we audit in week one. Most clients aren't ready — that's normal and expected. It's not a blocker.",
   },
   {
     question: "We already have someone working on AI internally.",
-    answer:
-      "Good. We work alongside internal teams on every engagement. The businesses that get the most from us have someone internal who can own what we build after handoff.",
+    answer: "Good. We work alongside internal teams on every engagement. The businesses that get the most from us have someone internal who can own what we build after handoff.",
   },
   {
     question: "What does the equity path actually look like?",
-    answer:
-      "We take 3–10% equity or a 10–20% revenue share on the incremental lift we create, for 12–24 months. We evaluate the business, the operator, and the upside — not the ability to write a check. Apply and we'll have the conversation.",
+    answer: "We take 3–10% equity or a 10–20% revenue share on the incremental lift we create, for 12–24 months. We evaluate the business, the operator, and the upside — not the ability to write a check. Apply and we'll have the conversation.",
   },
   {
     question: "How is this different from hiring an AI consultant?",
-    answer:
-      "Consultants deliver advice. We deliver running systems. The difference shows up on day 90 when your system is still operating, not gathering dust in a Notion doc.",
+    answer: "Consultants deliver advice. We deliver running systems. The difference shows up on day 90 when your system is still operating, not gathering dust in a Notion doc.",
   },
 ];
 
@@ -129,23 +110,24 @@ export function ServicesContent() {
   return (
     <>
       {/* HERO */}
-      <section className="relative bg-navy grid-pattern overflow-hidden">
-        <div className="noise-overlay" />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 mesh-gradient" />
+        <div className="absolute inset-0 dot-pattern" />
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="relative mx-auto max-w-7xl px-6 lg:px-8 pt-32 pb-24 lg:pt-40 lg:pb-32"
+          className="relative mx-auto max-w-4xl px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-28 text-center"
         >
           <motion.h1
             variants={fadeUp}
-            className="text-4xl md:text-5xl font-bold text-white max-w-3xl leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight"
           >
             AI systems built for operators who think in exits
           </motion.h1>
           <motion.p
             variants={fadeUp}
-            className="mt-6 text-lg text-white/60 leading-relaxed max-w-2xl"
+            className="mt-6 text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto"
           >
             Choose your entry point. Every path leads to the same place — a
             business that runs leaner, closes faster, and exits at a premium.
@@ -155,80 +137,75 @@ export function ServicesContent() {
 
       {/* TIER DETAILS */}
       {tierDetails.map((tier, i) => (
-        <section
-          key={i}
-          className={i % 2 === 0 ? "bg-white" : "bg-surface"}
-        >
+        <section key={i} className={i % 2 === 0 ? "bg-white" : "bg-surface"}>
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="mx-auto max-w-7xl px-6 lg:px-8 py-24"
+            className="mx-auto max-w-6xl px-6 lg:px-8 py-20"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-              <div>
-                <motion.div variants={fadeUp}>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-electric mb-3">
-                    Tier {i + 1}
-                  </p>
-                  <h2 className="text-3xl font-bold text-navy">{tier.name}</h2>
-                  <div className="mt-4 flex items-baseline gap-4">
-                    <span className="text-2xl font-bold font-mono text-text-primary">
-                      {tier.price}
-                    </span>
-                    <span className="text-sm text-text-secondary">
-                      {tier.timeline}
-                    </span>
-                  </div>
-                </motion.div>
+            <div className={`rounded-2xl border p-8 lg:p-10 ${tier.featured ? "border-electric bg-electric/[0.02]" : "border-border bg-white"}`}>
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+                {/* Left — info */}
+                <div className="lg:col-span-2">
+                  <motion.div variants={fadeUp}>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-electric mb-3">
+                      Tier {i + 1}
+                    </p>
+                    <h2 className="text-2xl font-bold text-navy">{tier.name}</h2>
+                    <div className="mt-3 flex items-baseline gap-3">
+                      <span className="text-2xl font-bold font-mono text-text-primary">
+                        {tier.price}
+                      </span>
+                      <span className="text-sm text-text-secondary">{tier.timeline}</span>
+                    </div>
+                  </motion.div>
 
-                <motion.p
-                  variants={fadeUp}
-                  className="mt-6 text-text-secondary leading-relaxed"
-                >
-                  <span className="font-semibold text-text-primary">
-                    Who it&apos;s for:
-                  </span>{" "}
-                  {tier.whoFor}
-                </motion.p>
-
-                <motion.div variants={fadeUp} className="mt-8">
-                  <Button
-                    asChild
-                    className="bg-electric hover:bg-electric-dark text-white rounded-lg px-8 h-11 text-sm font-semibold"
+                  <motion.p
+                    variants={fadeUp}
+                    className="mt-5 text-sm text-text-secondary leading-relaxed"
                   >
-                    <Link href={`/apply?tier=${encodeURIComponent(tier.applyValue)}`}>Apply for This Tier</Link>
-                  </Button>
-                </motion.div>
-              </div>
+                    <span className="font-semibold text-text-primary">Who it&apos;s for:</span>{" "}
+                    {tier.whoFor}
+                  </motion.p>
 
-              <div>
-                <motion.div variants={fadeUp}>
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-text-secondary mb-4">
-                    What you get
-                  </h3>
-                  <ul className="space-y-3">
-                    {tier.deliverables.map((d, j) => (
-                      <li
-                        key={j}
-                        className="flex items-start gap-3 text-sm text-text-primary"
-                      >
-                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-electric shrink-0" />
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
+                  <motion.div variants={fadeUp} className="mt-6">
+                    <Button
+                      asChild
+                      className={`rounded-xl px-6 h-10 text-sm font-semibold ${tier.featured ? "bg-electric hover:bg-electric-dark text-white" : "bg-navy hover:bg-navy-light text-white"}`}
+                    >
+                      <Link href={`/apply?tier=${encodeURIComponent(tier.applyValue)}`}>
+                        Apply for This Tier
+                        <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                </div>
 
-                <motion.div variants={fadeUp} className="mt-8">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-text-secondary mb-3">
-                    What it looks like at the end
-                  </h3>
-                  <p className="text-sm text-text-primary leading-relaxed">
-                    {tier.outcome}
-                  </p>
-                </motion.div>
+                {/* Right — deliverables + outcome */}
+                <div className="lg:col-span-3 space-y-8">
+                  <motion.div variants={fadeUp}>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-text-secondary mb-4">
+                      What you get
+                    </h3>
+                    <ul className="space-y-3">
+                      {tier.deliverables.map((d, j) => (
+                        <li key={j} className="flex items-start gap-3 text-sm text-text-primary">
+                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-electric shrink-0" />
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+
+                  <motion.div variants={fadeUp}>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-text-secondary mb-3">
+                      What it looks like at the end
+                    </h3>
+                    <p className="text-sm text-text-primary leading-relaxed">{tier.outcome}</p>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -237,17 +214,17 @@ export function ServicesContent() {
 
       {/* PROCESS */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 lg:py-32">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 py-24 lg:py-32">
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-navy text-center"
+            className="text-3xl md:text-4xl font-bold text-navy text-center mb-16"
           >
             The process
           </motion.h2>
 
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {processSteps.map((step, i) => (
               <motion.div
                 key={i}
@@ -255,20 +232,11 @@ export function ServicesContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="relative"
+                className="rounded-2xl border border-border bg-surface/50 p-6 glow-border"
               >
-                <span className="text-4xl font-bold font-mono text-electric/20">
-                  {step.step}
-                </span>
-                <h3 className="mt-2 text-lg font-bold text-navy">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-                  {step.body}
-                </p>
-                {i < processSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-6 right-0 w-full h-px bg-border -mr-4" />
-                )}
+                <span className="text-3xl font-bold font-mono text-electric/30">{step.step}</span>
+                <h3 className="mt-2 text-lg font-bold text-navy">{step.title}</h3>
+                <p className="mt-2 text-sm text-text-secondary leading-relaxed">{step.body}</p>
               </motion.div>
             ))}
           </div>

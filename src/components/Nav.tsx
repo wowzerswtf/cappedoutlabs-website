@@ -31,98 +31,99 @@ export function Nav() {
   }, [pathname]);
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-white/90 backdrop-blur-xl border-b border-border shadow-sm"
-          : "bg-transparent"
-      )}
-    >
-      <nav className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={cn(
+          "w-full max-w-5xl rounded-2xl border transition-all duration-300 px-5",
+          scrolled
+            ? "bg-white/90 backdrop-blur-xl border-border shadow-lg shadow-black/5"
+            : "bg-white/60 backdrop-blur-md border-white/20 shadow-sm"
+        )}
+      >
+        <div className="flex h-14 items-center justify-between">
           <Link
             href="/"
-            className={cn(
-              "text-lg font-bold tracking-tight transition-colors",
-              scrolled ? "text-navy" : "text-white"
-            )}
+            className="text-base font-bold tracking-tight text-navy"
           >
             Capped Out Labs
           </Link>
 
           {/* Desktop */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-1">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-sm font-medium transition-colors",
-                  scrolled
-                    ? pathname === link.href
-                      ? "text-navy"
-                      : "text-text-secondary hover:text-navy"
-                    : pathname === link.href
-                      ? "text-white"
-                      : "text-white/70 hover:text-white"
+                  "text-sm font-medium px-3.5 py-1.5 rounded-lg transition-all",
+                  pathname === link.href
+                    ? "text-navy bg-surface"
+                    : "text-text-secondary hover:text-navy hover:bg-surface/60"
                 )}
               >
                 {link.label}
               </Link>
             ))}
-            <Button
-              asChild
-              className="bg-electric hover:bg-electric-dark text-white rounded-lg px-5 h-9 text-sm font-semibold"
-            >
-              <Link href="/apply">Apply Now</Link>
-            </Button>
+            <div className="ml-3 pl-3 border-l border-border">
+              <Button
+                asChild
+                className="bg-navy hover:bg-navy-light text-white rounded-xl px-5 h-9 text-sm font-semibold"
+              >
+                <Link href="/apply">Apply Now</Link>
+              </Button>
+            </div>
           </div>
 
           {/* Mobile toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className={cn(
-              "md:hidden p-2 transition-colors",
-              scrolled ? "text-navy" : "text-white"
-            )}
+            className="md:hidden p-2 text-navy"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-border overflow-hidden"
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            className="fixed top-20 left-4 right-4 md:hidden bg-white rounded-2xl border border-border shadow-xl overflow-hidden"
           >
-            <div className="px-6 py-4 space-y-3">
+            <div className="p-4 space-y-1">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "block text-sm font-medium py-2",
+                    "block text-sm font-medium py-2.5 px-3 rounded-lg transition-colors",
                     pathname === link.href
-                      ? "text-navy"
-                      : "text-text-secondary"
+                      ? "text-navy bg-surface"
+                      : "text-text-secondary hover:text-navy hover:bg-surface/60"
                   )}
                 >
                   {link.label}
                 </Link>
               ))}
-              <Button
-                asChild
-                className="w-full bg-electric hover:bg-electric-dark text-white rounded-lg h-10 text-sm font-semibold"
-              >
-                <Link href="/apply">Apply Now</Link>
-              </Button>
+              <div className="pt-2">
+                <Button
+                  asChild
+                  className="w-full bg-navy hover:bg-navy-light text-white rounded-xl h-10 text-sm font-semibold"
+                >
+                  <Link href="/apply">Apply Now</Link>
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}

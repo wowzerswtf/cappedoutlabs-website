@@ -9,72 +9,64 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-navy text-white">
+    <footer className="border-t border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div>
-            <Link href="/" className="text-lg font-bold tracking-tight">
+        <div className="flex flex-col lg:flex-row justify-between gap-12">
+          {/* Left */}
+          <div className="max-w-sm">
+            <Link href="/" className="text-lg font-bold tracking-tight text-navy">
               Capped Out Labs
             </Link>
-            <p className="mt-3 text-sm text-white/60 leading-relaxed">
+            <p className="mt-3 text-sm text-text-secondary leading-relaxed">
               AI revenue infrastructure for operators who are serious about
               growth — and serious about exit.
             </p>
-            <p className="mt-4 text-xs text-white/40">
+            <p className="mt-2 text-xs text-text-secondary/60">
               A Capped Out Media company
             </p>
           </div>
 
-          <div>
-            <h4 className="text-sm font-semibold mb-4 text-white/80">
-              Navigation
-            </h4>
-            <ul className="space-y-2.5">
-              {footerLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-white/50 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Center */}
+          <div className="flex gap-8">
+            {footerLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm text-text-secondary hover:text-navy transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
-          <div>
-            <h4 className="text-sm font-semibold mb-4 text-white/80">
-              Get Started
-            </h4>
-            <p className="text-sm text-white/50 leading-relaxed">
-              We take on a limited number of clients each quarter. Apply for a
-              discovery call to see if we&apos;re the right fit.
+          {/* Right */}
+          <div className="max-w-xs">
+            <p className="text-sm text-text-secondary leading-relaxed">
+              Limited spots per quarter.
             </p>
             <Link
               href="/apply"
-              className="inline-block mt-4 text-sm font-semibold text-electric hover:text-white transition-colors"
+              className="inline-block mt-3 text-sm font-semibold text-electric hover:text-electric-dark transition-colors"
             >
-              Apply Now &rarr;
+              Apply for a discovery call &rarr;
             </Link>
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Capped Out Labs. All rights
-            reserved.
+        <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-text-secondary/50">
+            &copy; {new Date().getFullYear()} Capped Out Labs. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link
               href="/apply"
-              className="text-xs text-white/30 hover:text-white/60 transition-colors"
+              className="text-xs text-text-secondary/50 hover:text-text-secondary transition-colors"
             >
               Privacy Policy
             </Link>
             <Link
               href="/apply"
-              className="text-xs text-white/30 hover:text-white/60 transition-colors"
+              className="text-xs text-text-secondary/50 hover:text-text-secondary transition-colors"
             >
               Terms of Service
             </Link>

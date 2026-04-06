@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Zap, Box, TrendingUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VSLEmbed } from "@/components/VSLEmbed";
-import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { CTABanner } from "@/components/CTABanner";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
@@ -349,103 +348,65 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PROOF */}
-      <section className="relative bg-navy grid-pattern overflow-hidden">
-        <div className="noise-overlay" />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8 py-24 lg:py-32">
+      {/* PROOF — feature cards on light bg */}
+      <section className="bg-surface">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 py-24 lg:py-32">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-6"
+            className="text-center mb-16"
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-electric mb-4">
-              Production results
-            </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-              We don&apos;t show mockups.<br />We show receipts.
+            <h2 className="text-3xl md:text-4xl font-bold text-navy">
+              What production AI actually looks like
             </h2>
-            <p className="mt-4 text-white/50 text-lg max-w-2xl mx-auto">
-              Every number below is from a live system running inside a real business right now.
-            </p>
           </motion.div>
 
-          {/* Aggregate stats banner */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 mb-16 grid grid-cols-2 md:grid-cols-4 gap-4"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { value: "6", unit: "wks", label: "Avg. time to production" },
-              { value: "100%", unit: "", label: "Client retention rate" },
-              { value: "0", unit: "", label: "Systems that went unused" },
-              { value: "3.2x", unit: "", label: "Avg. ROI within 90 days" },
-            ].map((stat, i) => (
+              {
+                title: "Supplement Brand — AI Sales Infrastructure",
+                result: "34% close rate lift. Deal cycle cut from 14 days to 6.",
+                tag: "Closer OS",
+                metric: "34%",
+                metricLabel: "close rate lift",
+              },
+              {
+                title: "Contractor Business — Full Ops Platform",
+                result: "18+ hours saved weekly. Payment cycle cut from 21 days to 4.",
+                tag: "ContractorOS",
+                metric: "18+",
+                metricLabel: "hours saved/week",
+              },
+            ].map((cs, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="text-center py-5 px-3 rounded-xl border border-white/10 bg-white/[0.03]"
+                transition={{ delay: i * 0.1 }}
               >
-                <p className="text-3xl md:text-4xl font-bold font-mono text-white tracking-tight">
-                  {stat.value}<span className="text-electric text-lg">{stat.unit}</span>
-                </p>
-                <p className="mt-1 text-xs text-white/40 font-medium">{stat.label}</p>
+                <Link
+                  href="/case-studies"
+                  className="block rounded-2xl border border-border bg-white p-8 hover:shadow-lg hover:shadow-electric/5 transition-all group glow-border"
+                >
+                  <span className="inline-block text-xs font-semibold text-electric bg-electric/10 px-3 py-1 rounded-full mb-6">
+                    {cs.tag}
+                  </span>
+                  <p className="text-5xl font-bold font-mono text-navy mb-1">{cs.metric}</p>
+                  <p className="text-sm text-text-secondary mb-4">{cs.metricLabel}</p>
+                  <h3 className="text-base font-bold text-navy group-hover:text-electric transition-colors">
+                    {cs.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-text-secondary leading-relaxed">{cs.result}</p>
+                  <div className="mt-4 flex items-center gap-1.5 text-sm font-semibold text-electric">
+                    View case study
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
               </motion.div>
             ))}
-          </motion.div>
-
-          {/* Case study cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <CaseStudyCard
-              title="Supplement Brand — AI Sales Infrastructure"
-              result="Closers went from winging calls to having AI-generated intel packets, real-time coaching, and automated follow-up sequences. Pipeline velocity doubled."
-              tag="Closer OS"
-              href="/case-studies"
-              variant="dark"
-              beforeMetric="14"
-              afterMetric="6"
-              metricUnit=" day deal cycle"
-            />
-            <CaseStudyCard
-              title="Contractor Business — Full Ops Platform"
-              result="Voice-commanded estimates, automated invoicing, client portal. Owner went from 25+ hrs/week on admin to under 7. Payment collection runs itself."
-              tag="ContractorOS"
-              href="/case-studies"
-              variant="dark"
-              beforeMetric="21"
-              afterMetric="4"
-              metricUnit=" day payment cycle"
-            />
           </div>
-
-          {/* Bottom proof strip */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm"
-          >
-            <p className="text-white/30">
-              Deployed across <span className="text-white font-semibold">30+ verticals</span>
-            </p>
-            <span className="hidden sm:block text-white/10">|</span>
-            <p className="text-white/30">
-              <span className="text-white font-semibold">200+</span> AI systems in production
-            </p>
-            <span className="hidden sm:block text-white/10">|</span>
-            <Link
-              href="/case-studies"
-              className="font-bold text-electric hover:text-white transition-colors flex items-center gap-1.5"
-            >
-              See all case studies
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </motion.div>
         </div>
       </section>
 

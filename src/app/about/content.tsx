@@ -23,58 +23,61 @@ export function AboutContent() {
   return (
     <>
       {/* HERO */}
-      <section className="relative bg-navy grid-pattern overflow-hidden">
-        <div className="noise-overlay" />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 mesh-gradient" />
+        <div className="absolute inset-0 dot-pattern" />
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="relative mx-auto max-w-7xl px-6 lg:px-8 pt-32 pb-24 lg:pt-40 lg:pb-32"
+          className="relative mx-auto max-w-4xl px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-28 text-center"
         >
           <motion.h1
             variants={fadeUp}
-            className="text-4xl md:text-5xl font-bold text-white max-w-3xl leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight"
           >
             Operators who learned to build AI. Not the other way around.
           </motion.h1>
         </motion.div>
       </section>
 
-      {/* CONTENT SECTIONS */}
-      {sections.map((section, i) => (
-        <section key={i} className={i % 2 === 0 ? "bg-white" : "bg-surface"}>
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="mx-auto max-w-3xl px-6 lg:px-8 py-24"
-          >
-            <motion.h2
-              variants={fadeUp}
-              className="text-3xl font-bold text-navy"
+      {/* CONTENT — editorial single column */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-3xl px-6 lg:px-8 py-20">
+          {sections.map((section, i) => (
+            <motion.div
+              key={i}
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className={i > 0 ? "mt-16 pt-16 border-t border-border" : ""}
             >
-              {section.title}
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              className="mt-6 text-text-secondary leading-relaxed text-lg"
-            >
-              {section.body}
-            </motion.p>
-          </motion.div>
-        </section>
-      ))}
+              <motion.h2
+                variants={fadeUp}
+                className="text-2xl md:text-3xl font-bold text-navy"
+              >
+                {section.title}
+              </motion.h2>
+              <motion.p
+                variants={fadeUp}
+                className="mt-6 text-text-secondary leading-relaxed text-lg"
+              >
+                {section.body}
+              </motion.p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* BRIDGE */}
-      <section className="relative bg-navy grid-pattern overflow-hidden">
-        <div className="noise-overlay" />
+      <section className="bg-surface dot-pattern">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="relative mx-auto max-w-3xl px-6 lg:px-8 py-24 lg:py-32"
+          className="mx-auto max-w-3xl px-6 lg:px-8 py-24 lg:py-32 text-center"
         >
           <motion.p
             variants={fadeUp}
@@ -84,13 +87,13 @@ export function AboutContent() {
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="text-3xl md:text-4xl font-bold text-white"
+            className="text-3xl md:text-4xl font-bold text-navy"
           >
             Look us up.
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="mt-6 text-white/60 leading-relaxed text-lg"
+            className="mt-6 text-text-secondary leading-relaxed text-lg max-w-2xl mx-auto"
           >
             Capped Out Media has thousands of reviews across the internet. Our
             track record is documented, public, and searchable. When you evaluate
