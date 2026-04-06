@@ -42,7 +42,7 @@ export function ApplyContent() {
             variants={fadeUp}
             className="mt-4 text-lg text-text-secondary"
           >
-            4 minutes. Real questions. We respond within 24 hours.
+            If you&apos;re a fit, we respond within 24 hours.
           </motion.p>
         </motion.div>
       </section>
