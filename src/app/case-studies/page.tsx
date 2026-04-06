@@ -4,11 +4,11 @@ import { CaseStudiesContent } from "./content";
 export const metadata: Metadata = {
   title: "Case Studies",
   description:
-    "Systems in production. Results in numbers. Not pilots. Not prototypes. Working AI infrastructure inside real businesses.",
+    "+1,866% revenue. 23.4x ROAS. −90% CAC. Real numbers from production AI systems inside real businesses. Not pilots. Not prototypes.",
   openGraph: {
     title: "Case Studies | Capped Out Labs",
     description:
-      "Working AI infrastructure inside real businesses. See our production systems.",
+      "+1,866% revenue. 23.4x ROAS. −90% CAC in 45 days. Production AI systems inside real businesses.",
   },
 };
 

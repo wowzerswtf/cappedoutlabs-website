@@ -6,35 +6,47 @@ import { fadeUp, staggerContainer } from "@/lib/animations";
 
 const caseStudies = [
   {
-    title: "AI Sales Infrastructure — Supplement Brand",
+    title: "AI Sales Infrastructure — Portfolio Brand",
     system: "Closer OS",
-    tag: "Tier 2",
-    challenge: "Manual lead research, inconsistent follow-up, closers flying blind on every call.",
+    tag: "Tier 2 · 45 days of live data",
+    challenge:
+      "A portfolio brand running $94K in ad spend was generating leads the sales process couldn't convert. Closers spent 20–30 minutes on manual pre-call research. Follow-up took 30–60 minutes per call. Show rate was 26.3% — nearly 3 out of 4 booked calls were no-shows. Every rep was running their own system, which meant no system at all.",
     built: [
-      "Pre-call intelligence: Clay/Apollo enrichment, buyer type classification",
-      "Live call assistance: Real-time signal detection via Deepgram",
-      "Post-call automation: HeyGen scripts, partner emails, deal room generation",
+      "Layer 1 — Pre-call intelligence: Clay/Apollo enrichment, buyer type classification (Visionary, Analyst, Connector, Skeptic). Drove show rate from 26.3% to 77.9%.",
+      "Layer 2 — Live call assistance: Real-time signal detection via Deepgram through Recall.ai on Google Meet. Close rate improved from 19.5% to 26.0%.",
+      "Layer 3 — Post-call automation: HeyGen video scripts, partner emails, and tracked deal rooms generated in seconds — not the 30–60 minutes it used to take.",
     ],
-    stack: "GHL + Google Meet + Deepgram + Claude API",
-    result: "34% close rate lift within 60 days of deployment. Average deal cycle compressed from 14 days to 6.",
-    timeline: "6 weeks",
-    metric: "34%",
-    metricLabel: "close rate lift",
+    stack: "GHL · Google Meet · Deepgram · Claude API (claude-sonnet-4-6) · Recall.ai · HeyGen",
+    result:
+      "Revenue: $200K → $3.9M (+1,866%). CAC: $11,765 → $1,217 (−90%). ROAS: 2.1x → 23.4x. Show rate: 26.3% → 77.9%. Net profit: $3,420,000 in 45 days.",
+    timeline: "6 weeks to build",
+    metric: "+1,866%",
+    metricLabel: "revenue growth in 45 days",
+    quote:
+      "We were spending serious money on ads and watching leads disappear. The closer didn't have the right information before the call, follow-up was an afterthought, and every rep was running their own system — which meant no system at all.",
+    quoteAttribution: "Portfolio Operator, Digital Incubator",
+    stats: [
+      { value: "23.4x", label: "ROAS" },
+      { value: "−90%", label: "CAC" },
+      { value: "77.9%", label: "show rate" },
+      { value: "138", label: "deals closed" },
+    ],
   },
   {
     title: "Full Ops Platform — Contracting Business",
     system: "ContractorOS",
     tag: "Tier 2",
-    challenge: "Manual estimates, paper invoices, no client visibility, QuickBooks done by hand.",
+    challenge:
+      "Manual estimates, paper invoices, no client visibility, QuickBooks done by hand. The owner was spending 18+ hours a week on admin and doing paperwork at night instead of running the business.",
     built: [
-      "Voice-commanded estimate creation (Web Speech API + Claude)",
-      "Client-facing approval portal",
-      "Automated invoicing and payment tracking",
-      "QuickBooks CSV export",
-      "Supabase auth + storage",
+      "Voice command engine: Web Speech API + Claude API, 6 intent types, VoiceConfirmCard confirmation pattern",
+      "Client-facing estimate approval portal with real-time tracking and auto-follow-up",
+      "Automated invoicing and payment tracking via Stripe, with overdue reminders via Resend and Twilio",
+      "QuickBooks CSV export — zero manual data entry",
     ],
-    stack: "Next.js 14, TypeScript, Tailwind, Prisma/PostgreSQL, Supabase, Stripe, Resend",
-    result: "18+ hours saved weekly on admin. Payment collection cycle cut from 21 days to 4. Zero manual QuickBooks entry.",
+    stack: "Next.js 14, TypeScript, Tailwind, Prisma/PostgreSQL, Supabase, Stripe, Resend, Twilio",
+    result:
+      "18+ hours saved weekly on admin. Payment collection cycle cut from 21 days to 4. Zero manual QuickBooks entry.",
     timeline: "8 weeks",
     metric: "18+",
     metricLabel: "hours saved/week",
@@ -98,6 +110,25 @@ export function CaseStudiesContent() {
               </div>
             </motion.div>
 
+            {/* Stats row — only for case studies with stats */}
+            {"stats" in cs && cs.stats && (
+              <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                {cs.stats.map((stat, j) => (
+                  <div
+                    key={j}
+                    className="rounded-xl border border-border bg-surface/50 p-4 text-center"
+                  >
+                    <p className="text-2xl md:text-3xl font-bold font-mono text-electric">
+                      {stat.value}
+                    </p>
+                    <p className="text-xs text-text-secondary mt-1 uppercase tracking-wider">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
               {/* Left */}
               <div className="space-y-8">
@@ -121,6 +152,20 @@ export function CaseStudiesContent() {
                     ))}
                   </ul>
                 </motion.div>
+
+                {/* Quote — only for case studies with a quote */}
+                {"quote" in cs && cs.quote && (
+                  <motion.div variants={fadeUp}>
+                    <blockquote className="border-l-4 border-electric pl-5 py-2">
+                      <p className="text-text-primary leading-relaxed italic">
+                        &ldquo;{cs.quote}&rdquo;
+                      </p>
+                      <footer className="mt-2 text-sm text-text-secondary">
+                        &mdash; {cs.quoteAttribution}
+                      </footer>
+                    </blockquote>
+                  </motion.div>
+                )}
               </div>
 
               {/* Right */}

@@ -365,14 +365,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
-                title: "Supplement Brand — AI Sales Infrastructure",
-                result: "34% close rate lift. Deal cycle cut from 14 days to 6.",
+                title: "Portfolio Brand — AI Sales Infrastructure",
+                result: "+1,866% revenue. 23.4x ROAS. CAC down 90% in 45 days.",
                 tag: "Closer OS",
-                metric: "34%",
-                metricLabel: "close rate lift",
+                metric: "+1,866%",
+                metricLabel: "revenue growth",
               },
               {
-                title: "Contractor Business — Full Ops Platform",
+                title: "Contracting Business — Full Ops Platform",
                 result: "18+ hours saved weekly. Payment cycle cut from 21 days to 4.",
                 tag: "ContractorOS",
                 metric: "18+",

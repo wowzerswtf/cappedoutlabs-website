@@ -4,6 +4,26 @@ import { ApplicationConfirmation } from "@/emails/ApplicationConfirmation";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const GHL_API_KEY = process.env.GHL_API_KEY;
+const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
+const GHL_BASE = "https://services.leadconnectorhq.com";
+
+// Pipeline + stage IDs from reports/pipeline_ids.json
+const PIPELINE_ID = "NcGz2w8XlXwViPSyESVn";
+const APPLIED_STAGE_ID = "45557fe3-e118-4a9f-82a8-32a6ea1c5a72";
+
+// Custom field IDs from reports/custom_field_ids.json
+const CUSTOM_FIELDS: Record<string, string> = {
+  businessName: "zENHzP2Jah4adoHKrttI",    // labs_business_name
+  website: "V825WkSn4mdhQuOXth4o",          // labs_website
+  annualRevenue: "0hZmwU9mLAZPifTTnyCx",   // labs_annual_revenue
+  teamSize: "WJTnn76Mn0dOZdChj7vB",         // labs_team_size
+  bottleneck: "DSIXjbUN235GZC3ARX9i",       // labs_bottleneck
+  aiHistory: "KbKKiUUzzhaGMBUIYmJ7",        // labs_ai_history
+  tierInterest: "EGg0nDB2BzRasCRCm282",     // labs_tier_interest
+  referralSource: "F2qNIvitpzmLFslWXNQ7",   // labs_referral_source
+};
+
 interface ApplicationPayload {
   firstName: string;
   lastName: string;
@@ -21,6 +41,7 @@ interface ApplicationPayload {
   source: string;
 }
 
+// ── Resend confirmation email ────────────────────────────────────
 async function sendConfirmationEmail(payload: ApplicationPayload) {
   const fromName = process.env.RESEND_FROM_NAME || "Capped Out Labs";
   const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
@@ -39,6 +60,82 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
   });
 }
 
+// ── GHL API helper ───────────────────────────────────────────────
+async function ghlRequest(method: string, path: string, body?: unknown) {
+  const res = await fetch(`${GHL_BASE}${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${GHL_API_KEY}`,
+      "Content-Type": "application/json",
+      Version: "2021-07-28",
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  const data = await res.json().catch(() => null);
+  return { status: res.status, ok: res.ok, data };
+}
+
+// ── GHL: create contact + add to pipeline ────────────────────────
+async function createGhlContact(payload: ApplicationPayload) {
+  if (!GHL_API_KEY || !GHL_LOCATION_ID) {
+    throw new Error("GHL_API_KEY and GHL_LOCATION_ID are required");
+  }
+
+  // Step 1: Create contact with custom fields
+  const customFields = Object.entries(CUSTOM_FIELDS)
+    .filter(([key]) => payload[key as keyof ApplicationPayload])
+    .map(([key, id]) => ({
+      id,
+      field_value: payload[key as keyof ApplicationPayload],
+    }));
+
+  const contactRes = await ghlRequest("POST", "/contacts/", {
+    locationId: GHL_LOCATION_ID,
+    firstName: payload.firstName,
+    lastName: payload.lastName,
+    email: payload.email,
+    phone: payload.phone,
+    tags: ["labs-applicant"],
+    source: payload.source || "cappedoutlabs.com",
+    customFields,
+  });
+
+  if (!contactRes.ok) {
+    console.error("GHL contact creation failed:", contactRes.status, contactRes.data);
+    throw new Error(`GHL contact creation failed (${contactRes.status})`);
+  }
+
+  const contactId = contactRes.data?.contact?.id;
+  if (!contactId) {
+    console.error("GHL contact response missing ID:", contactRes.data);
+    throw new Error("GHL contact created but no ID returned");
+  }
+
+  console.log("GHL contact created:", contactId);
+
+  // Step 2: Create opportunity in pipeline at "Applied" stage
+  const oppRes = await ghlRequest("POST", "/opportunities/", {
+    pipelineId: PIPELINE_ID,
+    pipelineStageId: APPLIED_STAGE_ID,
+    contactId,
+    locationId: GHL_LOCATION_ID,
+    name: `${payload.firstName} ${payload.lastName} — ${payload.businessName}`,
+    status: "open",
+    monetaryValue: 0,
+  });
+
+  if (!oppRes.ok) {
+    console.error("GHL opportunity creation failed:", oppRes.status, oppRes.data);
+    // Contact was created — don't throw, just log the opportunity failure
+  } else {
+    console.log("GHL opportunity created:", oppRes.data?.opportunity?.id);
+  }
+
+  return { contactId, opportunityId: oppRes.data?.opportunity?.id };
+}
+
+// ── POST handler ─────────────────────────────────────────────────
 export async function POST(request: Request) {
   let payload: ApplicationPayload;
 
@@ -59,21 +156,10 @@ export async function POST(request: Request) {
     );
   }
 
-  const ghlWebhookUrl = process.env.GHL_WEBHOOK_URL;
-
   // Fire both simultaneously
   const [resendResult, ghlResult] = await Promise.allSettled([
-    // 1. Resend — instant confirmation
     sendConfirmationEmail(payload),
-
-    // 2. GHL webhook — pipeline entry
-    ghlWebhookUrl
-      ? fetch(ghlWebhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        })
-      : Promise.resolve({ status: 200, ok: true }),
+    createGhlContact(payload),
   ]);
 
   // Log results
@@ -88,7 +174,7 @@ export async function POST(request: Request) {
     "GHL:",
     ghlResult.status,
     ghlResult.status === "fulfilled"
-      ? (ghlResult.value as Response)?.status
+      ? `contact=${ghlResult.value.contactId}`
       : ghlResult.reason
   );
 
@@ -97,7 +183,6 @@ export async function POST(request: Request) {
     resendResult.status === "rejected" &&
     ghlResult.status === "rejected"
   ) {
-    // Both failed — return error
     console.error("Both Resend and GHL failed:", {
       resend: resendResult.reason,
       ghl: ghlResult.reason,
@@ -112,13 +197,11 @@ export async function POST(request: Request) {
   }
 
   if (ghlResult.status === "rejected") {
-    // GHL failed, Resend succeeded — log full payload for manual recovery
-    console.error("GHL webhook failed:", ghlResult.reason);
+    console.error("GHL API failed:", ghlResult.reason);
     console.error("FAILED_GHL_PAYLOAD:", JSON.stringify(payload));
   }
 
   if (resendResult.status === "rejected") {
-    // Resend failed, GHL succeeded — log but don't fail
     console.error("Resend email failed:", resendResult.reason);
   }
 
