@@ -43,7 +43,7 @@ export function ThankYouContent() {
           <p className="text-sm font-medium text-text-primary mb-4">
             While you wait — watch this:
           </p>
-          <VSLEmbed />
+          <VSLEmbed src="https://player.vimeo.com/video/1180565378?title=0&byline=0&portrait=0" />
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-10">

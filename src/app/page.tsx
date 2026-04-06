@@ -179,7 +179,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <VSLEmbed />
+            <VSLEmbed src="https://player.vimeo.com/video/1180565378?title=0&byline=0&portrait=0" />
           </motion.div>
           <p className="mt-4 text-sm text-text-secondary text-center">
             10 minutes. No pitch deck. Just proof.
