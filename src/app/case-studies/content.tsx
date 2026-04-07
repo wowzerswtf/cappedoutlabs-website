@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { CaseStudySchema } from "@/components/SchemaMarkup";
 import { CTABanner } from "@/components/CTABanner";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
@@ -56,6 +57,8 @@ const caseStudies = [
 export function CaseStudiesContent() {
   return (
     <>
+      <CaseStudySchema />
+
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 mesh-gradient" />
@@ -66,6 +69,12 @@ export function CaseStudiesContent() {
           animate="visible"
           className="relative mx-auto max-w-4xl px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-28 text-center"
         >
+          <motion.p
+            variants={fadeUp}
+            className="text-base text-text-secondary leading-relaxed max-w-2xl mx-auto mb-8"
+          >
+            Capped Out Labs has driven +1,866% revenue growth ($200K to $3.9M), reduced customer acquisition cost by 90%, and achieved 23.4x ROAS — all within 45 days of deploying production AI systems into a live business.
+          </motion.p>
           <motion.h1
             variants={fadeUp}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight"

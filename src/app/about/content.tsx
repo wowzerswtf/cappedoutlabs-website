@@ -32,6 +32,12 @@ export function AboutContent() {
           animate="visible"
           className="relative mx-auto max-w-4xl px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-28 text-center"
         >
+          <motion.p
+            variants={fadeUp}
+            className="text-base text-text-secondary leading-relaxed max-w-2xl mx-auto mb-8"
+          >
+            Capped Out Labs is an AI transformation firm built by the operators behind Capped Out Media — a supplement incubator that has scaled brands to eight figures and through acquisition. Unlike AI consultants who learned to talk about business, we are operators who learned to build AI. That difference means every system we deploy is anchored to revenue metrics, not theory.
+          </motion.p>
           <motion.h1
             variants={fadeUp}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight"

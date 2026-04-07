@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FAQAccordion, type FAQItem } from "@/components/FAQAccordion";
+import { ServiceSchema, FAQSchema } from "@/components/SchemaMarkup";
 import { CTABanner } from "@/components/CTABanner";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { ArrowRight } from "lucide-react";
@@ -109,6 +110,9 @@ const faqs: FAQItem[] = [
 export function ServicesContent() {
   return (
     <>
+      <ServiceSchema />
+      <FAQSchema items={faqs} />
+
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 mesh-gradient" />
@@ -119,6 +123,12 @@ export function ServicesContent() {
           animate="visible"
           className="relative mx-auto max-w-4xl px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-28 text-center"
         >
+          <motion.p
+            variants={fadeUp}
+            className="text-base text-text-secondary leading-relaxed max-w-2xl mx-auto mb-8"
+          >
+            An AI transformation engagement delivers production systems your team uses daily — not a strategy deck. Depending on the tier, you get an AI readiness audit, 1–5+ rebuilt workflows, staff training with recorded SOPs, and a 30–90 day managed handoff. Every deliverable is anchored to a revenue metric.
+          </motion.p>
           <motion.h1
             variants={fadeUp}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight"

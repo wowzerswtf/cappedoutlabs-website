@@ -1,0 +1,55 @@
+# Capped Out Labs
+
+> AI transformation infrastructure for operators who think in exits. From the team behind Capped Out Media.
+
+## Core pages
+
+- [Homepage](https://cappedoutlabs.com): Overview of all four engagement tiers and core positioning — production AI systems, not strategy decks
+- [Services](https://cappedoutlabs.com/services): Detailed breakdown of Tier 1 ($15K sprint), Tier 2 ($50K–$150K infrastructure), Tier 3 ($200K–$500K+ transformation), Tier 4 (equity/rev-share)
+- [Case Studies](https://cappedoutlabs.com/case-studies): Documented results from live AI deployments with real metrics — not pilots or prototypes
+- [About](https://cappedoutlabs.com/about): Origin story, Capped Out Media track record, why we think in exits
+- [Apply](https://cappedoutlabs.com/apply): Discovery call application — 4-minute form, reviewed within 24 hours
+
+## Case study results (Closer OS)
+
+- System: AI sales infrastructure deployed into a digital incubator portfolio brand
+- Industry: Supplement / DTC brand
+- Revenue change: $200K to $3,933,000 (+1,866%)
+- ROAS change: 2.1x to 23.4x
+- CAC change: $11,765 to $1,217 (-90%)
+- Show rate change: 26.3% to 77.9%
+- Deals closed: 138
+- Net profit: $3,420,000
+- Measurement period: 45 days
+- Build timeline: 6 weeks
+
+## Case study results (ContractorOS)
+
+- System: Full operations platform for a contracting business
+- Admin time saved: 18+ hours per week
+- Payment collection cycle: 21 days reduced to 4 days
+- Manual data entry: eliminated (QuickBooks CSV export)
+- Build timeline: 8 weeks
+
+## What we do
+
+Capped Out Labs builds production AI systems for operators doing $1M–$50M in revenue. We specialize in sales infrastructure (Closer OS), operations platforms (ContractorOS), and full business transformation for exit preparation. We are operators who learned to build AI, not consultants who learned to talk about business.
+
+## How we're different
+
+- We come from Capped Out Media — years of scaling supplement brands to acquisition
+- Every system is anchored to a revenue metric: close rate, LTV, cash collection speed
+- We build running systems with documentation, trained staff, and a 90-day handoff
+- AI-systematized businesses command higher exit multiples — we build for that outcome
+
+## Engagement tiers
+
+- Tier 1 — AI Revenue Sprint: $15,000, 2 weeks. AI readiness audit + single highest-leverage workflow built live.
+- Tier 2 — AI Revenue Infrastructure: $50K–$150K, 6–10 weeks. 3–5 core workflows rebuilt with AI across departments.
+- Tier 3 — Full AI Transformation: $200K–$500K+, 3–6 months. Full infrastructure rebuild with AI agents across all departments.
+- Tier 4 — Equity / Rev-Share: No upfront cost. 3–10% equity or 10–20% rev-share on incremental lift.
+
+## Contact
+
+- Apply: https://cappedoutlabs.com/apply
+- Website: https://cappedoutlabs.com

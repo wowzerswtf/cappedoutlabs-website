@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { ApplicationConfirmation } from "@/emails/ApplicationConfirmation";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+function getResend() {
+  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY);
+  return _resend;
+}
 
 const GHL_API_KEY = process.env.GHL_API_KEY;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
@@ -46,7 +50,7 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
   const fromName = process.env.RESEND_FROM_NAME || "Capped Out Labs";
   const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `${fromName} <${fromEmail}>`,
     to: payload.email,
     subject: `We got your application, ${payload.firstName}`,
