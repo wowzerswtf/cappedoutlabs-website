@@ -8,11 +8,32 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import type { ResourcePage } from "../data";
 
+function RichParagraph({ text }: { text: string }) {
+  const parts = text.split(/\[([^\]]+)\]\(([^)]+)\)/g);
+  if (parts.length === 1) return <>{text}</>;
+  const elements: React.ReactNode[] = [];
+  for (let i = 0; i < parts.length; i += 3) {
+    if (parts[i]) elements.push(parts[i]);
+    if (i + 1 < parts.length) {
+      elements.push(
+        <Link key={i} href={parts[i + 2]} className="text-electric hover:text-electric-dark font-medium underline underline-offset-2">
+          {parts[i + 1]}
+        </Link>
+      );
+    }
+  }
+  return <>{elements}</>;
+}
+
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr + "T12:00:00");
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
 function ArticleSchema({ page }: { page: ResourcePage }) {
-  const today = new Date().toISOString().split("T")[0];
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: page.title,
     author: {
       "@type": "Person",
@@ -24,8 +45,8 @@ function ArticleSchema({ page }: { page: ResourcePage }) {
       name: "Capped Out Labs",
       url: "https://cappedoutlabs.com",
     },
-    datePublished: today,
-    dateModified: today,
+    datePublished: page.datePublished,
+    dateModified: "2026-04-07",
     description: page.metaDescription,
     url: `https://cappedoutlabs.com/resources/${page.slug}`,
     mainEntityOfPage: `https://cappedoutlabs.com/resources/${page.slug}`,
@@ -93,6 +114,12 @@ export function ResourceContent({ page }: { page: ResourcePage }) {
           </motion.h1>
           <motion.p
             variants={fadeUp}
+            className="mt-4 text-sm text-text-secondary"
+          >
+            By Waynard · {formatDate(page.datePublished)}
+          </motion.p>
+          <motion.p
+            variants={fadeUp}
             className="mt-6 text-lg text-text-primary leading-relaxed"
           >
             {page.answerCapsule}
@@ -122,7 +149,7 @@ export function ResourceContent({ page }: { page: ResourcePage }) {
                 transition={{ delay: i * 0.03 }}
                 className="text-text-secondary leading-relaxed text-lg"
               >
-                {paragraph}
+                <RichParagraph text={paragraph} />
               </motion.p>
             ))}
           </div>
