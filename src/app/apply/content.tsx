@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { ApplicationForm } from "@/components/ApplicationForm";
+import { WebPageSchema } from "@/components/SchemaMarkup";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { CheckCircle2 } from "lucide-react";
 
@@ -22,6 +23,8 @@ const trustSignals = [
 export function ApplyContent() {
   return (
     <>
+      <WebPageSchema name="Apply for a Discovery Call" path="/apply" />
+
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 mesh-gradient" />

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { CaseStudySchema } from "@/components/SchemaMarkup";
+import { CaseStudySchema, WebPageSchema } from "@/components/SchemaMarkup";
 import { CTABanner } from "@/components/CTABanner";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
@@ -62,6 +62,7 @@ export function CaseStudiesContent() {
   return (
     <>
       <CaseStudySchema />
+      <WebPageSchema name="AI Consulting Case Studies" path="/case-studies" />
 
       {/* HERO */}
       <section className="relative overflow-hidden">

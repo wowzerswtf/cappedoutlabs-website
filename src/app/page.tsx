@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { VSLEmbed } from "@/components/VSLEmbed";
 import { CTABanner } from "@/components/CTABanner";
 import { FAQAccordion } from "@/components/FAQAccordion";
-import { WebSiteSchema, FAQSchema } from "@/components/SchemaMarkup";
+import { WebSiteSchema, FAQSchema, WebPageSchema } from "@/components/SchemaMarkup";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
 const homeFaqs = [
@@ -83,6 +83,7 @@ export default function HomePage() {
   return (
     <>
       <WebSiteSchema />
+      <WebPageSchema name="Capped Out Labs — AI Revenue Infrastructure for Operators" path="/" />
       <FAQSchema items={homeFaqs} />
 
       {/* HERO — centered, clean, mesh gradient */}

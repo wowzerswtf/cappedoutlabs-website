@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { WebPageSchema } from "@/components/SchemaMarkup";
 import { CTABanner } from "@/components/CTABanner";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
@@ -22,6 +23,8 @@ const sections = [
 export function AboutContent() {
   return (
     <>
+      <WebPageSchema name="About Capped Out Labs" path="/about" />
+
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 mesh-gradient" />

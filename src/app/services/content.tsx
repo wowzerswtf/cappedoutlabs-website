@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FAQAccordion, type FAQItem } from "@/components/FAQAccordion";
-import { ServiceSchema, FAQSchema } from "@/components/SchemaMarkup";
+import { ServiceSchema, FAQSchema, WebPageSchema } from "@/components/SchemaMarkup";
 import { CTABanner } from "@/components/CTABanner";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { ArrowRight } from "lucide-react";
@@ -53,7 +53,7 @@ const tierDetails = [
     price: "$200K–$500K+",
     timeline: "3–6 months",
     applyValue: "Full Transformation $200K+",
-    proof: "→ Built for operators preparing for acquisition at premium multiples",
+    proof: "→ 200+ production AI systems deployed across 30+ verticals — from sales automation to full operational infrastructure",
     whoFor:
       "Operators preparing for acquisition who need AI systematization across the entire business.",
     deliverables: [
@@ -71,7 +71,7 @@ const tierDetails = [
     price: "No upfront cost",
     timeline: "Flexible",
     applyValue: "Equity / Rev-Share",
-    proof: "→ Same deliverables, aligned incentives — we make money when you do",
+    proof: "→ Our portfolio brands have scaled from zero to eight figures — we only take equity when we know we can deliver",
     whoFor:
       "Operators with businesses that have real upside — where our incentives align with yours.",
     deliverables: [
@@ -120,6 +120,7 @@ export function ServicesContent() {
     <>
       <ServiceSchema />
       <FAQSchema items={faqs} />
+      <WebPageSchema name="AI Consulting Services & Pricing" path="/services" />
 
       {/* HERO */}
       <section className="relative overflow-hidden">

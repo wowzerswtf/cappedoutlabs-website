@@ -17,8 +17,8 @@ export function OrganizationSchema() {
       contactType: "sales",
       url: "https://cappedoutlabs.com/apply",
     },
-    // TODO: Add verified social profile URLs when created
-    // sameAs: ["https://www.linkedin.com/company/capped-out-labs"],
+    // TODO: Add Capped Out Labs LinkedIn/Twitter when created. Using parent company for now.
+    sameAs: ["https://www.linkedin.com/company/capped-out-media"],
     serviceType: "AI Consulting",
     areaServed: "United States",
     priceRange: "$15,000 - $500,000+",
@@ -38,6 +38,34 @@ export function WebSiteSchema() {
     "@type": "WebSite",
     name: "Capped Out Labs",
     url: "https://cappedoutlabs.com",
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function WebPageSchema({
+  name,
+  path,
+}: {
+  name: string;
+  path: string;
+}) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    url: `https://cappedoutlabs.com${path}`,
+    dateModified: "2026-04-07",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Capped Out Labs",
+      url: "https://cappedoutlabs.com",
+    },
   };
 
   return (
@@ -116,6 +144,7 @@ export function FAQSchema({
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    dateModified: "2026-04-07",
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
