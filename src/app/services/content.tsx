@@ -12,9 +12,11 @@ import { ArrowRight } from "lucide-react";
 const tierDetails = [
   {
     name: "AI Revenue Sprint",
+    slug: "ai-revenue-sprint",
     price: "$15,000",
     timeline: "2 weeks",
     applyValue: "AI Revenue Sprint $15K",
+    proof: "→ A sprint pre-call workflow drove show rate from 26.3% to 77.9%",
     whoFor:
       "Operators who know AI is the next move but want a real deliverable before writing a bigger check.",
     deliverables: [
@@ -28,9 +30,11 @@ const tierDetails = [
   },
   {
     name: "AI Revenue Infrastructure",
+    slug: "ai-revenue-infrastructure",
     price: "$50K–$150K",
     timeline: "6–10 weeks",
     applyValue: "AI Revenue Infrastructure $50K-$150K",
+    proof: "→ See how a Tier 2 engagement delivered 23.4x ROAS in 45 days",
     featured: true,
     whoFor:
       "Established businesses doing $3M+ that are ready to rebuild core workflows around AI.",
@@ -45,9 +49,11 @@ const tierDetails = [
   },
   {
     name: "Full AI Transformation",
+    slug: "full-ai-transformation",
     price: "$200K–$500K+",
     timeline: "3–6 months",
     applyValue: "Full Transformation $200K+",
+    proof: "→ Built for operators preparing for acquisition at premium multiples",
     whoFor:
       "Operators preparing for acquisition who need AI systematization across the entire business.",
     deliverables: [
@@ -61,9 +67,11 @@ const tierDetails = [
   },
   {
     name: "Equity / Rev-Share",
+    slug: "equity-rev-share",
     price: "No upfront cost",
     timeline: "Flexible",
     applyValue: "Equity / Rev-Share",
+    proof: "→ Same deliverables, aligned incentives — we make money when you do",
     whoFor:
       "Operators with businesses that have real upside — where our incentives align with yours.",
     deliverables: [
@@ -214,6 +222,16 @@ export function ServicesContent() {
                       What it looks like at the end
                     </h3>
                     <p className="text-sm text-text-primary leading-relaxed">{tier.outcome}</p>
+                  </motion.div>
+
+                  <motion.div variants={fadeUp} className="flex flex-col sm:flex-row sm:items-center gap-3">
+                    <p className="text-sm font-semibold text-electric">{tier.proof}</p>
+                    <Link
+                      href={`/services/${tier.slug}`}
+                      className="text-sm font-semibold text-navy hover:text-electric transition-colors flex items-center gap-1"
+                    >
+                      Learn more <ArrowRight className="h-3 w-3" />
+                    </Link>
                   </motion.div>
                 </div>
               </div>

@@ -4,6 +4,7 @@ export function OrganizationSchema() {
     "@type": "Organization",
     name: "Capped Out Labs",
     url: "https://cappedoutlabs.com",
+    logo: "https://cappedoutlabs.com/og-image.png",
     description:
       "AI transformation infrastructure for operators. Production systems, not strategy decks. From the team behind Capped Out Media.",
     foundingDate: "2024",
@@ -11,9 +12,30 @@ export function OrganizationSchema() {
       "@type": "Organization",
       name: "Capped Out Media",
     },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      url: "https://cappedoutlabs.com/apply",
+    },
     serviceType: "AI Consulting",
     areaServed: "United States",
     priceRange: "$15,000 - $500,000+",
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function WebSiteSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Capped Out Labs",
+    url: "https://cappedoutlabs.com",
   };
 
   return (

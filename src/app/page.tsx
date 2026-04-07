@@ -6,7 +6,17 @@ import { ArrowRight, Zap, Box, TrendingUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VSLEmbed } from "@/components/VSLEmbed";
 import { CTABanner } from "@/components/CTABanner";
+import { FAQAccordion } from "@/components/FAQAccordion";
+import { WebSiteSchema, FAQSchema } from "@/components/SchemaMarkup";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+
+const homeFaqs = [
+  { question: "How much does AI consulting cost?", answer: "Engagements start at $15,000 for a 2-week AI Revenue Sprint. Full infrastructure builds run $50K–$150K over 6–10 weeks. Full transformation for exit preparation is $200K–$500K+. We also offer equity and revenue-share arrangements for qualified operators." },
+  { question: "How long does implementation take?", answer: "A single workflow can be built and deployed in 2 weeks. Full cross-department infrastructure takes 6–10 weeks. Complete business transformation runs 3–6 months. Every engagement includes a managed handoff period." },
+  { question: "What if we've tried AI before and it didn't work?", answer: "Almost every time we hear this, what happened is someone installed a tool and hoped the team would use it. Installing tools is not transformation. Building systems is. We use your previous attempt as a diagnostic to build something that actually sticks." },
+  { question: "Do you work with businesses our size?", answer: "We work with operators doing $1M–$50M in revenue across 30+ verticals. The common thread is a sales-driven business with enough volume for AI to create leverage and enough complexity for the ROI to justify the investment." },
+  { question: "What happens on the discovery call?", answer: "30-minute conversation. No pitch deck. We learn about your business, identify where AI would have the highest revenue impact, and tell you honestly whether we can help. If it's a fit, we scope a proposal. If not, we'll tell you why." },
+];
 
 const stats = [
   { value: "$2B+", label: "Revenue scaled" },
@@ -72,6 +82,9 @@ const solutions = [
 export default function HomePage() {
   return (
     <>
+      <WebSiteSchema />
+      <FAQSchema items={homeFaqs} />
+
       {/* HERO — centered, clean, mesh gradient */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 mesh-gradient" />
@@ -407,6 +420,57 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-3xl px-6 lg:px-8 py-24 lg:py-32">
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-navy text-center mb-12"
+          >
+            Common questions
+          </motion.h2>
+          <FAQAccordion items={homeFaqs} />
+        </div>
+      </section>
+
+      {/* EMAIL CAPTURE */}
+      <section className="bg-surface dot-pattern">
+        <div className="mx-auto max-w-3xl px-6 lg:px-8 py-24 lg:py-32 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-navy">
+              Not ready to apply? Get the playbook.
+            </h2>
+            <p className="mt-4 text-text-secondary text-lg max-w-xl mx-auto">
+              Free: The AI Revenue Infrastructure Playbook — how we took a brand
+              from $200K to $3.9M in 45 days.
+            </p>
+            {/* TODO: Connect to email service (Resend list or ConvertKit) */}
+            <form
+              className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                type="email"
+                placeholder="you@company.com"
+                className="flex-1 rounded-xl border border-border bg-white px-4 h-12 text-sm focus:outline-none focus:ring-2 focus:ring-electric/30 focus:border-electric"
+              />
+              <Button
+                type="submit"
+                className="bg-electric hover:bg-electric-dark text-white rounded-xl px-6 h-12 text-sm font-semibold whitespace-nowrap"
+              >
+                Send Me The Playbook
+              </Button>
+            </form>
+          </motion.div>
         </div>
       </section>
 

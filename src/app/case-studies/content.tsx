@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { CaseStudySchema } from "@/components/SchemaMarkup";
 import { CTABanner } from "@/components/CTABanner";
 import { fadeUp, staggerContainer } from "@/lib/animations";
@@ -9,6 +11,7 @@ const caseStudies = [
   {
     title: "AI Sales Infrastructure — Portfolio Brand",
     system: "Closer OS",
+    slug: "portfolio-brand-ai-sales-infrastructure",
     tag: "Tier 2 · 45 days of live data",
     challenge:
       "A portfolio brand running $94K in ad spend was generating leads the sales process couldn't convert. Closers spent 20–30 minutes on manual pre-call research. Follow-up took 30–60 minutes per call. Show rate was 26.3% — nearly 3 out of 4 booked calls were no-shows. Every rep was running their own system, which meant no system at all.",
@@ -36,6 +39,7 @@ const caseStudies = [
   {
     title: "Full Ops Platform — Contracting Business",
     system: "ContractorOS",
+    slug: "contractor-business-automation",
     tag: "Tier 2",
     challenge:
       "Manual estimates, paper invoices, no client visibility, QuickBooks done by hand. The owner was spending 18+ hours a week on admin and doing paperwork at night instead of running the business.",
@@ -207,6 +211,16 @@ export function CaseStudiesContent() {
                     Timeline
                   </h3>
                   <p className="text-2xl font-bold font-mono text-navy">{cs.timeline}</p>
+                </motion.div>
+
+                <motion.div variants={fadeUp}>
+                  <Link
+                    href={`/case-studies/${cs.slug}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric hover:text-electric-dark transition-colors mt-4"
+                  >
+                    View full case study
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
                 </motion.div>
               </div>
             </div>

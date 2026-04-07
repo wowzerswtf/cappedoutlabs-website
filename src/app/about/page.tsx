@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { AboutContent } from "./content";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Capped Out Labs | AI Revenue Infrastructure for Operators",
   description:
-    "Operators who learned to build AI. Not the other way around. From the team behind Capped Out Media.",
+    "Founded by the operators behind Capped Out Media. We build production AI systems tied to revenue metrics and exit valuations. $2B+ revenue scaled.",
+  alternates: { canonical: "/about" },
   openGraph: {
-    title: "About | Capped Out Labs",
+    title: "About Capped Out Labs | AI Revenue Infrastructure for Operators",
     description:
-      "Operators who learned to build AI. Not the other way around.",
+      "Founded by the operators behind Capped Out Media. We build production AI systems tied to revenue metrics and exit valuations.",
   },
 };
 

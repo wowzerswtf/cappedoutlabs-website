@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { ServicesContent } from "./content";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "AI Consulting Services & Pricing",
   description:
-    "AI systems built for operators who think in exits. Choose your entry point — every path leads to a business that runs leaner, closes faster, and exits at a premium.",
+    "Four AI consulting tiers from $15K sprints to $500K+ full transformations. Transparent pricing. Production systems, not strategy decks. Apply for a discovery call.",
+  alternates: { canonical: "/services" },
   openGraph: {
-    title: "Services | Capped Out Labs",
+    title: "AI Consulting Services & Pricing | Capped Out Labs",
     description:
-      "AI systems built for operators who think in exits. Choose your entry point.",
+      "Four AI consulting tiers from $15K sprints to $500K+ full transformations. Transparent pricing. Production systems, not strategy decks.",
   },
 };
 

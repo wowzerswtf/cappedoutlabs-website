@@ -20,6 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   title: {
     default: "Capped Out Labs — AI Revenue Infrastructure for Operators",
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
   description:
     "AI transformation firm that builds production systems, not strategy decks. Revenue-first. Exit-prep framing. From the team behind Capped Out Media.",
   metadataBase: new URL("https://cappedoutlabs.com"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -36,12 +40,21 @@ export const metadata: Metadata = {
     title: "Capped Out Labs — AI Revenue Infrastructure for Operators",
     description:
       "AI transformation firm that builds production systems, not strategy decks. Revenue-first. Exit-prep framing.",
+    images: [
+      {
+        url: "https://cappedoutlabs.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Capped Out Labs — AI Revenue Infrastructure for Operators",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Capped Out Labs — AI Revenue Infrastructure for Operators",
     description:
       "AI transformation firm that builds production systems, not strategy decks.",
+    images: ["https://cappedoutlabs.com/og-image.png"],
   },
 };
 

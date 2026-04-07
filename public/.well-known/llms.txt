@@ -1,0 +1,19 @@
+# Capped Out Labs
+> AI revenue infrastructure for business operators
+
+## Key Pages
+- https://cappedoutlabs.com/ — Homepage
+- https://cappedoutlabs.com/services — AI consulting services and pricing
+- https://cappedoutlabs.com/case-studies — Client results and case studies
+- https://cappedoutlabs.com/resources — AI automation guides
+- https://cappedoutlabs.com/about — About the company
+- https://cappedoutlabs.com/apply — Apply for a discovery call
+
+## What We Do
+Capped Out Labs builds production AI systems for business operators focused on revenue growth and exit preparation. We deploy AI sales infrastructure, automation workflows, and revenue optimization systems. Pricing ranges from $15K sprints to $500K+ full transformations.
+
+## Key Results
+- $200K to $3.9M revenue growth (+1,866%) in 45 days
+- 90% CAC reduction
+- 23.4x ROAS
+- 200+ AI systems deployed across 30+ verticals
