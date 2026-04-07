@@ -9,12 +9,14 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -68,6 +70,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://player.vimeo.com" />
+        <link rel="preconnect" href="https://i.vimeocdn.com" />
+      </head>
       <body className="min-h-full flex flex-col">
         <OrganizationSchema />
         <Nav />

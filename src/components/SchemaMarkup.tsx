@@ -17,6 +17,8 @@ export function OrganizationSchema() {
       contactType: "sales",
       url: "https://cappedoutlabs.com/apply",
     },
+    // TODO: Add verified social profile URLs when created
+    // sameAs: ["https://www.linkedin.com/company/capped-out-labs"],
     serviceType: "AI Consulting",
     areaServed: "United States",
     priceRange: "$15,000 - $500,000+",

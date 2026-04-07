@@ -12,11 +12,13 @@ export interface ResourcePage {
   body: string[];
   faqs: ResourceFAQ[];
   shortDescription: string;
+  datePublished: string;
 }
 
 export const resourcePages: ResourcePage[] = [
   {
     slug: "how-to-improve-sales-show-rate",
+    datePublished: "2026-01-15",
     title: "How do you improve a low sales show rate?",
     metaDescription:
       "Improve your sales show rate from under 30% to nearly 80% using AI-driven pre-call intelligence. Real data from a live deployment: 26.3% to 77.9% in 45 days.",
@@ -27,12 +29,12 @@ export const resourcePages: ResourcePage[] = [
     practiceHeading: "What this looks like in practice",
     body: [
       "Most businesses try to improve their sales show rate by adding more reminder emails, SMS sequences, or calendar confirmations. Those help at the margins — maybe a 5-10% lift. But they don't address the real reason people don't show up: they don't believe the call will be worth their time.",
-      "When we deployed Closer OS into a portfolio brand running $94K in monthly ad spend, the show rate was 26.3%. Nearly 3 out of 4 booked calls were no-shows. The closers were spending 20-30 minutes on manual pre-call research, and even then, they were walking into calls with incomplete information. Prospects could feel it.",
+      "When we deployed Closer OS into a [portfolio brand](/case-studies/portfolio-brand-ai-sales-infrastructure) running $94K in monthly ad spend, the show rate was 26.3%. Nearly 3 out of 4 booked calls were no-shows. The closers were spending 20-30 minutes on manual pre-call research, and even then, they were walking into calls with incomplete information. Prospects could feel it.",
       "The first layer we built was a pre-call intelligence system. Using Clay and Apollo for enrichment, every booked lead is automatically researched — company size, revenue signals, LinkedIn activity, and public data points. Claude API then classifies each prospect into one of four buyer types: Visionary, Analyst, Connector, or Skeptic. Each type gets a different communication approach.",
       "The closer receives a one-page brief before every call. Not a generic CRM note — a structured document with the prospect's likely objections, recommended talking points, and the specific value proposition most likely to resonate with their buyer type. The prospect receives a personalized pre-call touchpoint that references something specific about their business.",
       "The result: prospects started showing up because the pre-call experience signaled competence. They felt like they were walking into a conversation with someone who understood their business, not a generic sales pitch. Show rate went from 26.3% to 77.9% within the first 45 days of deployment.",
-      "This wasn't a single tactic. It was infrastructure — a system that runs automatically for every booked call, every closer, every day. No manual research. No inconsistency between reps. The pre-call intelligence layer alone would have justified the entire engagement, but it was just the first of three layers in the Closer OS build.",
-      "The downstream effects compounded. Higher show rates meant more at-bats for closers. More at-bats with better preparation meant higher close rates (19.5% to 26.0%). Higher close rates on higher volume meant revenue grew from $200K to $3.9M in the same 45-day window. CAC dropped from $11,765 to $1,217 because the same ad spend was now converting at dramatically higher rates.",
+      "This wasn't a single tactic. It was [infrastructure](/resources/ai-sales-infrastructure-guide) — a system that runs automatically for every booked call, every closer, every day. No manual research. No inconsistency between reps. The pre-call intelligence layer alone would have justified the entire engagement, but it was just the first of three layers in the Closer OS build.",
+      "The downstream effects compounded. Higher show rates meant more at-bats for closers. More at-bats with better preparation meant higher close rates (19.5% to 26.0%). Higher close rates on higher volume meant revenue grew from $200K to $3.9M in the same 45-day window. [CAC dropped from $11,765 to $1,217](/resources/how-to-reduce-customer-acquisition-cost) because the same ad spend was now converting at dramatically higher rates.",
       "If your show rate is below 60%, you don't have a reminder problem. You have a relevance problem. The prospect doesn't believe the call will be valuable. AI pre-call intelligence solves that by making every interaction feel personalized and prepared — at scale, without adding headcount.",
     ],
     faqs: [
@@ -65,6 +67,7 @@ export const resourcePages: ResourcePage[] = [
   },
   {
     slug: "ai-sales-infrastructure-guide",
+    datePublished: "2026-01-28",
     title: "What is AI sales infrastructure and what does it cost?",
     metaDescription:
       "AI sales infrastructure is a production system of AI tools that handle pre-call research, live call assistance, and post-call automation. Engagements range from $15K to $150K.",
@@ -75,13 +78,13 @@ export const resourcePages: ResourcePage[] = [
     practiceHeading: "What this looks like in practice",
     body: [
       "AI sales infrastructure is not a single tool or plugin. It's a system — multiple AI components working together across the sales cycle, integrated into your existing CRM, calendar, and communication tools. The goal is to make every closer more effective without adding headcount.",
-      "When we built Closer OS for a portfolio brand, the AI sales infrastructure had three layers. Layer 1 was pre-call intelligence: automated lead enrichment through Clay and Apollo, buyer type classification via Claude API, and personalized one-page briefs delivered to closers before every call. This layer alone drove show rate from 26.3% to 77.9%.",
+      "When we built Closer OS for a [portfolio brand](/case-studies/portfolio-brand-ai-sales-infrastructure), the AI sales infrastructure had three layers. Layer 1 was pre-call intelligence: automated lead enrichment through Clay and Apollo, buyer type classification via Claude API, and personalized one-page briefs delivered to closers before every call. This layer alone drove show rate from 26.3% to 77.9%.",
       "Layer 2 was live call assistance. Using Deepgram through Recall.ai on Google Meet, the system detected real-time signals during calls — objections, buying indicators, competitor mentions. The closer received contextual prompts without breaking conversation flow. Close rate improved from 19.5% to 26.0%.",
       "Layer 3 was post-call automation. After every call, the system generated follow-up emails, HeyGen video scripts personalized to the prospect, partner communication templates, and tracked deal rooms — all in seconds. What used to take closers 30-60 minutes per call became automatic.",
       "The result of all three layers working together: revenue grew from $200K to $3.9M in 45 days. CAC dropped from $11,765 to $1,217. ROAS went from 2.1x to 23.4x. These aren't projections — they're measured results from a live business running real ad spend.",
-      "Cost depends on scope. A Tier 1 AI Revenue Sprint ($15,000, 2 weeks) builds one high-leverage workflow — typically the pre-call intelligence layer. A Tier 2 AI Revenue Infrastructure engagement ($50K-$150K, 6-10 weeks) builds 3-5 workflows across departments with staff training and a 90-day managed handoff. Both include production-grade systems with documentation, not prototypes.",
+      "Cost depends on scope. A Tier 1 [AI Revenue Sprint](/services/ai-revenue-sprint) ($15,000, 2 weeks) builds one high-leverage workflow — typically the pre-call intelligence layer. A Tier 2 [AI Revenue Infrastructure](/services/ai-revenue-infrastructure) engagement ($50K-$150K, 6-10 weeks) builds 3-5 workflows across departments with staff training and a 90-day managed handoff. Both include production-grade systems with documentation, not prototypes.",
       "The difference between AI sales infrastructure and buying AI tools is the difference between installing software and building systems. Tools sit unused. Infrastructure runs automatically, handles edge cases, and improves over time. Every component is monitored, documented, and owned by your team after handoff.",
-      "If your sales team has more than 3 closers and you're spending over $50K/month on lead generation, AI sales infrastructure will likely pay for itself within the first engagement cycle. The ROI comes from three places: higher show rates (more at-bats), higher close rates (better conversations), and lower operational cost (automated pre/post call work).",
+      "If your sales team has more than 3 closers and you're spending over $50K/month on lead generation, AI sales infrastructure will likely [pay for itself within the first engagement cycle](/resources/ai-consulting-results-case-study). The ROI comes from three places: higher show rates (more at-bats), higher close rates (better conversations), and lower operational cost (automated pre/post call work).",
     ],
     faqs: [
       {
@@ -113,6 +116,7 @@ export const resourcePages: ResourcePage[] = [
   },
   {
     slug: "how-to-reduce-customer-acquisition-cost",
+    datePublished: "2026-02-10",
     title: "How can AI reduce customer acquisition cost?",
     metaDescription:
       "AI reduced customer acquisition cost from $11,765 to $1,217 (-90%) in 45 days by improving show rates, close rates, and eliminating manual sales overhead. Real case study data.",
@@ -123,12 +127,12 @@ export const resourcePages: ResourcePage[] = [
     practiceHeading: "What this looks like in practice",
     body: [
       "Customer acquisition cost is a function of three things: how many leads you generate, how many of those leads become opportunities, and how many opportunities close. Most businesses try to reduce CAC by optimizing ad spend. That's the wrong lever. The fastest way to reduce customer acquisition cost is to make your existing pipeline convert better.",
-      "When we deployed AI sales infrastructure into a portfolio brand, they were spending $94K/month on ads and generating leads. The problem wasn't lead volume — it was conversion. A 26.3% show rate meant 74% of booked calls never happened. A 19.5% close rate on the calls that did happen meant most opportunities died. CAC was $11,765 per customer.",
-      "The AI system attacked CAC from three angles simultaneously. First, pre-call intelligence improved show rate from 26.3% to 77.9%. More leads showed up for calls — same ad spend, more at-bats. Second, real-time call assistance improved close rate from 19.5% to 26.0%. More calls converted. Third, post-call automation eliminated 30-60 minutes of manual work per call, allowing closers to handle more volume without new hires.",
+      "When we deployed [AI sales infrastructure](/resources/ai-sales-infrastructure-guide) into a portfolio brand, they were spending $94K/month on ads and generating leads. The problem wasn't lead volume — it was conversion. A 26.3% show rate meant 74% of booked calls never happened. A 19.5% close rate on the calls that did happen meant most opportunities died. CAC was $11,765 per customer.",
+      "The AI system attacked CAC from three angles simultaneously. First, [pre-call intelligence improved show rate from 26.3% to 77.9%](/resources/how-to-improve-sales-show-rate). More leads showed up for calls — same ad spend, more at-bats. Second, real-time call assistance improved close rate from 19.5% to 26.0%. More calls converted. Third, post-call automation eliminated 30-60 minutes of manual work per call, allowing closers to handle more volume without new hires.",
       "The math is straightforward. Same $94K ad spend. Dramatically more conversions. CAC dropped from $11,765 to $1,217. Revenue went from $200K to $3.9M in the same period. ROAS improved from 2.1x to 23.4x. The ad team didn't change anything — the sales infrastructure made every dollar work harder.",
       "This is why AI's impact on customer acquisition cost is often larger than its impact on any single metric. CAC is a composite metric. When you improve show rate, close rate, and operational efficiency simultaneously, the reduction compounds. A 3x improvement in show rate multiplied by a 1.3x improvement in close rate doesn't produce a 4.3x improvement — it produces a 3.9x improvement that cascades through every downstream metric.",
       "The operational savings matter too. When closers spend 30-60 minutes on manual pre-call research and post-call follow-up, that time has a cost. At $150K/year per closer, those hours add up. AI handles the repetitive work, and closers focus on the one thing they're uniquely good at: closing. You scale output without scaling headcount.",
-      "If your CAC is above $5,000 and you're running paid acquisition, AI sales infrastructure will almost certainly reduce it. The question isn't whether — it's by how much. The portfolio brand we deployed into was already running a competent sales team. The AI didn't replace the team — it made every member dramatically more effective.",
+      "If your CAC is above $5,000 and you're running paid acquisition, AI sales infrastructure will almost certainly reduce it. The question isn't whether — it's by how much. The [portfolio brand we deployed into](/case-studies/portfolio-brand-ai-sales-infrastructure) was already running a competent sales team. The AI didn't replace the team — it made every member dramatically more effective.",
       "Reducing customer acquisition cost with AI isn't about a single tool or automation. It's about building infrastructure that compounds across the entire sales cycle. Every improvement at one stage amplifies the improvements at every other stage.",
     ],
     faqs: [
@@ -161,6 +165,7 @@ export const resourcePages: ResourcePage[] = [
   },
   {
     slug: "ai-consulting-done-for-you",
+    datePublished: "2026-02-21",
     title: "What does done-for-you AI consulting actually deliver?",
     metaDescription:
       "Done-for-you AI consulting delivers production systems your team uses daily — not strategy decks. Running infrastructure with documentation, training, and 90-day managed handoff.",
@@ -172,12 +177,12 @@ export const resourcePages: ResourcePage[] = [
     body: [
       "The AI consulting industry has a delivery problem. Most firms deliver advice — strategy decks, roadmaps, tool recommendations, and a handshake. The client is left to figure out implementation. Six months later, the deck is in a Notion folder nobody opens and nothing has changed. Done-for-you AI consulting should mean the opposite: you get a working system, not a plan for one.",
       "When we engage with a client, the deliverable is infrastructure. Not a recommendation to use AI for pre-call research — a deployed pre-call intelligence system that enriches every lead, classifies buyer type, and delivers a brief to the closer before every call. Not a suggestion to automate follow-up — a running post-call automation pipeline that generates personalized emails, video scripts, and deal room updates in seconds.",
-      "In the Closer OS deployment, the client didn't implement anything. We built three production layers — pre-call intelligence, live call assistance, and post-call automation — integrated them into their existing GHL, Google Meet, and communication stack, trained the team, and managed the system for 90 days while optimizing performance. Revenue went from $200K to $3.9M. The client's team learned the system while it was already generating results.",
+      "In the [Closer OS deployment](/case-studies/portfolio-brand-ai-sales-infrastructure), the client didn't implement anything. We built three production layers — pre-call intelligence, live call assistance, and post-call automation — integrated them into their existing GHL, Google Meet, and communication stack, trained the team, and managed the system for 90 days while optimizing performance. Revenue went from $200K to $3.9M. The client's team learned the system while it was already generating results.",
       "Done-for-you AI consulting at Capped Out Labs means four things. First, we build the system. Not advise on it, not architect it and hand off the blueprint — we build it, test it, and deploy it into your live environment. Second, we integrate with your existing tools. We don't force platform migrations. We've built on GHL, HubSpot, Salesforce, custom stacks. Third, we document everything. Every system ships with SOPs, recorded walkthroughs, and a knowledge base your team can reference. Fourth, we manage the handoff. For 30-90 days after deployment, we monitor performance, troubleshoot issues, and optimize.",
-      "The $15,000 AI Revenue Sprint delivers one high-leverage workflow — built, deployed, and supported for 30 days. The $50K-$150K AI Revenue Infrastructure engagement delivers 3-5 workflows across departments with staff training and a 90-day managed handoff. Both tiers produce systems your team owns and operates independently after the engagement.",
+      "The $15,000 [AI Revenue Sprint](/services/ai-revenue-sprint) delivers one high-leverage workflow — built, deployed, and supported for 30 days. The $50K-$150K [AI Revenue Infrastructure](/services/ai-revenue-infrastructure) engagement delivers 3-5 workflows across departments with staff training and a 90-day managed handoff. Both tiers produce systems your team owns and operates independently after the engagement.",
       "The reason most AI consulting fails isn't that the strategy is wrong — it's that strategy without implementation is worthless. Your team is busy running the business. They don't have the bandwidth to learn AI tooling, build integrations, handle edge cases, and maintain systems while also doing their jobs. Done-for-you means we handle all of that.",
       "We measure success by one criterion: is the system still running and producing results 90 days after we leave? If the answer is no, we didn't deliver done-for-you AI consulting. We delivered advice with extra steps. Every engagement we've completed passes this test because we build for durability, not demos.",
-      "If you've been burned by AI consulting that delivered documents instead of systems, that's exactly why we exist. Operators who've built and scaled businesses know the difference between a plan and an outcome. We deliver outcomes.",
+      "If you've been burned by AI consulting that delivered documents instead of systems, that's exactly why we exist. Operators who've built and scaled businesses know the difference between a plan and an outcome. We deliver [outcomes](/resources/ai-consulting-results-case-study).",
     ],
     faqs: [
       {
@@ -209,6 +214,7 @@ export const resourcePages: ResourcePage[] = [
   },
   {
     slug: "ai-transformation-for-operators",
+    datePublished: "2026-03-05",
     title: "What is AI transformation for business operators?",
     metaDescription:
       "AI transformation for operators means replacing manual workflows with production AI systems anchored to revenue metrics. Built for exit preparation, not experimentation.",
@@ -220,11 +226,11 @@ export const resourcePages: ResourcePage[] = [
     body: [
       "AI transformation means different things to different people. For enterprises, it often means a multi-year digital transformation program with committees, vendors, and pilot projects. For business operators — the people actually running $1M-$50M companies — AI transformation needs to be faster, more practical, and directly tied to revenue.",
       "Operator-grade AI transformation starts with a simple question: which workflows, if rebuilt with AI, would have the largest impact on revenue? Not the most interesting AI application. Not the most technically impressive. The one that moves the number your business lives and dies by.",
-      "In the Closer OS deployment, that workflow was the sales process. A portfolio brand was spending $94K/month on ads but losing 74% of booked calls to no-shows and closing under 20% of the calls that did happen. AI transformation meant building three layers of intelligence into the existing sales process — pre-call enrichment, live call assistance, and post-call automation. Revenue grew from $200K to $3.9M in 45 days.",
-      "For a contracting business running on ContractorOS, AI transformation meant eliminating 18+ hours of weekly admin work through voice-command job management, automated invoicing via Stripe, and a client-facing estimate approval portal. Payment collection went from 21 days to 4. The operator got their evenings back.",
+      "In the [Closer OS deployment](/case-studies/portfolio-brand-ai-sales-infrastructure), that workflow was the sales process. A portfolio brand was spending $94K/month on ads but losing 74% of booked calls to no-shows and closing under 20% of the calls that did happen. AI transformation meant building three layers of intelligence into the existing sales process — pre-call enrichment, live call assistance, and post-call automation. Revenue grew from $200K to $3.9M in 45 days.",
+      "For a contracting business running on [ContractorOS](/case-studies/contractor-business-automation), AI transformation meant eliminating 18+ hours of weekly admin work through voice-command job management, automated invoicing via Stripe, and a client-facing estimate approval portal. Payment collection went from 21 days to 4. The operator got their evenings back.",
       "What makes operator AI transformation different from enterprise AI transformation is the framing. Enterprise programs optimize for innovation metrics — models deployed, processes digitized, AI maturity scores. Operator programs optimize for business metrics — revenue, margin, time saved, exit multiple. Every system we build has a revenue metric attached to it before we write a line of code.",
       "The exit angle matters. AI-systematized businesses command higher acquisition multiples because acquirers pay premiums for systems, not headcount. A business where revenue depends on specific people is a liability. A business where revenue depends on documented, repeatable AI systems is an asset. We've been through acquisitions at Capped Out Media. We know what buyers look for, and that knowledge is built into every system we deploy.",
-      "AI transformation for operators follows a predictable path. Start with a $15K sprint to identify the highest-leverage workflow and build it live. Scale to a $50K-$150K infrastructure engagement to cover 3-5 workflows across departments. For businesses preparing for exit, a $200K-$500K+ full transformation rebuilds the entire operational layer with AI agents, governance frameworks, and acquirer-ready documentation.",
+      "AI transformation for operators follows a predictable path. Start with a $15K [sprint](/services/ai-revenue-sprint) to identify the highest-leverage workflow and build it live. Scale to a $50K-$150K [infrastructure engagement](/services/ai-revenue-infrastructure) to cover 3-5 workflows across departments. For businesses preparing for exit, a $200K-$500K+ [full transformation](/services/full-ai-transformation) rebuilds the entire operational layer with AI agents, governance frameworks, and acquirer-ready documentation.",
       "The operators who get the most from AI transformation are the ones who already have revenue, a team, and customers — but are hitting a ceiling. They can't scale without adding headcount. Their best people are doing repetitive work. Their sales process depends on individual heroics instead of systems. AI transformation doesn't replace the team — it multiplies what the team can do.",
     ],
     faqs: [
@@ -257,6 +263,7 @@ export const resourcePages: ResourcePage[] = [
   },
   {
     slug: "how-to-systematize-sales-team",
+    datePublished: "2026-03-14",
     title: "How do you systematize a sales team with AI?",
     metaDescription:
       "Systematize your sales team with AI by building infrastructure that standardizes pre-call prep, live call support, and post-call follow-up across every rep. Real results inside.",
@@ -267,13 +274,13 @@ export const resourcePages: ResourcePage[] = [
     practiceHeading: "What this looks like in practice",
     body: [
       "Most sales teams aren't actually teams — they're collections of individuals, each running their own process. One closer does thorough pre-call research. Another wings it. One sends detailed follow-ups. Another forgets. The best performer's process lives in their head, and when they leave, it walks out the door with them. To systematize a sales team, you need to make the best process the default process for everyone.",
-      "AI makes this possible at a level that playbooks and training alone cannot. When we built Closer OS, the portfolio brand had this exact problem. Every rep was running their own system, which meant no system at all. The gap between the best closer and the worst was enormous, and management had no way to standardize what worked because the best practices weren't documented — they were instinctive.",
+      "AI makes this possible at a level that playbooks and training alone cannot. When we built [Closer OS](/case-studies/portfolio-brand-ai-sales-infrastructure), the portfolio brand had this exact problem. Every rep was running their own system, which meant no system at all. The gap between the best closer and the worst was enormous, and management had no way to standardize what worked because the best practices weren't documented — they were instinctive.",
       "The first step to systematizing a sales team with AI is standardizing pre-call preparation. In Closer OS, every booked call automatically triggers a lead enrichment pipeline. Clay and Apollo pull company data, revenue signals, and LinkedIn activity. Claude API classifies the buyer into one of four types — Visionary, Analyst, Connector, Skeptic — and generates a one-page brief with recommended talking points, likely objections, and the value proposition most likely to resonate.",
       "Every closer gets the same quality of preparation. The best closer's instinct for reading a prospect is now systematized and available to the entire team. Show rate improved from 26.3% to 77.9% because prospects experienced consistent, professional pre-call communication regardless of which rep was assigned.",
       "The second layer is live call assistance. Through Deepgram and Recall.ai on Google Meet, the AI detects real-time signals during calls — objections being raised, competitor mentions, buying indicators. Contextual prompts appear for the closer without disrupting conversation flow. This doesn't replace sales skill — it augments it. Even the best closer misses signals occasionally. The system doesn't.",
       "The third layer standardizes post-call workflow. After every call, the system generates follow-up emails, HeyGen video scripts personalized to the prospect, partner communications, and deal room updates. This used to take 30-60 minutes of manual work per call. Now it's automatic and consistent. Every prospect gets the same quality of follow-up, every time.",
-      "The compound effect of systematizing all three layers is what drives the numbers. Close rate improved from 19.5% to 26.0%. Revenue grew from $200K to $3.9M. CAC dropped by 90%. But the most important result is consistency — the gap between your best closer and your average closer shrinks dramatically because the system handles the preparation and follow-up that used to separate them.",
-      "To systematize a sales team with AI, you don't need to replace your closers or change your sales methodology. You need to build infrastructure that makes your best practices automatic and universal. The closers focus on the one thing AI can't do — building human rapport and closing — while the system handles everything else.",
+      "The compound effect of systematizing all three layers is what drives the numbers. Close rate improved from 19.5% to 26.0%. Revenue grew from $200K to $3.9M. [CAC dropped by 90%](/resources/how-to-reduce-customer-acquisition-cost). But the most important result is consistency — the gap between your best closer and your average closer shrinks dramatically because the system handles the preparation and follow-up that used to separate them.",
+      "To systematize a sales team with AI, you don't need to replace your closers or change your sales methodology. You need to build [infrastructure that makes your best practices automatic](/resources/ai-sales-infrastructure-guide) and universal. The closers focus on the one thing AI can't do — building human rapport and closing — while the system handles everything else.",
     ],
     faqs: [
       {
@@ -305,6 +312,7 @@ export const resourcePages: ResourcePage[] = [
   },
   {
     slug: "ai-consulting-results-case-study",
+    datePublished: "2026-03-24",
     title: "What results do AI consulting engagements actually produce?",
     metaDescription:
       "Real AI consulting results: +1,866% revenue ($200K to $3.9M), -90% CAC, 23.4x ROAS, 77.9% show rate. 45 days of live data from a production deployment.",
@@ -314,14 +322,14 @@ export const resourcePages: ResourcePage[] = [
       "In our Closer OS deployment, AI consulting produced these results in 45 days: revenue grew from $200K to $3.9M (+1,866%), customer acquisition cost dropped from $11,765 to $1,217 (-90%), ROAS improved from 2.1x to 23.4x, and show rate went from 26.3% to 77.9%. These are measured results from a live business, not projections.",
     practiceHeading: "What this looks like in practice",
     body: [
-      "Most AI consulting firms show you case studies with vague metrics — \"improved efficiency,\" \"enhanced customer experience,\" \"streamlined operations.\" Those aren't results. Results have numbers, timeframes, and context. Here are the actual results from our Closer OS deployment, measured over 45 days of live operation in a portfolio brand running $94K/month in ad spend.",
+      "Most AI consulting firms show you case studies with vague metrics — \"improved efficiency,\" \"enhanced customer experience,\" \"streamlined operations.\" Those aren't results. Results have numbers, timeframes, and context. Here are the actual results from our [Closer OS deployment](/case-studies/portfolio-brand-ai-sales-infrastructure), measured over 45 days of live operation in a portfolio brand running $94K/month in ad spend.",
       "Revenue: $200,000 to $3,933,000. That's a 1,866% increase. The business didn't change its product, pricing, or ad strategy. The same team, selling the same offer, with AI sales infrastructure handling the workflow around them. The revenue came from three compounding improvements: more prospects showing up for calls, more calls converting to deals, and faster deal velocity from automated follow-up.",
       "Customer acquisition cost: $11,765 to $1,217. A 90% reduction. Same ad spend, dramatically more conversions. When your show rate triples and your close rate jumps 33%, the cost per customer drops proportionally. The ad team didn't optimize a single campaign — the sales infrastructure made every lead more valuable.",
       "ROAS: 2.1x to 23.4x. For every dollar spent on advertising, the business went from generating $2.10 in revenue to $23.40. This is the metric that matters most for paid acquisition businesses — it determines whether you can scale profitably. At 23.4x ROAS, every additional dollar in ad spend is highly profitable.",
-      "Show rate: 26.3% to 77.9%. Nearly 3 out of 4 booked calls were no-shows before deployment. After AI pre-call intelligence was live, nearly 4 out of 5 showed up. This single metric cascaded through every other number because more shows meant more at-bats, and more at-bats with better preparation meant more closes.",
+      "Show rate: 26.3% to 77.9%. Nearly 3 out of 4 booked calls were no-shows before deployment. After [AI pre-call intelligence](/resources/how-to-improve-sales-show-rate) was live, nearly 4 out of 5 showed up. This single metric cascaded through every other number because more shows meant more at-bats, and more at-bats with better preparation meant more closes.",
       "Close rate: 19.5% to 26.0%. A 33% improvement. This came from the live call assistance layer — real-time signal detection during calls gave closers contextual prompts for handling objections, identifying buying windows, and adjusting their approach based on the buyer type classification from pre-call intelligence.",
       "Net profit: $3,420,000 in 45 days. After subtracting ad spend and operational costs, this was the bottom-line impact. The engagement cost was a fraction of this. Total deals closed: 138. Build timeline: 6 weeks. The system continues operating and generating results after the engagement ended.",
-      "These AI consulting results came from building production infrastructure, not running a pilot. The system was deployed into a live business with real revenue on the line. Every component was monitored, had fallbacks, and was documented for the team to operate independently. This is what AI consulting results look like when the consulting firm actually builds systems instead of delivering advice.",
+      "These AI consulting results came from building production infrastructure, not running a pilot. The system was deployed into a live business with real revenue on the line. Every component was monitored, had fallbacks, and was documented for the team to operate independently. This is what AI consulting results look like when the consulting firm actually [builds systems instead of delivering advice](/resources/ai-consulting-done-for-you).",
     ],
     faqs: [
       {
@@ -353,6 +361,7 @@ export const resourcePages: ResourcePage[] = [
   },
   {
     slug: "how-to-scale-sales-without-hiring",
+    datePublished: "2026-04-01",
     title: "How do you scale sales without hiring more salespeople?",
     metaDescription:
       "Scale sales without hiring by using AI to handle pre-call research, live call support, and post-call automation. Same team, dramatically more output. Real case study inside.",
@@ -363,13 +372,13 @@ export const resourcePages: ResourcePage[] = [
     practiceHeading: "What this looks like in practice",
     body: [
       "The default playbook for scaling sales is hiring. More revenue? More closers. More closers means more management, more training, more ramp time, and more variability in quality. It's linear — you add headcount proportionally to the revenue you want. AI breaks this relationship by making each closer dramatically more productive.",
-      "When Closer OS was deployed into a portfolio brand, the sales team didn't grow. The same closers, handling the same type of calls, went from generating $200K to $3.9M in revenue over 45 days. The difference was that AI eliminated the work around the call — the 20-30 minutes of pre-call research, the 30-60 minutes of post-call follow-up, the inconsistent preparation that caused 74% of prospects to no-show.",
+      "When Closer OS was deployed into a [portfolio brand](/case-studies/portfolio-brand-ai-sales-infrastructure), the sales team didn't grow. The same closers, handling the same type of calls, went from generating $200K to $3.9M in revenue over 45 days. The difference was that AI eliminated the work around the call — the 20-30 minutes of pre-call research, the 30-60 minutes of post-call follow-up, the inconsistent preparation that caused 74% of prospects to no-show.",
       "Here's where the leverage comes from. A typical closer spends 40% of their time actually selling — on calls, building rapport, handling objections, closing. The other 60% is CRM updates, research, email drafts, proposal customization, and follow-up. AI handles the 60%. The closer gets 100% of their time back for the activity that actually generates revenue.",
       "Pre-call: instead of spending 20-30 minutes researching a prospect on LinkedIn and company websites, the closer opens a one-page brief that was generated automatically. Lead enrichment through Clay and Apollo, buyer type classification through Claude API, recommended talking points — all delivered before the calendar event starts. Every closer, every call, same quality preparation.",
       "During the call: real-time signal detection via Deepgram on Google Meet identifies objections, competitor mentions, and buying indicators. The closer gets contextual prompts without breaking conversation flow. This doesn't replace skill — it supplements it with AI that catches signals a human might miss in the moment.",
       "Post-call: follow-up emails, HeyGen video scripts, partner communications, and deal room updates generate automatically within seconds of the call ending. What used to take 30-60 minutes of manual work becomes instant. The closer finishes one call and is immediately ready for the next.",
-      "The financial case for scaling sales without hiring is clear. A fully loaded closer costs $120K-$200K/year when you factor in salary, benefits, training, management overhead, and ramp time. AI sales infrastructure costs a fraction of that and makes every existing closer 2-3x more productive. Instead of hiring 3 more closers to triple revenue, you build the infrastructure that triples the output of your current team.",
-      "To scale sales without hiring more salespeople, you need to identify the manual work that surrounds every sales conversation and automate it with AI. Not with simple email sequences or CRM automations — with intelligent systems that research, classify, assist, and follow up. The closer's job becomes purely closing. Everything else becomes infrastructure.",
+      "The financial case for scaling sales without hiring is clear. A fully loaded closer costs $120K-$200K/year when you factor in salary, benefits, training, management overhead, and ramp time. [AI sales infrastructure](/resources/ai-sales-infrastructure-guide) costs a fraction of that and makes every existing closer 2-3x more productive. Instead of hiring 3 more closers to triple revenue, you build the infrastructure that triples the output of your current team.",
+      "To scale sales without hiring more salespeople, you need to identify the manual work that surrounds every sales conversation and automate it with AI. Not with simple email sequences or CRM automations — with intelligent systems that research, classify, assist, and follow up. The closer's job becomes [purely closing](/resources/how-to-systematize-sales-team). Everything else becomes infrastructure.",
     ],
     faqs: [
       {

@@ -1,19 +1,36 @@
 # Capped Out Labs
 > AI revenue infrastructure for business operators
 
-## Key Pages
-- https://cappedoutlabs.com/ — Homepage
-- https://cappedoutlabs.com/services — AI consulting services and pricing
-- https://cappedoutlabs.com/case-studies — Client results and case studies
-- https://cappedoutlabs.com/resources — AI automation guides
-- https://cappedoutlabs.com/about — About the company
-- https://cappedoutlabs.com/apply — Apply for a discovery call
+## About
+Capped Out Labs is an AI transformation firm that builds production systems, not strategy decks. Founded by the operators behind Capped Out Media, we deploy AI sales infrastructure, automation workflows, and revenue optimization systems for business operators focused on growth and exit preparation.
 
-## What We Do
-Capped Out Labs builds production AI systems for business operators focused on revenue growth and exit preparation. We deploy AI sales infrastructure, automation workflows, and revenue optimization systems. Pricing ranges from $15K sprints to $500K+ full transformations.
+## Services
+- AI Revenue Sprint ($15K, 2 weeks) — Single workflow audit + build
+- AI Revenue Infrastructure ($50K-$150K, 6-10 weeks) — 3-5 workflows across departments
+- Full AI Transformation ($200K-$500K+, 3-6 months) — Complete infrastructure rebuild
+- Equity/Rev-Share (No upfront cost) — 3-10% equity or 10-20% revenue share
 
 ## Key Results
 - $200K to $3.9M revenue growth (+1,866%) in 45 days
-- 90% CAC reduction
+- 90% CAC reduction ($11,765 to $1,217)
 - 23.4x ROAS
+- Show rate improvement from 26.3% to 77.9%
+- 18+ hours/week saved through automation
 - 200+ AI systems deployed across 30+ verticals
+
+## Key Pages
+- https://cappedoutlabs.com/ — Homepage
+- https://cappedoutlabs.com/services — AI consulting services and pricing
+- https://cappedoutlabs.com/services/ai-revenue-sprint — AI Revenue Sprint details
+- https://cappedoutlabs.com/services/ai-revenue-infrastructure — AI Revenue Infrastructure details
+- https://cappedoutlabs.com/services/full-ai-transformation — Full AI Transformation details
+- https://cappedoutlabs.com/services/equity-rev-share — Equity/Rev-Share model
+- https://cappedoutlabs.com/case-studies — Client results and case studies
+- https://cappedoutlabs.com/case-studies/portfolio-brand-ai-sales-infrastructure — +1,866% revenue case study
+- https://cappedoutlabs.com/case-studies/contractor-business-automation — Contractor automation case study
+- https://cappedoutlabs.com/resources — AI automation guides and insights
+- https://cappedoutlabs.com/about — About the company
+- https://cappedoutlabs.com/apply — Apply for a discovery call
+
+## Contact
+Apply for a discovery call: https://cappedoutlabs.com/apply
