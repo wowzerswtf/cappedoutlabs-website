@@ -439,6 +439,41 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* AI ASSESSMENT CTA */}
+      <section className="bg-navy">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8 py-20 lg:py-24 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 mb-2">
+              <Zap className="h-3.5 w-3.5 text-electric" />
+              <span className="text-xs font-medium text-white/80">Free &middot; 2 minutes &middot; No obligation</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+              Not sure where to start with AI?
+            </h2>
+            <p className="text-lg text-white/70 max-w-2xl mx-auto">
+              Take our free AI Readiness Assessment. 5 questions, personalized results,
+              and a clear picture of where AI fits in your business.
+            </p>
+            <div className="pt-2">
+              <Button
+                asChild
+                className="bg-electric hover:bg-electric-dark text-white rounded-xl px-8 h-12 text-base font-semibold shadow-lg shadow-electric/30"
+              >
+                <Link href="/assess">
+                  Take the Free Assessment
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* EMAIL CAPTURE */}
       <section className="bg-surface dot-pattern">
         <div className="mx-auto max-w-3xl px-6 lg:px-8 py-24 lg:py-32 text-center">
