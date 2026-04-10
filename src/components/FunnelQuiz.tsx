@@ -259,7 +259,7 @@ export function FunnelQuiz() {
                       Get your free AI score
                     </h2>
                     <p className="text-sm text-text-secondary">
-                      Just your name and email. Results in under 2 minutes.
+                      Just your name and email. Results in 30 seconds.
                     </p>
                   </div>
 
@@ -316,7 +316,7 @@ export function FunnelQuiz() {
                       <Shield className="h-3 w-3" /> No spam
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" /> 2 min
+                      <Clock className="h-3 w-3" /> 30 sec
                     </span>
                     <span className="flex items-center gap-1">
                       <Star className="h-3 w-3" /> Free
