@@ -11,12 +11,27 @@ export function VSLFunnelContent() {
       {/* ═══ HERO — VSL + Headline + Single CTA ═══ */}
       <section className="min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center bg-white px-4 sm:px-6">
         <div className="w-full max-w-[800px] mx-auto py-8 sm:py-12">
-          {/* Headline — above the video */}
+          {/* Headline — above the video
+              Split test variants (swap into h1 to test):
+              A: "AI consultants sell decks. We deploy machines that print revenue."  ← ACTIVE
+              B: "One operator. 45 days. 1,866% revenue growth. Here's how."
+              C: "We'll deploy AI into your business that pays for itself in 45 days."
+              D: "Your competitors are using AI to cut acquisition costs 90%. You're not."
+              E: "How one brand cut customer acquisition costs 90% without firing anyone."
+              F: "Stop hiring. Start automating. Watch what happens."
+              G: "You don't have a sales problem. You have a systems problem."
+              H: "We build the AI sales machine. You collect the revenue."
+              I: "From 26% show rate to 78% — the AI system behind it."
+              J: "Still hiring to scale? There's a faster way."
+              K: "What if your sales team never missed a follow-up again?"
+          */}
           <h1 className="text-center text-2xl sm:text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold text-navy mb-6 sm:mb-8">
-            Operators doing $500K–$50M+:
+            AI consultants sell decks.
+            <br />
+            We deploy machines that print revenue.
           </h1>
           <p className="text-center text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
-            We&apos;ll deploy AI revenue infrastructure into your business that
+            We&apos;ll install AI revenue infrastructure into your business that
             closes deals, cuts acquisition costs, and builds enterprise value
             — so you can scale or exit on your terms.
           </p>
