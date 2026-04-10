@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Box, TrendingUp, ArrowDown } from "lucide-react";
@@ -80,6 +81,26 @@ const solutions = [
 ];
 
 export default function HomePage() {
+  const [playbookEmail, setPlaybookEmail] = useState("");
+  const [playbookStatus, setPlaybookStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  async function handlePlaybookSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!playbookEmail || playbookStatus === "loading") return;
+    setPlaybookStatus("loading");
+    try {
+      const res = await fetch("/api/playbook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: playbookEmail }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setPlaybookStatus("success");
+    } catch {
+      setPlaybookStatus("error");
+    }
+  }
+
   return (
     <>
       <WebSiteSchema />
@@ -496,23 +517,33 @@ export default function HomePage() {
               Free: The AI Revenue Infrastructure Playbook — how we took a brand
               from $200K to $3.9M in 45 days.
             </p>
-            {/* TODO: Connect to email service (Resend list or ConvertKit) */}
-            <form
-              className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                type="email"
-                placeholder="you@company.com"
-                className="flex-1 rounded-xl border border-border bg-white px-4 h-12 text-sm focus:outline-none focus:ring-2 focus:ring-electric/30 focus:border-electric"
-              />
-              <Button
-                type="submit"
-                className="bg-electric hover:bg-electric-dark text-white rounded-xl px-6 h-12 text-sm font-semibold whitespace-nowrap"
+            {playbookStatus === "success" ? (
+              <div className="mt-8 rounded-xl border border-electric/20 bg-electric/5 px-6 py-4 max-w-md mx-auto">
+                <p className="text-sm font-semibold text-navy">Check your inbox.</p>
+                <p className="text-sm text-text-secondary mt-1">The playbook is on its way. If you don&apos;t see it in a few minutes, check spam.</p>
+              </div>
+            ) : (
+              <form
+                className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+                onSubmit={handlePlaybookSubmit}
               >
-                Send Me The Playbook
-              </Button>
-            </form>
+                <input
+                  type="email"
+                  required
+                  value={playbookEmail}
+                  onChange={(e) => setPlaybookEmail(e.target.value)}
+                  placeholder="you@company.com"
+                  className="flex-1 rounded-xl border border-border bg-white px-4 h-12 text-sm focus:outline-none focus:ring-2 focus:ring-electric/30 focus:border-electric"
+                />
+                <Button
+                  type="submit"
+                  disabled={playbookStatus === "loading"}
+                  className="bg-electric hover:bg-electric-dark text-white rounded-xl px-6 h-12 text-sm font-semibold whitespace-nowrap disabled:opacity-50"
+                >
+                  {playbookStatus === "loading" ? "Sending..." : playbookStatus === "error" ? "Try Again" : "Send Me The Playbook"}
+                </Button>
+              </form>
+            )}
           </motion.div>
         </div>
       </section>
