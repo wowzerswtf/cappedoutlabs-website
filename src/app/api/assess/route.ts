@@ -28,12 +28,12 @@ const APPLIED_STAGE_ID = "45557fe3-e118-4a9f-82a8-32a6ea1c5a72";
 // Run setup/create-quiz-fields.js to get these IDs, then replace PLACEHOLDERs
 const CUSTOM_FIELDS: Record<string, string> = {
   businessName: "zENHzP2Jah4adoHKrttI",
-  quizScore: "PLACEHOLDER_RUN_SETUP",           // labs_quiz_score
-  quizTier: "PLACEHOLDER_RUN_SETUP",            // labs_quiz_tier
-  quizBottleneck: "PLACEHOLDER_RUN_SETUP",      // labs_quiz_bottleneck
-  quizAiMaturity: "PLACEHOLDER_RUN_SETUP",      // labs_quiz_ai_maturity
-  quizUrgency: "PLACEHOLDER_RUN_SETUP",         // labs_quiz_urgency
-  quizStrategicFit: "PLACEHOLDER_RUN_SETUP",    // labs_quiz_strategic_fit
+  quizScore: "ZZ5CIk0CWgPbiYhuksy4",            // labs_quiz_score
+  quizTier: "c0V4tzjrZ3jwptwBOv6G",             // labs_quiz_tier
+  quizBottleneck: "XLPH2EejsWmHfUdKiZvK",       // labs_quiz_bottleneck
+  quizAiMaturity: "Vxg081YOZTc9DHLx5uRM",       // labs_quiz_ai_maturity
+  quizUrgency: "lcmdvrJg73WKSqYjMrqb",          // labs_quiz_urgency
+  quizStrategicFit: "LqG20D2OH722SvZ1f6wn",     // labs_quiz_strategic_fit
 };
 
 interface AssessPayload {
