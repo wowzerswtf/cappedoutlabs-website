@@ -214,8 +214,9 @@ export function FunnelAssessContent() {
                   className="rounded-2xl border border-electric/20 bg-electric/5 p-6"
                 >
                   <p className="text-sm text-navy italic leading-relaxed">
-                    &ldquo;We went from 3 closers to 1 AI-augmented rep and our
-                    close rate jumped from 18% to 34%. The assessment nailed
+                    &ldquo;The AI-assisted closing platform gave us so much
+                    intelligence and streamlined activity that we went from 3
+                    closers to 1 — with 8x the output. The assessment nailed
                     exactly where to start.&rdquo;
                   </p>
                   <p className="text-xs text-text-secondary mt-3 font-semibold">
@@ -244,8 +245,9 @@ export function FunnelAssessContent() {
 
             <div className="rounded-2xl border border-electric/20 bg-electric/5 p-5">
               <p className="text-sm text-navy italic leading-relaxed">
-                &ldquo;We went from 3 closers to 1 AI-augmented rep and our
-                close rate jumped from 18% to 34%.&rdquo;
+                &ldquo;The AI-assisted closing platform gave us so much
+                intelligence and streamlined activity that we went from 3
+                closers to 1 — with 8x the output.&rdquo;
               </p>
               <p className="text-xs text-text-secondary mt-2 font-semibold">
                 — Supplement brand, $3M ARR
