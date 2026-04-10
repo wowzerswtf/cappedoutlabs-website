@@ -15,7 +15,7 @@ const steps = [
 ];
 
 const trustSignals = [
-  "From the team behind Capped Out Media",
+  "From the team that has pushed over a billion in sales",
   "Limited spots per quarter — we're embedded partners, not a volume shop",
   "Discovery call is free. No obligation.",
 ];

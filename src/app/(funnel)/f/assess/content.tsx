@@ -33,7 +33,7 @@ const proofPoints = [
 ];
 
 const credibilityLogos = [
-  "From the team behind $6M+/yr Capped Out Media",
+  "From the team that has pushed over a billion in sales",
   "AI systems live in production businesses today",
   "Limited to 3 new clients per month",
 ];
@@ -115,7 +115,7 @@ export function FunnelAssessContent() {
             variants={fadeUp}
             className="mt-4 text-base sm:text-lg text-text-secondary max-w-2xl mx-auto"
           >
-            5 questions. 2 minutes. Get your personalized AI readiness score,
+            5 questions. 30 seconds. Get your personalized AI readiness score,
             biggest opportunity, and a 90-day implementation roadmap — free.
           </motion.p>
 
@@ -272,7 +272,7 @@ export function FunnelAssessContent() {
               {
                 num: "1",
                 title: "Answer 5 questions",
-                desc: "Multiple choice. No typing. Under 2 minutes.",
+                desc: "Multiple choice. No typing. 30 seconds.",
               },
               {
                 num: "2",

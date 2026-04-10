@@ -19,7 +19,7 @@ const assessFaqs = [
   },
   {
     question: "How long does the assessment take?",
-    answer: "Under 2 minutes. There are 5 multiple-choice questions — you click your answer and it auto-advances to the next question. No typing required beyond your name and email.",
+    answer: "About 30 seconds. There are 5 multiple-choice questions — you click your answer and it auto-advances to the next question. No typing required beyond your name and email.",
   },
   {
     question: "Is the assessment really free?",
@@ -38,7 +38,7 @@ const assessFaqs = [
 const trustSignals = [
   {
     icon: Clock,
-    text: "Takes under 2 minutes",
+    text: "Takes 30 seconds",
   },
   {
     icon: Zap,
@@ -51,7 +51,7 @@ const trustSignals = [
 ];
 
 const socialProof = [
-  "From the team behind $6M+/yr Capped Out Media",
+  "From the team that has pushed over a billion in sales",
   "AI systems deployed in production businesses",
   "+1,866% revenue growth for one client in 45 days",
 ];
