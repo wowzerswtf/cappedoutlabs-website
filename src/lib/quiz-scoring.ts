@@ -203,7 +203,7 @@ export function getBottleneckService(result: ScoredResult): {
         name: "AI Sales Infrastructure (Closer OS)",
         headline: "Your sales bottleneck has a proven fix.",
         description:
-          "We\u2019ve built AI-assisted closing platforms that give operators so much intelligence and streamlined activity that one supplement brand went from 3 closers to 1 \u2014 with 8x the output.",
+          "We\u2019ve built AI-assisted closing platforms that give operators so much intelligence and streamlined activity that one portfolio brand went from 3 closers to 1 \u2014 with 8x the output.",
         stat: "+1,866% revenue growth in 45 days",
       };
     case "contractor-os":

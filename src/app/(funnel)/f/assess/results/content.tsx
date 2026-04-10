@@ -313,7 +313,7 @@ function FunnelResultsInner() {
                     icon: TrendingUp,
                     metric: "+1,866%",
                     label: "Revenue growth",
-                    context: "Supplement brand, 45 days",
+                    context: "Portfolio brand, 45 days",
                   },
                   {
                     icon: Users,

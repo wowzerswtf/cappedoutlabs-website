@@ -220,7 +220,7 @@ export function FunnelAssessContent() {
                     exactly where to start.&rdquo;
                   </p>
                   <p className="text-xs text-text-secondary mt-3 font-semibold">
-                    — Supplement brand operator, $3M ARR
+                    — Portfolio brand operator, $3M ARR
                   </p>
                 </motion.div>
               </motion.div>
@@ -250,7 +250,7 @@ export function FunnelAssessContent() {
                 closers to 1 — with 8x the output.&rdquo;
               </p>
               <p className="text-xs text-text-secondary mt-2 font-semibold">
-                — Supplement brand, $3M ARR
+                — Portfolio brand operator, $3M ARR
               </p>
             </div>
           </div>

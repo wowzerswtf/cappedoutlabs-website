@@ -167,7 +167,7 @@ export function VSLBContent() {
             variants={fadeUp}
             className="text-center text-base sm:text-lg text-text-secondary max-w-2xl mx-auto mb-6 leading-relaxed"
           >
-            Watch how one supplement brand went from bleeding $14K/mo on closers
+            Watch how one portfolio brand went from bleeding $14K/mo on closers
             to a single AI-augmented rep doing 8x the output — in 45 days.
           </motion.p>
 
@@ -332,7 +332,7 @@ export function VSLBContent() {
               {
                 quote:
                   "The AI-assisted closing platform gave us so much intelligence and streamlined activity that we went from 3 closers to 1 — with 8x the output.",
-                name: "Supplement brand operator",
+                name: "Portfolio brand operator",
                 detail: "$3M ARR",
                 metric: "+1,866% revenue in 45 days",
               },
