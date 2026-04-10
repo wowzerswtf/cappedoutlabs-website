@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { resourceSlugs } from "./resources/data";
+import { resourceSlugs } from "./(main)/resources/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://cappedoutlabs.com";

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
 import { OrganizationSchema } from "@/components/SchemaMarkup";
 import "./globals.css";
 
@@ -76,9 +74,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <OrganizationSchema />
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
