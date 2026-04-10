@@ -214,13 +214,13 @@ export function FunnelAssessContent() {
                   className="rounded-2xl border border-electric/20 bg-electric/5 p-6"
                 >
                   <p className="text-sm text-navy italic leading-relaxed">
-                    &ldquo;The AI-assisted closing platform gave us so much
-                    intelligence and streamlined activity that we went from 3
-                    closers to 1 — with 8x the output. The assessment nailed
+                    &ldquo;Revenue went from $200K to $3.9M in 45 days. The AI
+                    infrastructure replaced our entire manual process — show
+                    rate tripled, CAC dropped 90%. The assessment nailed
                     exactly where to start.&rdquo;
                   </p>
                   <p className="text-xs text-text-secondary mt-3 font-semibold">
-                    — Portfolio brand operator, $3M ARR
+                    — Portfolio brand operator, Digital Incubator
                   </p>
                 </motion.div>
               </motion.div>
@@ -245,12 +245,11 @@ export function FunnelAssessContent() {
 
             <div className="rounded-2xl border border-electric/20 bg-electric/5 p-5">
               <p className="text-sm text-navy italic leading-relaxed">
-                &ldquo;The AI-assisted closing platform gave us so much
-                intelligence and streamlined activity that we went from 3
-                closers to 1 — with 8x the output.&rdquo;
+                &ldquo;Revenue went from $200K to $3.9M in 45 days. The AI
+                infrastructure replaced our entire manual process.&rdquo;
               </p>
               <p className="text-xs text-text-secondary mt-2 font-semibold">
-                — Portfolio brand operator, $3M ARR
+                — Portfolio brand operator, Digital Incubator
               </p>
             </div>
           </div>

@@ -167,8 +167,8 @@ export function VSLBContent() {
             variants={fadeUp}
             className="text-center text-base sm:text-lg text-text-secondary max-w-2xl mx-auto mb-6 leading-relaxed"
           >
-            Watch how one portfolio brand went from bleeding $14K/mo on closers
-            to a single AI-augmented rep doing 8x the output — in 45 days.
+            Watch how operators are using AI to cut costs, multiply output,
+            and build businesses that run without them — in as little as 45 days.
           </motion.p>
 
           {/* TACTIC 11: Urgency badge */}
@@ -241,7 +241,7 @@ export function VSLBContent() {
               { stat: "$1B+", label: "Revenue pushed" },
               { stat: "1,866%", label: "Client revenue growth" },
               { stat: "90%", label: "CAC reduction" },
-              { stat: "8x", label: "Output per closer" },
+              { stat: "8x", label: "Output per headcount" },
             ].map((item) => (
               <div key={item.label}>
                 <p className="text-xl sm:text-2xl font-bold text-navy font-mono">
@@ -271,11 +271,11 @@ export function VSLBContent() {
               </p>
               <ul className="space-y-3">
                 {[
-                  "3 closers burning $14K/mo in payroll",
-                  "26% show rate — 3 out of 4 no-show",
-                  "$847 cost to acquire one customer",
-                  "Tribal knowledge — nothing documented",
-                  "Revenue flatlines when you step away",
+                  "Bloated headcount doing work AI handles better",
+                  "Manual processes that break when you scale",
+                  "High acquisition costs eating your margins",
+                  "Tribal knowledge — nothing documented or repeatable",
+                  "Business stalls the moment you step away",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2 text-sm text-red-800">
                     <X className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
@@ -292,11 +292,11 @@ export function VSLBContent() {
               </p>
               <ul className="space-y-3">
                 {[
-                  "1 AI-augmented rep — 8x the output",
-                  "77.9% show rate — automated follow-up",
-                  "$84 CAC — 90% reduction",
-                  "Every playbook, script, and process in AI",
-                  "Revenue compounds whether you're there or not",
+                  "Lean team — AI handles the repetitive work",
+                  "Automated systems that scale without breaking",
+                  "Acquisition costs drop 50–90%",
+                  "Every process documented, automated, and repeatable",
+                  "Business grows whether you're there or not",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2 text-sm text-green-800">
                     <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
@@ -331,31 +331,31 @@ export function VSLBContent() {
             {[
               {
                 quote:
-                  "The AI-assisted closing platform gave us so much intelligence and streamlined activity that we went from 3 closers to 1 — with 8x the output.",
+                  "Revenue went from $200K to $3.9M in 45 days. The AI sales infrastructure completely replaced our manual process — show rate tripled, CAC dropped 90%.",
                 name: "Portfolio brand operator",
-                detail: "$3M ARR",
+                detail: "Digital Incubator",
                 metric: "+1,866% revenue in 45 days",
               },
               {
                 quote:
-                  "Show rate went from 26% to 78% in the first month. The AI follow-up system catches every lead that used to fall through the cracks.",
-                name: "Service business owner",
-                detail: "$1.2M ARR",
-                metric: "77.9% show rate",
+                  "I was spending 18 hours a week on admin — estimates, invoices, QuickBooks. Now the AI handles it. Payment collection went from 21 days to 4.",
+                name: "Contracting business owner",
+                detail: "$2M revenue",
+                metric: "18+ hrs/week saved",
               },
               {
                 quote:
-                  "We cut customer acquisition cost by 90%. The AI qualification system only sends us buyers, not tire-kickers.",
-                name: "DTC brand founder",
-                detail: "$5M ARR",
-                metric: "90% CAC reduction",
+                  "We added $420K in billable revenue in 90 days. The AI intake system routes every inquiry instantly — response time went from 48 hours to minutes.",
+                name: "Law firm principal",
+                detail: "Mid-size firm",
+                metric: "$420K added in 90 days",
               },
               {
                 quote:
-                  "I was skeptical about 'AI consultants' but these guys actually deploy production systems. It paid for itself in week 2.",
-                name: "Multi-location operator",
-                detail: "$8M ARR",
-                metric: "ROI in 14 days",
+                  "Revenue per recruiter nearly tripled. The AI matches candidates and writes outreach automatically — placements went from 5 to 14 per month.",
+                name: "Staffing agency owner",
+                detail: "Regional agency",
+                metric: "$520K revenue per recruiter",
               },
             ].map((t) => (
               <div
@@ -385,13 +385,14 @@ export function VSLBContent() {
             Capped Out Labs was built inside a supplement incubator that has
             pushed over a billion in sales. We didn&apos;t learn
             about business from a textbook — we learned it from scaling brands,
-            managing closers, and acquiring companies.
+            managing teams, and acquiring companies.
           </p>
           <p className="text-text-secondary leading-relaxed mb-4">
-            When we saw what AI could do inside our own operations — cutting
-            closer teams, automating follow-up, slashing acquisition costs — we
+            When we saw what AI could do inside our own operations — replacing
+            manual processes, automating entire workflows, slashing costs — we
             built a firm to deploy these exact systems into other
-            operators&apos; businesses.
+            operators&apos; businesses. Sales, ops, intake, fulfillment — if
+            it runs on people and process, we can AI-ify it.
           </p>
           <p className="text-navy font-semibold">
             Every system we install is anchored to revenue metrics, not theory.
@@ -430,7 +431,7 @@ export function VSLBContent() {
                 desc: "Full AI revenue stack in 90 days",
                 features: [
                   "Multi-system deployment",
-                  "Sales + ops + follow-up AI",
+                  "Sales + ops + intake + fulfillment AI",
                   "90-day embedded support",
                   "Monthly optimization calls",
                 ],
@@ -530,11 +531,11 @@ export function VSLBContent() {
               },
               {
                 q: "What kind of businesses do you work with?",
-                a: "Operators doing $500K–$50M+ in annual revenue who have a sales or operations bottleneck that AI can solve. We're not a fit for pre-revenue startups or businesses looking for chatbots.",
+                a: "Operators doing $500K–$50M+ in annual revenue who have bottlenecks that AI can solve — sales, operations, intake, fulfillment, customer service, anything that runs on people and process. We've deployed across contracting, law firms, med spas, staffing agencies, wholesale distribution, real estate, and creative agencies. We're not a fit for pre-revenue startups or businesses looking for chatbots.",
               },
               {
                 q: "How fast do you see results?",
-                a: "Most clients see measurable impact within 30–45 days. Our fastest result was 1,866% revenue growth in 45 days. Typical results include 50-90% reduction in CAC, 2-3x show rate improvement, and significant headcount reduction.",
+                a: "Most clients see measurable impact within 30–45 days. Results vary by deployment — one brand saw 1,866% revenue growth in 45 days, a law firm added $420K in billable revenue in 90 days, a contractor saved 18+ hours a week on admin. It depends on your bottleneck.",
               },
               {
                 q: "Why do you only take 3 clients per month?",
@@ -542,7 +543,7 @@ export function VSLBContent() {
               },
               {
                 q: "What if AI doesn't work for my industry?",
-                a: "If you have a sales team, a follow-up process, or customer acquisition costs, AI works. We've deployed across supplements, services, contracting, real estate, med spas, and more. The discovery call will tell us both if it's a fit.",
+                a: "If your business runs on people and process, AI works. We've deployed across contracting, law firms, med spas, staffing agencies, wholesale distribution, real estate, digital agencies, and more. Sales, ops, intake, fulfillment — we've AI-ified all of it. The discovery call will tell us both if it's a fit.",
               },
               {
                 q: "What does the discovery call look like?",
@@ -565,8 +566,8 @@ export function VSLBContent() {
           </h2>
           <p className="text-blue-200 mb-8 leading-relaxed">
             Every month you run without AI infrastructure, you&apos;re paying
-            the &ldquo;manual tax&rdquo; — extra closers, missed follow-ups,
-            leaked revenue. The application takes 2 minutes.
+            the &ldquo;manual tax&rdquo; — extra headcount, missed
+            opportunities, leaked revenue. The application takes 2 minutes.
           </p>
 
           <button
