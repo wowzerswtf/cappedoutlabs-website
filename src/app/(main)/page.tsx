@@ -376,7 +376,7 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 title: "Portfolio Brand — AI Sales Infrastructure",
@@ -391,6 +391,13 @@ export default function HomePage() {
                 tag: "ContractorOS",
                 metric: "18+",
                 metricLabel: "hours saved/week",
+              },
+              {
+                title: "Mid-size Law Firm — AI Intake System",
+                result: "$420K in additional billable revenue in 90 days. Close rate: 19% → 67%.",
+                tag: "AI Intake System",
+                metric: "$420K",
+                metricLabel: "added revenue in 90 days",
               },
             ].map((cs, i) => (
               <motion.div

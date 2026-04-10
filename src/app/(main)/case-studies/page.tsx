@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { CaseStudiesContent } from "./content";
 
 export const metadata: Metadata = {
-  title: "AI Consulting Case Studies | +1,866% Revenue Growth",
+  title: "AI Transformation Case Studies — Real Results Across 8 Industries | Capped Out Labs",
   description:
-    "+1,866% revenue. 23.4x ROAS. −90% CAC. Real numbers from production AI systems inside real businesses. Not pilots. Not prototypes.",
+    "From law firms to staffing agencies to real estate teams — documented before and after results from production AI systems built by Capped Out Labs.",
   alternates: { canonical: "/case-studies" },
   openGraph: {
-    title: "AI Consulting Case Studies | +1,866% Revenue Growth | Capped Out Labs",
+    title: "AI Transformation Case Studies — Real Results Across 8 Industries | Capped Out Labs",
     description:
-      "+1,866% revenue. 23.4x ROAS. −90% CAC in 45 days. Production AI systems inside real businesses.",
+      "From law firms to staffing agencies to real estate teams — documented before and after results from production AI systems built by Capped Out Labs.",
   },
 };
 
