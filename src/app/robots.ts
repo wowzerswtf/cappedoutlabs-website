@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/thank-you"],
+      disallow: ["/thank-you", "/brand-guidelines.html"],
     },
     sitemap: "https://cappedoutlabs.com/sitemap.xml",
   };
