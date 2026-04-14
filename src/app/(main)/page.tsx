@@ -301,8 +301,92 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TIERS — horizontal stacked cards */}
+      {/* FIT QUALIFIER */}
       <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 py-24 lg:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <p className="text-xs font-semibold uppercase tracking-widest text-electric mb-4">
+              Honest qualifier
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-navy">
+              This isn&apos;t for everyone. Here&apos;s the line.
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="rounded-2xl border border-electric/30 bg-electric/[0.03] p-8 glow-border"
+            >
+              <p className="text-xs font-semibold uppercase tracking-wider text-electric mb-5">
+                Build with us if you
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Do $1M to $50M in revenue with real cash flow, not funded runway",
+                  "Run a sales driven business where faster close rates compound",
+                  "Own the decision. No committee, no board vote to start.",
+                  "Have at least one operator internally who will own what we build",
+                  "Are preparing to scale hard, exit, or both inside 24 months",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-text-primary leading-relaxed">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-electric shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="rounded-2xl border border-border bg-surface/60 p-8"
+            >
+              <p className="text-xs font-semibold uppercase tracking-wider text-text-secondary mb-5">
+                Don&apos;t work with us if you
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Want a strategy deck or a Notion doc full of frameworks",
+                  "Need us to convince your team that AI is worth trying",
+                  "Are before revenue, before product, or under $1M hoping AI fixes that",
+                  'Want someone to "install ChatGPT" across the business',
+                  "Need the lowest bidder. We're not it, and we'll tell you who is.",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-text-secondary leading-relaxed">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-text-secondary/40 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-10 text-center text-sm text-text-secondary"
+          >
+            Not sure?{" "}
+            <Link href="/assess" className="font-semibold text-electric hover:text-electric-dark inline-flex items-center gap-1">
+              Take the 2 minute Readiness Assessment
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </motion.p>
+        </div>
+      </section>
+
+      {/* TIERS */}
+      <section className="bg-surface">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 py-24 lg:py-32">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -383,8 +467,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PROOF — feature cards on light bg */}
-      <section className="bg-surface">
+      {/* PROOF */}
+      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 py-24 lg:py-32">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -449,6 +533,67 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* RISK REVERSAL */}
+      <section className="bg-navy">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 py-24 lg:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16 max-w-3xl mx-auto"
+          >
+            <p className="text-xs font-semibold uppercase tracking-widest text-electric mb-4">
+              What most firms won&apos;t put in writing
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+              The risks, the real costs, and what happens if it doesn&apos;t work.
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                n: "01",
+                title: "Production guarantee",
+                body: "If the system isn't running in production at handoff, with your team trained and the workflow measurable, you don't pay the final milestone. We build to ship, not to invoice.",
+              },
+              {
+                n: "02",
+                title: "Hidden costs, named",
+                body: "Beyond our fee, expect $200 to $2,000 per month in API and tooling costs depending on scope, and 2 to 4 hours per week from one internal operator during the build. We'll show you the line items in the proposal. No surprises at month three.",
+              },
+              {
+                n: "03",
+                title: "When it doesn't work",
+                body: "About 1 in 20 engagements underperform the forecast, usually because the business changes faster than the system. When that happens, we rebuild the affected workflow at no additional cost inside the handoff window. We don't walk away from underperformance.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur"
+              >
+                <span className="text-xs font-semibold font-mono text-electric">{item.n}</span>
+                <h3 className="mt-3 text-lg font-bold text-white">{item.title}</h3>
+                <p className="mt-4 text-sm text-white/70 leading-relaxed">{item.body}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-12 text-center text-base text-white/80 max-w-2xl mx-auto italic"
+          >
+            We&apos;ve built the same systems inside our own businesses. If something breaks, we have to fix it there too.
+          </motion.p>
         </div>
       </section>
 
