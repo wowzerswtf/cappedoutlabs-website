@@ -1,5 +1,15 @@
 {
   "framework": "nextjs",
   "buildCommand": "next build",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "rewrites": [
+    {
+      "source": "/fbv3",
+      "destination": "https://fb3-lander.vercel.app/fbv3"
+    },
+    {
+      "source": "/fbv3/:path*",
+      "destination": "https://fb3-lander.vercel.app/fbv3/:path*"
+    }
+  ]
 }
