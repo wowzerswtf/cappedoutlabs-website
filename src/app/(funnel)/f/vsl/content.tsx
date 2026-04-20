@@ -38,27 +38,13 @@ export function VSLFunnelContent() {
 
           {/* VSL Video — centered, prominent */}
           <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden shadow-2xl mb-8 sm:mb-10">
-            {/*
-              Replace this div with actual video embed once VSL is ready.
-              Vimeo: <iframe src="https://player.vimeo.com/video/VIDEO_ID?autoplay=1&muted=1" .../>
-              Or self-hosted <video> tag.
-            */}
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-navy to-navy/90">
-              <div className="text-center text-white/80 space-y-3">
-                <div className="w-20 h-20 mx-auto rounded-full border-2 border-white/30 flex items-center justify-center">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-8 h-8 ml-1"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <p className="text-sm font-medium tracking-wide uppercase">
-                  VSL Video Placeholder
-                </p>
-              </div>
-            </div>
+            <iframe
+              src="https://player.vimeo.com/video/1180565378?autoplay=1&muted=1&title=0&byline=0&portrait=0&dnt=1"
+              className="absolute inset-0 w-full h-full"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+              allowFullScreen
+              title="Capped Out Labs VSL"
+            />
           </div>
 
           {/* Single CTA — the only action on the page */}
