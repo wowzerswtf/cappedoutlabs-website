@@ -19,7 +19,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/icon.png",
     apple: "/apple-touch-icon.png",
   },
   title: {
