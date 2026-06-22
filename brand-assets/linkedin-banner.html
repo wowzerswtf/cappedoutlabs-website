@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1128px;height:191px;overflow:hidden}
+  .wrap{width:1128px;height:191px;position:relative;display:flex;align-items:center;
+    background:linear-gradient(110deg,#122740 0%,#1a3a5c 50%,#1e4470 100%)}
+  .dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(96,165,250,.09) 1.4px,transparent 1.4px);background-size:30px 30px}
+  .glow{position:absolute;right:-60px;top:-120px;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(37,99,235,.28),transparent 62%)}
+  .row{position:relative;display:flex;align-items:center;gap:22px;padding-left:300px;width:100%}
+  svg{width:62px;height:62px;flex:none;filter:drop-shadow(0 6px 16px rgba(37,99,235,.40))}
+  .name{font-family:Inter;font-weight:900;font-size:34px;letter-spacing:-.5px;color:#fff;line-height:1.05}
+  .name .labs{color:#60a5fa}
+  .tag{font-family:Inter;font-weight:500;font-size:15px;color:#cbd9ea;margin-top:5px;letter-spacing:.1px}
+  .chips{margin-left:auto;padding-right:54px;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+  .chip{font-family:'JetBrains Mono';font-weight:700;font-size:13px;color:#dbeafe;
+    background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.28);border-radius:999px;padding:5px 13px;white-space:nowrap}
+  .chip b{color:#93c5fd}
+</style></head>
+<body><div class="wrap">
+  <div class="dots"></div><div class="glow"></div>
+  <div class="row">
+    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="28" y1="50" x2="92" y2="50" stroke="#93c5fd" stroke-opacity="0.55" stroke-width="3.5" stroke-linecap="round"/>
+      <rect x="33" y="62" width="13" height="26" rx="3.5" fill="#3b82f6"/>
+      <rect x="53.5" y="54" width="13" height="34" rx="3.5" fill="#60a5fa"/>
+      <rect x="74" y="34" width="13" height="54" rx="3.5" fill="#2563EB"/>
+      <path d="M80.5 21 L91.5 37 L69.5 37 Z" fill="#bfdbfe"/>
+    </svg>
+    <div>
+      <div class="name">Capped Out <span class="labs">Labs</span></div>
+      <div class="tag">We build AI into how your company runs. Production systems, not strategy decks.</div>
+    </div>
+    <div class="chips">
+      <div class="chip"><b>+1,866%</b> revenue &middot; <b>23.4x</b> ROAS</div>
+      <div class="chip"><b>200+</b> AI systems live &middot; <b>30+</b> verticals</div>
+    </div>
+  </div>
+</div></body></html>

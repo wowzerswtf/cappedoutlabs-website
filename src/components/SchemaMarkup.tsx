@@ -17,8 +17,12 @@ export function OrganizationSchema() {
       contactType: "sales",
       url: "https://cappedoutlabs.com/apply",
     },
-    // TODO: Add Capped Out Labs LinkedIn/Twitter when created. Using parent company for now.
-    sameAs: ["https://www.linkedin.com/company/capped-out-media"],
+    // TODO: Add Crunchbase to sameAs once the account is verified.
+    sameAs: [
+      "https://www.linkedin.com/company/cappedoutlabs",
+      "https://x.com/cappedoutlabs",
+      "https://www.linkedin.com/company/capped-out-media",
+    ],
     serviceType: "AI Consulting",
     areaServed: "United States",
     priceRange: "$15,000 - $500,000+",

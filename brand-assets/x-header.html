@@ -1,0 +1,45 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1500px;height:500px;overflow:hidden}
+  .wrap{width:1500px;height:500px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:radial-gradient(130% 120% at 70% 0%, #244a6e 0%, #1a3a5c 45%, #112338 100%)}
+  .dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(96,165,250,.09) 1.6px,transparent 1.6px);background-size:34px 34px}
+  .glow{position:absolute;left:50%;top:-160px;transform:translateX(-50%);width:760px;height:600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(37,99,235,.26),transparent 60%)}
+  .lockup{position:relative;display:flex;align-items:center;gap:26px;margin-bottom:22px}
+  svg{width:104px;height:104px;filter:drop-shadow(0 14px 32px rgba(37,99,235,.42))}
+  .name{font-family:Inter;font-weight:900;font-size:78px;letter-spacing:-2px;color:#fff;line-height:.95}
+  .name .labs{color:#60a5fa}
+  .tag{position:relative;font-family:Inter;font-weight:500;font-size:25px;color:#cbd9ea;letter-spacing:.2px;margin-bottom:30px}
+  .chips{position:relative;display:flex;gap:14px}
+  .chip{font-family:'JetBrains Mono';font-weight:700;font-size:16px;color:#dbeafe;
+    background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.30);border-radius:999px;padding:9px 18px}
+  .chip b{color:#93c5fd}
+  .kicker{position:relative;font-family:'JetBrains Mono';font-weight:500;font-size:14px;letter-spacing:4px;
+    text-transform:uppercase;color:#60a5fa;margin-bottom:18px}
+</style></head>
+<body><div class="wrap">
+  <div class="dots"></div><div class="glow"></div>
+  <div class="kicker">From the team behind Capped Out Media</div>
+  <div class="lockup">
+    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="28" y1="50" x2="92" y2="50" stroke="#93c5fd" stroke-opacity="0.55" stroke-width="3.5" stroke-linecap="round"/>
+      <rect x="33" y="62" width="13" height="26" rx="3.5" fill="#3b82f6"/>
+      <rect x="53.5" y="54" width="13" height="34" rx="3.5" fill="#60a5fa"/>
+      <rect x="74" y="34" width="13" height="54" rx="3.5" fill="#2563EB"/>
+      <path d="M80.5 21 L91.5 37 L69.5 37 Z" fill="#bfdbfe"/>
+    </svg>
+    <div class="name">Capped Out <span class="labs">Labs</span></div>
+  </div>
+  <div class="tag">We build AI into how your company runs &mdash; faster, cheaper, reusable.</div>
+  <div class="chips">
+    <div class="chip"><b>+1,866%</b> revenue</div>
+    <div class="chip"><b>23.4x</b> ROAS</div>
+    <div class="chip"><b>200+</b> systems live</div>
+    <div class="chip"><b>30+</b> verticals</div>
+  </div>
+</div></body></html>

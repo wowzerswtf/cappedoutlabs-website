@@ -15,5 +15,9 @@
   "author": {
     "name": "Capped Out Labs",
     "url": "https://cappedoutlabs.com"
-  }
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/cappedoutlabs",
+    "https://x.com/cappedoutlabs"
+  ]
 }
