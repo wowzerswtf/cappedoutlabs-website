@@ -28,7 +28,7 @@ const systems = [
   {
     name: "Automated Client Onboarding",
     description:
-      "Once a proposal is signed, the onboarding system activates automatically — sending welcome sequences, collecting brand assets, scheduling kickoff calls, provisioning project management boards, and setting up reporting dashboards. The 18-day onboarding cycle collapsed to 48 hours.",
+      "Once a proposal is signed, the onboarding system activates automatically: welcome sequences, brand asset collection, kickoff call scheduling, project management board provisioning, and reporting dashboard setup. The 18-day onboarding cycle collapsed to 48 hours.",
   },
   {
     name: "Real-time AI Reporting Dashboard",

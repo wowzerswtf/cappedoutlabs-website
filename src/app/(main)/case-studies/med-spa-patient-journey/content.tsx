@@ -38,7 +38,7 @@ const systems = [
   {
     name: "Post-treatment Nurture Sequences",
     description:
-      "After every treatment, automated nurture sequences maintain engagement — follow-up care instructions, satisfaction check-ins, rebooking prompts, and personalized offers for complementary treatments. Rebooking rate jumped from 31% to 78%.",
+      "After every treatment, automated nurture sequences maintain engagement: follow-up care instructions, satisfaction check-ins, rebooking prompts, and personalized offers for complementary treatments. Rebooking rate jumped from 31% to 78%.",
   },
 ];
 

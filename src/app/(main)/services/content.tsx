@@ -148,7 +148,7 @@ export function ServicesContent() {
             variants={fadeUp}
             className="mt-6 text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto"
           >
-            Choose your entry point. Every path leads to the same place — a
+            Choose your entry point. Every path leads to the same place: a
             business that runs leaner, closes faster, and exits at a premium.
           </motion.p>
         </motion.div>
