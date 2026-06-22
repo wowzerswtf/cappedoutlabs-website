@@ -132,15 +132,15 @@ export default function HomePage() {
           >
             We don&apos;t deliver decks.
             <br />
-            <span className="gradient-text">We build systems</span> that close deals.
+            <span className="gradient-text">We build AI</span> into how your company runs.
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="mt-6 text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto"
           >
-            AI revenue infrastructure for operators who are serious about
-            growth — and serious about exit.
+            Custom AI built into your business that makes the work faster
+            and cheaper, built once and reused everywhere it fits.
           </motion.p>
 
           <motion.div
@@ -330,11 +330,11 @@ export default function HomePage() {
               </p>
               <ul className="space-y-3">
                 {[
-                  "Do $1M to $50M in revenue with real cash flow, not funded runway",
-                  "Run a sales driven business where faster close rates compound",
-                  "Own the decision. No committee, no board vote to start.",
-                  "Have at least one operator internally who will own what we build",
-                  "Are preparing to scale hard, exit, or both inside 24 months",
+                  "Do at least $250K a year from paying customers, not investor money",
+                  "Sell something where closing faster puts more cash in the bank",
+                  "Can decide on your own. No committee, no board vote to start.",
+                  "Have one person inside who will own what we build",
+                  "Are ready to grow and willing to move on it now",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-text-primary leading-relaxed">
                     <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-electric shrink-0" />
@@ -357,7 +357,7 @@ export default function HomePage() {
                 {[
                   "Want a strategy deck or a Notion doc full of frameworks",
                   "Need us to convince your team that AI is worth trying",
-                  "Are before revenue, before product, or under $1M hoping AI fixes that",
+                  "Have no revenue and no product yet, hoping AI will create both",
                   'Want someone to "install ChatGPT" across the business',
                   "Need the lowest bidder. We're not it, and we'll tell you who is.",
                 ].map((item, i) => (
