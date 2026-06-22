@@ -1,0 +1,13 @@
+# AI Crawler Permissions — Capped Out Labs
+# https://cappedoutlabs.com
+
+User-Agent: *
+Allow: /
+
+# Capped Out Labs welcomes AI search and citation crawlers.
+# Structured context for AI engines:
+#   /llms.txt            — site overview and key pages
+#   /ai/summary.json     — name, description, topics
+#   /ai/faq.json         — structured FAQ
+#   /ai/service.json     — service capabilities and pricing
+# Contact: https://cappedoutlabs.com/apply

@@ -71,6 +71,12 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://player.vimeo.com" />
         <link rel="preconnect" href="https://i.vimeocdn.com" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Capped Out Labs — Resources"
+          href="https://cappedoutlabs.com/feed.xml"
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <OrganizationSchema />

@@ -1,6 +1,6 @@
 # Capped Out Labs
 
-> AI transformation infrastructure for operators who think in exits. From the team behind Capped Out Media.
+> AI built into how your company runs — faster, cheaper, reusable. Production systems, not strategy decks. From the team behind Capped Out Media.
 
 ## Core pages
 
@@ -34,7 +34,7 @@
 
 ## What we do
 
-Capped Out Labs builds production AI systems for operators doing $1M–$50M in revenue. We specialize in sales infrastructure (Closer OS), operations platforms (ContractorOS), and full business transformation for exit preparation. We are operators who learned to build AI, not consultants who learned to talk about business.
+Capped Out Labs builds production AI systems for operators doing $250K+ in revenue. We specialize in sales infrastructure (Closer OS), operations platforms (ContractorOS), and full business transformation for exit preparation. We are operators who learned to build AI, not consultants who learned to talk about business.
 
 ## How we're different
 

@@ -19,7 +19,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const caseStudySlugs = ["portfolio-brand-ai-sales-infrastructure", "contractor-business-automation"];
+  const caseStudySlugs = [
+    "portfolio-brand-ai-sales-infrastructure",
+    "contractor-business-automation",
+    "law-firm-ai-intake",
+    "med-spa-patient-journey",
+    "digital-agency-ai-suite",
+    "real-estate-closer-os",
+    "staffing-agency-ai-matching",
+    "wholesale-distributor-ai-ops",
+  ];
   const caseStudyEntries = caseStudySlugs.map((slug) => ({
     url: `${baseUrl}/case-studies/${slug}`,
     lastModified: new Date(),

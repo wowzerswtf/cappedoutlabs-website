@@ -4,7 +4,7 @@ import { AssessContent } from "./content";
 export const metadata: Metadata = {
   title: "Free AI Readiness Assessment — Score Your Business in 2 Minutes",
   description:
-    "Take our free 5-question AI readiness assessment and get a personalized report with your readiness score, biggest AI opportunity, cost-of-waiting analysis, and 90-day implementation roadmap. Built for operators doing $500K–$50M+.",
+    "Take our free 5-question AI readiness assessment and get a personalized report with your readiness score, biggest AI opportunity, cost-of-waiting analysis, and 90-day implementation roadmap. Built for operators doing $250K and up.",
   alternates: { canonical: "/assess" },
   keywords: [
     "AI readiness assessment",

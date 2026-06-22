@@ -1,0 +1,32 @@
+{
+  "faqs": [
+    {
+      "question": "What does Capped Out Labs do?",
+      "answer": "Capped Out Labs is an AI transformation firm that builds custom AI into how a company runs — making the work faster and cheaper, built once and reused across the business. It delivers production systems, not strategy decks, and was founded by the operators behind Capped Out Media."
+    },
+    {
+      "question": "How much does AI consulting cost?",
+      "answer": "Engagements start at $15,000 for a 2-week AI Revenue Sprint. Full infrastructure builds run $50K to $150K over 6 to 10 weeks. Full transformation for exit preparation is $200K to $500K+. Capped Out Labs also offers equity and revenue-share arrangements for qualified operators."
+    },
+    {
+      "question": "How long does implementation take?",
+      "answer": "A single workflow can be built and deployed in 2 weeks. Full cross-department infrastructure takes 6 to 10 weeks. Complete business transformation runs 3 to 6 months. Every engagement includes a managed handoff period."
+    },
+    {
+      "question": "Do you work with businesses our size?",
+      "answer": "Capped Out Labs works with operators doing $250K and up across 30+ verticals. The common thread is a business with enough volume for AI to create leverage and enough complexity to make the investment worth it."
+    },
+    {
+      "question": "What if we have tried AI before and it did not work?",
+      "answer": "Most of the time, what happened is someone installed a tool and hoped the team would use it. Installing tools is not transformation. Building systems is. Capped Out Labs uses a previous attempt as a diagnostic to build something that actually sticks."
+    },
+    {
+      "question": "What results has Capped Out Labs produced?",
+      "answer": "In a documented Closer OS deployment into a portfolio brand, revenue grew from $200K to $3.9M (+1,866%) in 45 days, CAC dropped from $11,765 to $1,217 (-90%), ROAS reached 23.4x, and sales show rate rose from 26.3% to 77.9%."
+    },
+    {
+      "question": "What happens on the discovery call?",
+      "answer": "A 30-minute conversation with no pitch deck. Capped Out Labs learns about the business, identifies where AI would have the highest revenue impact, and gives an honest answer on whether they can help. If it is a fit, they scope a proposal. If not, they say why."
+    }
+  ]
+}

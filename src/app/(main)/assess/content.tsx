@@ -27,7 +27,7 @@ const assessFaqs = [
   },
   {
     question: "What businesses is this assessment designed for?",
-    answer: "Operators running businesses doing $500K–$50M+ in annual revenue across any industry. The assessment is especially valuable for businesses with sales teams, operational complexity, or owners looking to reduce their day-to-day involvement for eventual exit.",
+    answer: "Operators running businesses doing $250K and up in annual revenue across any industry. The assessment is especially valuable for businesses with sales teams, operational complexity, or owners looking to reduce their day-to-day involvement for eventual exit.",
   },
   {
     question: "What happens with my information?",

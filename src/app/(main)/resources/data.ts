@@ -203,7 +203,7 @@ export const resourcePages: ResourcePage[] = [
       {
         question: "What industries does done-for-you AI consulting work for?",
         answer:
-          "We work with operators doing $1M-$50M across 30+ verticals including DTC, SaaS, professional services, contracting, healthcare, and financial services. The common thread is a sales-driven business with room for operational leverage.",
+          "We work with operators doing $250K+ across 30+ verticals including DTC, SaaS, professional services, contracting, healthcare, and financial services. The common thread is a sales-driven business with room for operational leverage.",
       },
       {
         question: "What happens if the AI system doesn't produce results?",
@@ -224,7 +224,7 @@ export const resourcePages: ResourcePage[] = [
       "AI transformation for business operators means systematically replacing manual workflows with production AI systems anchored to revenue metrics — close rate, LTV, cash collection speed. Unlike enterprise AI programs, operator-grade AI transformation is built for speed, measured by revenue impact, and architected to increase exit multiples.",
     practiceHeading: "What this looks like in practice",
     body: [
-      "AI transformation means different things to different people. For enterprises, it often means a multi-year digital transformation program with committees, vendors, and pilot projects. For business operators — the people actually running $1M-$50M companies — AI transformation needs to be faster, more practical, and directly tied to revenue.",
+      "AI transformation means different things to different people. For enterprises, it often means a multi-year digital transformation program with committees, vendors, and pilot projects. For business operators — the people actually running $250K+ companies — AI transformation needs to be faster, more practical, and directly tied to revenue.",
       "Operator-grade AI transformation starts with a simple question: which workflows, if rebuilt with AI, would have the largest impact on revenue? Not the most interesting AI application. Not the most technically impressive. The one that moves the number your business lives and dies by.",
       "In the [Closer OS deployment](/case-studies/portfolio-brand-ai-sales-infrastructure), that workflow was the sales process. A portfolio brand was spending $94K/month on ads but losing 74% of booked calls to no-shows and closing under 20% of the calls that did happen. AI transformation meant building three layers of intelligence into the existing sales process — pre-call enrichment, live call assistance, and post-call automation. Revenue grew from $200K to $3.9M in 45 days.",
       "For a contracting business running on [ContractorOS](/case-studies/contractor-business-automation), AI transformation meant eliminating 18+ hours of weekly admin work through voice-command job management, automated invoicing via Stripe, and a client-facing estimate approval portal. Payment collection went from 21 days to 4. The operator got their evenings back.",
@@ -242,7 +242,7 @@ export const resourcePages: ResourcePage[] = [
       {
         question: "What size business benefits most from AI transformation?",
         answer:
-          "Businesses doing $1M-$50M in revenue with an established team and customer base. You need enough volume for AI to create leverage and enough complexity for the ROI to justify the investment.",
+          "Businesses doing $250K+ in revenue with an established team and customer base. You need enough volume for AI to create leverage and enough complexity for the ROI to justify the investment.",
       },
       {
         question: "Does AI transformation for operators require firing people?",

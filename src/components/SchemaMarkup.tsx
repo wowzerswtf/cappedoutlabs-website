@@ -38,6 +38,41 @@ export function WebSiteSchema() {
     "@type": "WebSite",
     name: "Capped Out Labs",
     url: "https://cappedoutlabs.com",
+    inLanguage: "en-US",
+    publisher: {
+      "@type": "Organization",
+      name: "Capped Out Labs",
+      url: "https://cappedoutlabs.com",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function VideoSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: "Capped Out Labs — How we build AI into how your company runs",
+    description:
+      "Capped Out Labs builds custom AI into how a company runs — making the work faster and cheaper, built once and reused across the business. Production systems, not strategy decks.",
+    thumbnailUrl: "https://cappedoutlabs.com/og-image.png",
+    uploadDate: "2026-04-20",
+    embedUrl: "https://player.vimeo.com/video/1180565378",
+    contentUrl: "https://vimeo.com/1180565378",
+    publisher: {
+      "@type": "Organization",
+      name: "Capped Out Labs",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://cappedoutlabs.com/og-image.png",
+      },
+    },
   };
 
   return (
@@ -191,7 +226,7 @@ export function AssessmentSchema() {
     educationalLevel: "Professional",
     audience: {
       "@type": "BusinessAudience",
-      audienceType: "Business operators doing $500K–$50M+ in annual revenue",
+      audienceType: "Business operators doing $250K+ in annual revenue",
     },
     numberOfQuestions: 5,
     timeRequired: "PT2M",

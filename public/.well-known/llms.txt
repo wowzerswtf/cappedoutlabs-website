@@ -1,8 +1,8 @@
 # Capped Out Labs
-> AI revenue infrastructure for business operators
+> AI built into how your company runs — faster, cheaper, reusable. Production systems, not strategy decks.
 
 ## About
-Capped Out Labs is an AI transformation firm that builds production systems, not strategy decks. Founded by the operators behind Capped Out Media, we deploy AI sales infrastructure, automation workflows, and revenue optimization systems for business operators focused on growth and exit preparation.
+Capped Out Labs is an AI transformation firm that builds custom AI into how a company runs, making the work faster and cheaper and reusing it across the business. Founded by the operators behind Capped Out Media, it deploys AI sales infrastructure, operations platforms, and revenue systems for operators doing $250K+ in annual revenue.
 
 ## Services
 - AI Revenue Sprint ($15K, 2 weeks) — Single workflow audit + build
