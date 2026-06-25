@@ -167,8 +167,8 @@ export function VSLBContent() {
             variants={fadeUp}
             className="text-center text-base sm:text-lg text-text-secondary max-w-2xl mx-auto mb-6 leading-relaxed"
           >
-            Watch how operators are using AI to cut costs, multiply output,
-            and build businesses that run without them — in as little as 45 days.
+            Watch how operators use AI to cut their costs and multiply output,
+            then build a business that runs without them in as little as 45 days.
           </motion.p>
 
           {/* TACTIC 11: Urgency badge */}
@@ -268,7 +268,7 @@ export function VSLBContent() {
                   "Bloated headcount doing work AI handles better",
                   "Manual processes that break when you scale",
                   "High acquisition costs eating your margins",
-                  "Tribal knowledge — nothing documented or repeatable",
+                  "Tribal knowledge: nothing documented or repeatable",
                   "Business stalls the moment you step away",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2 text-sm text-red-800">
@@ -286,7 +286,7 @@ export function VSLBContent() {
               </p>
               <ul className="space-y-3">
                 {[
-                  "Lean team — AI handles the repetitive work",
+                  "Lean team: AI handles the repetitive work",
                   "Automated systems that scale without breaking",
                   "Acquisition costs drop 50–90%",
                   "Every process documented, automated, and repeatable",
@@ -325,28 +325,28 @@ export function VSLBContent() {
             {[
               {
                 quote:
-                  "Revenue went from $200K to $3.9M in 45 days. The AI sales infrastructure completely replaced our manual process — show rate tripled, CAC dropped 90%.",
+                  "Revenue went from $200K to $3.9M in 45 days. The AI sales infrastructure completely replaced our manual process. Show rate tripled, CAC dropped 90%.",
                 name: "Portfolio brand operator",
                 detail: "Digital Incubator",
                 metric: "+1,866% revenue in 45 days",
               },
               {
                 quote:
-                  "I was spending 18 hours a week on admin — estimates, invoices, QuickBooks. Now the AI handles it. Payment collection went from 21 days to 4.",
+                  "I was spending 18 hours a week on admin: estimates, invoices, QuickBooks. Now the AI handles it. Payment collection went from 21 days to 4.",
                 name: "Contracting business owner",
                 detail: "$2M revenue",
                 metric: "18+ hrs/week saved",
               },
               {
                 quote:
-                  "We added $420K in billable revenue in 90 days. The AI intake system routes every inquiry instantly — response time went from 48 hours to minutes.",
+                  "We added $420K in billable revenue in 90 days. The AI intake system routes every inquiry instantly. Response time went from 48 hours to minutes.",
                 name: "Law firm principal",
                 detail: "Mid-size firm",
                 metric: "$420K added in 90 days",
               },
               {
                 quote:
-                  "Revenue per recruiter nearly tripled. The AI matches candidates and writes outreach automatically — placements went from 5 to 14 per month.",
+                  "Revenue per recruiter nearly tripled. The AI matches candidates and writes outreach automatically, so placements went from 5 to 14 per month.",
                 name: "Staffing agency owner",
                 detail: "Regional agency",
                 metric: "$520K revenue per recruiter",
@@ -373,20 +373,18 @@ export function VSLBContent() {
       <section className="bg-white py-12 sm:py-16 px-4">
         <div className="max-w-[700px] mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-6">
-            Built by operators. Not consultants.
+            Built by operators, not consultants.
           </h2>
           <p className="text-text-secondary leading-relaxed mb-4">
             Capped Out Labs was built inside a supplement incubator that has
-            pushed over a billion in sales. We didn&apos;t learn
-            about business from a textbook — we learned it from scaling brands,
-            managing teams, and acquiring companies.
+            pushed over a billion in sales. We didn&apos;t learn business from a
+            textbook. We learned it scaling brands and acquiring companies.
           </p>
           <p className="text-text-secondary leading-relaxed mb-4">
-            When we saw what AI could do inside our own operations — replacing
-            manual processes, automating entire workflows, slashing costs — we
-            built a firm to deploy these exact systems into other
-            operators&apos; businesses. Sales, ops, intake, fulfillment — if
-            it runs on people and process, we can AI-ify it.
+            When we saw what AI could do inside our own operations, replacing
+            manual work and cutting costs, we built a firm to deploy those same
+            systems into other operators&apos; businesses. Sales, ops, intake,
+            fulfillment: if it runs on people and process, we can AI-ify it.
           </p>
           <p className="text-navy font-semibold">
             Every system we install is anchored to revenue metrics, not theory.
@@ -402,8 +400,8 @@ export function VSLBContent() {
             Three ways we deploy
           </h2>
           <p className="text-center text-text-secondary mb-10">
-            Every engagement is done-for-you. We build it. We install it. You
-            collect the revenue.
+            Every engagement is done-for-you: we build it, we install it, and
+            you collect the revenue.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -503,10 +501,10 @@ export function VSLBContent() {
           </h2>
           <p className="text-text-secondary leading-relaxed">
             If the AI systems we deploy don&apos;t generate measurable ROI
-            within the first 90 days, we keep working — at no additional cost —
-            until they do. We&apos;ve never had to invoke this because we
-            don&apos;t take clients we can&apos;t help. The qualification
-            process exists to protect both of us.
+            within the first 90 days, we keep working, at no extra cost, until
+            they do. We&apos;ve never had to invoke this because we don&apos;t
+            take clients we can&apos;t help. The qualification process exists to
+            protect both of us.
           </p>
         </div>
       </section>
@@ -521,27 +519,27 @@ export function VSLBContent() {
             {[
               {
                 q: "How is this different from every other AI consulting firm?",
-                a: "We don't consult. We deploy. You get production systems installed in your business — not a strategy deck and a handshake. Every system is built by operators who've scaled real businesses, not technologists who learned about business from a course.",
+                a: "We don't consult. We deploy. You get production systems installed in your business, not a strategy deck and a handshake. Every system is built by operators who've scaled real businesses, not technologists who learned about business from a course.",
               },
               {
                 q: "What kind of businesses do you work with?",
-                a: "Operators doing $500K–$50M+ in annual revenue who have bottlenecks that AI can solve — sales, operations, intake, fulfillment, customer service, anything that runs on people and process. We've deployed across contracting, law firms, med spas, staffing agencies, wholesale distribution, real estate, and creative agencies. We're not a fit for pre-revenue startups or businesses looking for chatbots.",
+                a: "Operators doing $500K–$50M+ in annual revenue who have bottlenecks that AI can solve: sales, operations, intake, fulfillment, customer service, anything that runs on people and process. We've deployed across contracting, law firms, med spas, staffing agencies, wholesale distribution, real estate, and creative agencies. We're not a fit for pre-revenue startups or businesses looking for chatbots.",
               },
               {
                 q: "How fast do you see results?",
-                a: "Most clients see measurable impact within 30–45 days. Results vary by deployment — one brand saw 1,866% revenue growth in 45 days, a law firm added $420K in billable revenue in 90 days, a contractor saved 18+ hours a week on admin. It depends on your bottleneck.",
+                a: "Most clients see measurable impact within 30–45 days. Results vary by deployment: one brand saw 1,866% revenue growth in 45 days, a law firm added $420K in billable revenue in 90 days, and a contractor saved 18+ hours a week on admin. It depends on your bottleneck.",
               },
               {
                 q: "Why do you only take 3 clients per month?",
-                a: "Because we embed with you. We're not shipping templates — we're building custom AI infrastructure for your specific business. That takes focused attention. More clients = worse results. We'd rather have 36 case studies a year than 360 mediocre deployments.",
+                a: "Because we embed with you. We're not shipping templates. We're building custom AI infrastructure for your specific business, and that takes focused attention. More clients = worse results. We'd rather have 36 case studies a year than 360 mediocre deployments.",
               },
               {
                 q: "What if AI doesn't work for my industry?",
-                a: "If your business runs on people and process, AI works. We've deployed across contracting, law firms, med spas, staffing agencies, wholesale distribution, real estate, digital agencies, and more. Sales, ops, intake, fulfillment — we've AI-ified all of it. The discovery call will tell us both if it's a fit.",
+                a: "If your business runs on people and process, AI works. We've deployed across contracting, law firms, med spas, staffing agencies, wholesale distribution, real estate, digital agencies, and more. Sales, ops, intake, fulfillment: we've AI-ified all of it. The discovery call will tell us both if it's a fit.",
               },
               {
                 q: "What does the discovery call look like?",
-                a: "30 minutes. We ask about your business, your bottlenecks, and your goals. If we can help, we'll tell you exactly how and what it costs. If we can't, we'll tell you that too. No pressure, no pitch deck, no follow-up spam.",
+                a: "30 minutes. We ask about your business, where it's stuck, and where you want to take it. If we can help, we'll tell you exactly how and what it costs. If we can't, we'll tell you that too, without the pitch deck or the follow-up spam.",
               },
             ].map((faq) => (
               <FAQItem key={faq.q} question={faq.q} answer={faq.a} />
@@ -559,9 +557,9 @@ export function VSLBContent() {
             <span className="text-amber-300">How long will you wait?</span>
           </h2>
           <p className="text-blue-200 mb-8 leading-relaxed">
-            Every month you run without AI infrastructure, you&apos;re paying
-            the &ldquo;manual tax&rdquo; — extra headcount, missed
-            opportunities, leaked revenue. The application takes 2 minutes.
+            Every month you run without AI infrastructure, you pay the
+            &ldquo;manual tax&rdquo;: extra headcount and leaked revenue. The
+            application takes 2 minutes.
           </p>
 
           <button
@@ -674,7 +672,7 @@ export function VSLBContent() {
               </div>
 
               <h3 className="text-2xl font-bold text-navy">
-                Wait — don&apos;t leave money on the table
+                Wait, don&apos;t leave money on the table
               </h3>
               <p className="mt-3 text-text-secondary text-sm leading-relaxed">
                 Operators who deploy AI see 90% lower acquisition costs and 3x

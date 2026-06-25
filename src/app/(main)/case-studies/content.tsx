@@ -15,11 +15,11 @@ const caseStudies = [
     tag: "Tier 2 · 45 days of live data",
     industry: "Sales Infrastructure",
     challenge:
-      "A portfolio brand running $94K in ad spend was generating leads the sales process couldn't convert. Closers spent 20–30 minutes on manual pre-call research. Follow-up took 30–60 minutes per call. Show rate was 26.3% — nearly 3 out of 4 booked calls were no-shows. Every rep was running their own system, which meant no system at all.",
+      "A portfolio brand running $94K in ad spend was generating leads the sales process couldn't convert. Closers spent 20–30 minutes on manual pre-call research. Follow-up took 30–60 minutes per call. Show rate was 26.3%. Nearly 3 out of 4 booked calls were no-shows. Every rep was running their own system, which meant no system at all.",
     built: [
       "Layer 1 — Pre-call intelligence: Clay/Apollo enrichment, buyer type classification (Visionary, Analyst, Connector, Skeptic). Drove show rate from 26.3% to 77.9%.",
       "Layer 2 — Live call assistance: Real-time signal detection via Deepgram through Recall.ai on Google Meet. Close rate improved from 19.5% to 26.0%.",
-      "Layer 3 — Post-call automation: HeyGen video scripts, partner emails, and tracked deal rooms generated in seconds — not the 30–60 minutes it used to take.",
+      "Layer 3 — Post-call automation: HeyGen video scripts, partner emails, and tracked deal rooms generated in seconds, down from the 30–60 minutes it used to take.",
     ],
     stack: "GHL · Google Meet · Deepgram · Claude API (claude-sonnet-4-6) · Recall.ai · HeyGen",
     result:
@@ -28,7 +28,7 @@ const caseStudies = [
     metric: "+1,866%",
     metricLabel: "revenue growth in 45 days",
     quote:
-      "We were spending serious money on ads and watching leads disappear. The closer didn't have the right information before the call, follow-up was an afterthought, and every rep was running their own system — which meant no system at all.",
+      "We were spending serious money on ads and watching leads disappear. The closer didn't have the right information before the call, follow-up was an afterthought, and every rep was running their own system, which meant no system at all.",
     quoteAttribution: "Portfolio Operator, Digital Incubator",
     stats: [
       { value: "23.4x", label: "ROAS" },
@@ -49,7 +49,7 @@ const caseStudies = [
       "Voice command engine: Web Speech API + Claude API, 6 intent types, VoiceConfirmCard confirmation pattern",
       "Client-facing estimate approval portal with real-time tracking and auto-follow-up",
       "Automated invoicing and payment tracking via Stripe, with overdue reminders via Resend and Twilio",
-      "QuickBooks CSV export — zero manual data entry",
+      "QuickBooks CSV export with zero manual data entry",
     ],
     stack: "Next.js 14, TypeScript, Tailwind, Prisma/PostgreSQL, Supabase, Stripe, Resend, Twilio",
     result:
@@ -65,7 +65,7 @@ const caseStudies = [
     tag: "Tier 2 · Professional Services",
     industry: "Professional Services",
     challenge:
-      "Intake was handled manually — phone messages transcribed by hand, web form submissions sitting in a shared inbox. The principal was spending 22 hours a week on admin. Lead response time averaged 36–48 hours and proposal close rate sat at 19%.",
+      "Intake was handled manually: phone messages transcribed by hand, web form submissions sitting in a shared inbox. The principal was spending 22 hours a week on admin. Lead response time averaged 36–48 hours and proposal close rate sat at 19%.",
     built: [
       "AI intake digitizer that captures and routes inquiries across phone, web, and email instantly",
       "Precedent intelligence engine pulling relevant case outcomes for preliminary analysis",
@@ -127,7 +127,7 @@ const caseStudies = [
     challenge:
       "Every order required 52 minutes of manual handling. Four full-time CS staff managed the volume. Reorder rates sat at 22% because nobody was tracking when customers needed to restock.",
     built: [
-      "Automated order processing — parsing SKUs, quantities, pricing tiers from email, phone, and portal",
+      "Automated order processing that parses SKUs, quantities, and pricing tiers from email, phone, and portal",
       "Predictive reorder engine with 94% accuracy on timing predictions",
       "Conversational AI for customer inquiries across phone, email, and chat",
       "Proactive upsell messaging based on order history and product affinity",
@@ -166,7 +166,7 @@ const caseStudies = [
     challenge:
       "Running at 18% margins. Proposals took 9 days from discovery call. Onboarding stretched to 18 days. 25 hours monthly compiling reports that were outdated by the time they shipped.",
     built: [
-      "Instant proposal generator from discovery call transcript — scope, pricing, and timeline in hours",
+      "Instant proposal generator from a discovery call transcript: scope, pricing, and timeline in hours",
       "Automated onboarding workflows: welcome sequences, asset collection, project provisioning",
       "Real-time AI reporting dashboard with narrative summaries updating live for clients",
     ],
@@ -198,7 +198,7 @@ export function CaseStudiesContent() {
             variants={fadeUp}
             className="text-base text-text-secondary leading-relaxed max-w-2xl mx-auto mb-8"
           >
-            From law firms to staffing agencies to real estate teams — documented before and after results from production AI systems across 8 industries.
+            Documented before and after numbers from production AI systems running inside law firms, staffing agencies, real estate teams, and businesses across 8 industries.
           </motion.p>
           <motion.h1
             variants={fadeUp}
@@ -210,7 +210,7 @@ export function CaseStudiesContent() {
             variants={fadeUp}
             className="mt-6 text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto"
           >
-            Not pilots. Not prototypes. Working AI infrastructure inside real businesses.
+            These aren&apos;t pilots or prototypes. It&apos;s working AI infrastructure running inside real businesses.
           </motion.p>
         </motion.div>
       </section>

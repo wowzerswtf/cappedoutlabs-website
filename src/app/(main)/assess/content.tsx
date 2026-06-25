@@ -19,7 +19,7 @@ const assessFaqs = [
   },
   {
     question: "How long does the assessment take?",
-    answer: "About 30 seconds. There are 5 multiple-choice questions — you click your answer and it auto-advances to the next question. No typing required beyond your name and email.",
+    answer: "About 30 seconds. There are 5 multiple-choice questions, and clicking an answer moves you straight to the next one. No typing required beyond your name and email.",
   },
   {
     question: "Is the assessment really free?",
@@ -99,7 +99,7 @@ export function AssessContent() {
             className="mt-4 text-lg text-text-secondary max-w-2xl mx-auto"
           >
             5 questions. Personalized assessment. Delivered to your inbox in
-            seconds — with your readiness score, biggest opportunity, and a
+            seconds, with your readiness score, biggest opportunity, and a
             90-day roadmap.
           </motion.p>
         </motion.div>

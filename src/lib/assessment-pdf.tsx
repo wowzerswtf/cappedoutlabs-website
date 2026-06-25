@@ -524,7 +524,7 @@ function AssessmentPDFDocument(props: AssessmentPDFProps) {
         <Text style={s.coverBrand}>Capped Out Labs</Text>
         <Text style={s.coverTitle}>AI Readiness{"\n"}Assessment</Text>
         <Text style={s.coverSubtitle}>
-          Personalized analysis and strategic roadmap
+          Your personalized analysis and 90-day plan
         </Text>
 
         <View
@@ -640,7 +640,7 @@ function AssessmentPDFDocument(props: AssessmentPDFProps) {
           <RoadmapPhase
             number={1}
             title="Days 1-30: Audit & Architecture"
-            detail="Map your current workflows, identify the highest-leverage automation targets, and design the AI infrastructure blueprint."
+            detail="We map your current workflows, find the highest-leverage things to automate, and design the build."
           />
           <RoadmapPhase
             number={2}
@@ -650,7 +650,7 @@ function AssessmentPDFDocument(props: AssessmentPDFProps) {
           <RoadmapPhase
             number={3}
             title="Days 61-90: Optimize & Handoff"
-            detail="Fine-tune performance, train your team with recorded SOPs, and ensure the systems run independently."
+            detail="We tune performance, train your team with recorded SOPs, and hand it off so the systems run on their own."
           />
         </View>
 
@@ -661,11 +661,11 @@ function AssessmentPDFDocument(props: AssessmentPDFProps) {
 
         <BulletPoint
           boldText="We think in exits."
-          text="Every system we build is designed to increase enterprise value, not just automate a task."
+          text="Every system we build is meant to raise enterprise value, not just check a box off a list."
         />
         <BulletPoint
           boldText="Production, not prototypes."
-          text="60% of AI projects never make it to production. Ours ship, perform, and compound."
+          text="60% of AI projects never make it to production. Ours ship and keep compounding."
         />
         <BulletPoint
           boldText="Operator-built."
@@ -683,8 +683,8 @@ function AssessmentPDFDocument(props: AssessmentPDFProps) {
             <Text style={s.ctaBody}>
               Book a free 30-minute AI Infrastructure Discovery Call.
               {"\n\n"}
-              We'll map your specific bottleneck to a 90-day build plan
-              — no pitch deck, no filler.
+              We'll map your specific bottleneck to a 90-day build plan.
+              No pitch deck, no filler.
             </Text>
             <Link src="https://calendly.com/cappedoutmedia/ai-assessment-meeting">
               <View style={s.ctaButton}>
@@ -705,10 +705,10 @@ function AssessmentPDFDocument(props: AssessmentPDFProps) {
           <>
             <Text style={s.ctaTitle}>Your Next Step</Text>
             <Text style={s.ctaBody}>
-              You're not quite ready for a full build — but you're
+              You're not quite ready for a full build, but you're
               closer than you think.
               {"\n\n"}
-              We send weekly operator intelligence that helps businesses
+              We send weekly operator intelligence to help businesses
               like yours get AI-ready.
             </Text>
             <Link src="https://cappedoutlabs.com/resources">

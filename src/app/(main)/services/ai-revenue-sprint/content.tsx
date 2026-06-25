@@ -12,7 +12,7 @@ const faqs = [
   { question: "What happens in the AI Revenue Sprint?", answer: "Week 1: AI readiness audit across sales, ops, fulfillment, and CS. We identify every workflow where AI can move a revenue metric. Week 2: We build the single highest-leverage workflow live in your environment, test it, and deploy it. You get 30 days of support after deployment." },
   { question: "What kind of results can I expect from a sprint?", answer: "It depends on the workflow we build. In one sprint, a pre-call intelligence system drove show rate from 26.3% to 77.9%. The sprint identifies and builds the workflow with the highest revenue impact in your specific business." },
   { question: "Do I need a technical team for the sprint?", answer: "No. We build, deploy, and support the system. Your team needs to be available for interviews during the audit week and for training during deployment. No technical skills required." },
-  { question: "What if I want to do more after the sprint?", answer: "Every sprint includes a scoped SOW for Tier 2 (AI Revenue Infrastructure). You'll know exactly what the next engagement looks like, what it costs, and what it delivers. No pressure — the sprint stands on its own." },
+  { question: "What if I want to do more after the sprint?", answer: "Every sprint includes a scoped SOW for Tier 2 (AI Revenue Infrastructure). You'll know exactly what the next engagement looks like and what it costs. There's no pressure to continue. The sprint is worth doing on its own." },
   { question: "Is $15K refundable if I'm not satisfied?", answer: "We scope every sprint against a specific, measurable workflow before starting. If the audit reveals that AI won't meaningfully move your numbers, we'll tell you before you invest in the build phase." },
 ];
 
@@ -43,7 +43,7 @@ export function ServiceDetailContent() {
             <span className="text-text-secondary">2 weeks</span>
           </motion.div>
           <motion.p variants={fadeUp} className="mt-6 text-lg text-text-secondary leading-relaxed max-w-2xl">
-            The fastest way to see what AI can do for your business. A full readiness audit plus one high-leverage workflow built, deployed, and supported.
+            The fastest way to see what AI can do for your business: a full readiness audit, plus one high-leverage workflow built and deployed in your environment.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-8">
             <Button asChild className="bg-navy hover:bg-navy-light text-white rounded-xl px-8 h-12 text-base font-semibold shadow-lg shadow-navy/20">
@@ -72,7 +72,7 @@ export function ServiceDetailContent() {
       <section className="bg-surface">
         <div className="mx-auto max-w-3xl px-6 lg:px-8 py-16 lg:py-20">
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-2xl border border-border bg-white p-6 lg:p-8">
-            <p className="text-sm font-semibold text-electric mb-2">Sprint result — Closer OS</p>
+            <p className="text-sm font-semibold text-electric mb-2">Sprint result: Closer OS</p>
             <p className="text-text-primary leading-relaxed">A single pre-call intelligence workflow built in a sprint drove show rate from 26.3% to 77.9% and was the foundation for a full engagement that grew revenue from $200K to $3.9M in 45 days.</p>
             <Link href="/case-studies/portfolio-brand-ai-sales-infrastructure" className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric mt-4 hover:text-electric-dark transition-colors">
               View the full case study <ArrowRight className="h-3.5 w-3.5" />

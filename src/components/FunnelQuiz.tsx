@@ -59,7 +59,7 @@ function ExitIntentPopup({
         className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 text-center"
       >
         <h3 className="text-2xl font-bold text-navy">
-          Wait — your results are almost ready
+          Wait, your results are almost ready
         </h3>
         <p className="mt-3 text-text-secondary">
           You&apos;re seconds away from seeing exactly where AI can move the

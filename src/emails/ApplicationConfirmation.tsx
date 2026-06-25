@@ -29,7 +29,7 @@ export function ApplicationConfirmation({
   return (
     <Html>
       <Head />
-      <Preview>We got your application, {firstName} — here&apos;s what happens next.</Preview>
+      <Preview>We got your application, {firstName}. Here&apos;s what happens next.</Preview>
       <Body style={main}>
         {/* Navy header bar */}
         <Section style={header}>
@@ -41,7 +41,7 @@ export function ApplicationConfirmation({
 
           <Text style={paragraph}>Hi {firstName},</Text>
           <Text style={paragraph}>
-            Your application to Capped Out Labs is received.
+            We&apos;ve received it and it&apos;s in our review queue.
           </Text>
           <Text style={paragraph}>Here&apos;s what happens next:</Text>
 
@@ -98,8 +98,8 @@ export function ApplicationConfirmation({
           <Hr style={hr} />
 
           <Text style={paragraph}>
-            While you wait, watch the VSL if you haven&apos;t already — it explains
-            exactly how we work and what the systems look like in production.
+            While you wait, watch the VSL if you haven&apos;t already. It explains
+            how we work and what the systems look like in production.
           </Text>
 
           {/* CTA Button */}

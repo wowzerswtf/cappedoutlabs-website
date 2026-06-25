@@ -23,7 +23,7 @@ const systems = [
   {
     name: "Instant Proposal Generator",
     description:
-      "Discovery call transcripts are analyzed by AI to extract scope, deliverables, timelines, and budget signals. A complete proposal — with pricing, timeline, and scope of work — is generated and ready for review within hours of the call. What took 9 days now ships in under 24 hours.",
+      "Discovery call transcripts are analyzed by AI to extract scope, deliverables, timelines, and budget signals. A complete proposal (pricing, timeline, and scope of work) is generated and ready for review within hours of the call. What took 9 days now ships in under 24 hours.",
   },
   {
     name: "Automated Client Onboarding",
@@ -33,7 +33,7 @@ const systems = [
   {
     name: "Real-time AI Reporting Dashboard",
     description:
-      "Client-facing dashboards update live with campaign performance, deliverable status, and key metrics. The AI generates narrative summaries and actionable insights — no more spending 25 hours a month pulling data into spreadsheets and writing reports.",
+      "Client-facing dashboards update live with campaign performance, deliverable status, and the metrics clients care about. The AI writes the narrative summaries and flags what needs attention, so nobody spends 25 hours a month pulling data into spreadsheets and writing reports.",
   },
 ];
 
@@ -153,7 +153,7 @@ export function DigitalAgencyContent() {
             className="space-y-4 text-text-secondary leading-relaxed text-lg"
           >
             <p>
-              A digital creative agency was running at 18% margins — thin enough that a single bad month threatened profitability. The bottleneck wasn&apos;t client acquisition. It was the operational overhead between signing a deal and delivering results.
+              A digital creative agency was running at 18% margins, thin enough that a single bad month threatened profitability. The bottleneck was the operational overhead between signing a deal and delivering results, not client acquisition.
             </p>
             <p>
               Proposals took 9 days from discovery call to send. Client onboarding stretched to 18 days. And every month, the team burned 25 hours compiling reports that were outdated by the time they shipped. The agency was growing revenue but shrinking margins because every new client added more manual operational load.
@@ -237,7 +237,7 @@ export function DigitalAgencyContent() {
           >
             <p className="text-sm font-semibold text-navy mb-2">Key insight</p>
             <p className="text-text-secondary leading-relaxed">
-              The margin jump from 18% to 41% didn&apos;t come from raising prices or cutting creative talent. It came from eliminating the operational overhead that was eating into every engagement. Proposals, onboarding, and reporting — the three biggest time sinks — went from consuming weeks of labor to running autonomously. The agency could take on more clients without adding operational headcount.
+              The margin jump from 18% to 41% didn&apos;t come from raising prices or cutting creative talent. It came from eliminating the operational overhead that was eating into every engagement. Proposals, onboarding, and reporting were the three biggest time sinks, and all three went from weeks of labor to running on their own. The agency could take on more clients without adding operational headcount.
             </p>
           </motion.div>
         </div>

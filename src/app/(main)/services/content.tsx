@@ -26,7 +26,7 @@ const tierDetails = [
       "Clear ascension path to Tier 2 with scoped SOW",
     ],
     outcome:
-      "A working AI system in production, a documented audit of your highest-leverage opportunities, and a clear path to scale.",
+      "A working AI system in production. You also get a documented audit of your highest-leverage opportunities and a scoped path to scale.",
   },
   {
     name: "AI Revenue Infrastructure",
@@ -53,7 +53,7 @@ const tierDetails = [
     price: "$200K–$500K+",
     timeline: "3–6 months",
     applyValue: "Full Transformation $200K+",
-    proof: "→ 200+ production AI systems deployed across 30+ verticals — from sales automation to full operational infrastructure",
+    proof: "→ 200+ production AI systems deployed across 30+ verticals, from sales automation to full operational infrastructure",
     whoFor:
       "Operators preparing for acquisition who need AI systematization across the entire business.",
     deliverables: [
@@ -63,7 +63,7 @@ const tierDetails = [
       "Complete documentation for due diligence",
     ],
     outcome:
-      "A business positioned for a premium exit multiple. Systems, not headcount, driving revenue. Acquirer-ready documentation.",
+      "A business positioned for a premium exit multiple, where systems drive revenue instead of people, with documentation an acquirer can actually diligence.",
   },
   {
     name: "Equity / Rev-Share",
@@ -71,14 +71,14 @@ const tierDetails = [
     price: "No upfront cost",
     timeline: "Flexible",
     applyValue: "Equity / Rev-Share",
-    proof: "→ Our portfolio brands have scaled from zero to eight figures — we only take equity when we know we can deliver",
+    proof: "→ Our portfolio brands have scaled from zero to eight figures. We only take equity when we know we can deliver",
     whoFor:
-      "Operators with businesses that have real upside — where our incentives align with yours.",
+      "Operators with real upside in the business, where our incentives line up with yours.",
     deliverables: [
       "3–10% equity OR 10–20% revenue share on incremental lift",
       "Same deliverables as Tier 1 or Tier 2 engagements",
       "12–24 month revenue share window",
-      "Business evaluation before engagement — we assess the operator and the opportunity",
+      "Business evaluation before engagement: we assess the operator and the opportunity",
     ],
     outcome:
       "Aligned incentives. We make money when you make money. Same build quality, different payment structure.",
@@ -95,11 +95,11 @@ const processSteps = [
 const faqs: FAQItem[] = [
   {
     question: "We tried AI before and it didn't work.",
-    answer: "Almost every time we hear this, what happened is someone installed a tool and hoped the team would use it. Installing tools is not transformation. Building systems is. We've never walked away from a client because their previous attempt failed — we use it as a diagnostic.",
+    answer: "Almost every time we hear this, someone installed a tool and hoped the team would use it. A tool nobody uses isn't transformation. We build systems people actually run, and we've never walked away from a client because their last attempt failed. We treat it as a diagnostic.",
   },
   {
     question: "Our data is a mess. Are we ready?",
-    answer: "Data readiness is part of what we audit in week one. Most clients aren't ready — that's normal and expected. It's not a blocker.",
+    answer: "Data readiness is part of what we audit in week one. Most clients aren't ready when we start, and that's fine. It doesn't block anything.",
   },
   {
     question: "We already have someone working on AI internally.",
@@ -107,7 +107,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "What does the equity path actually look like?",
-    answer: "We take 3–10% equity or a 10–20% revenue share on the incremental lift we create, for 12–24 months. We evaluate the business, the operator, and the upside — not the ability to write a check. Apply and we'll have the conversation.",
+    answer: "We take 3–10% equity or a 10–20% revenue share on the incremental lift we create, for 12–24 months. We evaluate the business and the operator, not the ability to write a check. Apply and we'll have the conversation.",
   },
   {
     question: "How is this different from hiring an AI consultant?",
@@ -136,7 +136,7 @@ export function ServicesContent() {
             variants={fadeUp}
             className="text-base text-text-secondary leading-relaxed max-w-2xl mx-auto mb-8"
           >
-            An AI transformation engagement delivers production systems your team uses daily — not a strategy deck. Depending on the tier, you get an AI readiness audit, 1–5+ rebuilt workflows, staff training with recorded SOPs, and a 30–90 day managed handoff. Every deliverable is anchored to a revenue metric.
+            An AI transformation engagement delivers production systems your team uses daily, not a strategy deck. Depending on the tier, you get an AI readiness audit, 1–5+ rebuilt workflows, staff training with recorded SOPs, and a 30–90 day managed handoff. Every deliverable ties back to a revenue metric.
           </motion.p>
           <motion.h1
             variants={fadeUp}
@@ -148,8 +148,8 @@ export function ServicesContent() {
             variants={fadeUp}
             className="mt-6 text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto"
           >
-            Choose your entry point. Every path leads to the same place: a
-            business that runs leaner, closes faster, and exits at a premium.
+            Choose your entry point. They all lead to the same place: a
+            business that runs leaner and exits at a premium.
           </motion.p>
         </motion.div>
       </section>

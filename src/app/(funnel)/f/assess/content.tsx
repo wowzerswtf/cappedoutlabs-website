@@ -42,7 +42,7 @@ const whatYouGet = [
   {
     icon: BarChart3,
     title: "AI Readiness Score",
-    desc: "Scored across 5 dimensions — see exactly where you stand",
+    desc: "Scored across 5 dimensions so you see exactly where you stand",
   },
   {
     icon: TrendingUp,
@@ -116,7 +116,7 @@ export function FunnelAssessContent() {
             className="mt-4 text-base sm:text-lg text-text-secondary max-w-2xl mx-auto"
           >
             5 questions. 30 seconds. Get your personalized AI readiness score,
-            biggest opportunity, and a 90-day implementation roadmap — free.
+            biggest opportunity, and a 90-day implementation roadmap. Free.
           </motion.p>
 
           {/* Proof strip — social proof above the fold */}
@@ -215,7 +215,7 @@ export function FunnelAssessContent() {
                 >
                   <p className="text-sm text-navy italic leading-relaxed">
                     &ldquo;Revenue went from $200K to $3.9M in 45 days. The AI
-                    infrastructure replaced our entire manual process — show
+                    infrastructure replaced our entire manual process. Show
                     rate tripled, CAC dropped 90%. The assessment nailed
                     exactly where to start.&rdquo;
                   </p>
@@ -332,9 +332,9 @@ export function FunnelAssessContent() {
                   {[
                     "Sales team does 2x with same headcount",
                     "Operations run without you",
-                    "Data-driven decisions in real time",
+                    "Decisions based on live numbers",
                     "Business valued higher at exit",
-                    "Compounding efficiency gains",
+                    "Efficiency gains that stack up",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-success mt-0.5 shrink-0" />

@@ -17,12 +17,12 @@ const systems = [
   {
     name: "Voice Command Engine",
     description:
-      "Web Speech API + Claude API with 6 intent types and VoiceConfirmCard confirmation pattern. The operator creates estimates, schedules jobs, and logs notes by speaking — no typing, no forms.",
+      "Web Speech API + Claude API with 6 intent types and VoiceConfirmCard confirmation pattern. The operator creates estimates, schedules jobs, and logs notes by speaking, without typing or filling out forms.",
   },
   {
     name: "Client Estimate Portal",
     description:
-      "Client-facing estimate approval portal with real-time tracking and auto-follow-up. Clients review, approve, and sign estimates online. No more phone tag or paper signatures.",
+      "Client-facing estimate approval portal with real-time tracking and auto-follow-up. Clients review, approve, and sign estimates online instead of playing phone tag or chasing paper signatures.",
   },
   {
     name: "Automated Invoicing & Payments",
@@ -32,7 +32,7 @@ const systems = [
   {
     name: "QuickBooks CSV Export",
     description:
-      "Automated financial data export — zero manual QuickBooks entry. Every invoice, payment, and expense flows automatically into the accounting system.",
+      "Automated financial data export with zero manual QuickBooks entry. Every invoice, payment, and expense flows into the accounting system on its own.",
   },
 ];
 

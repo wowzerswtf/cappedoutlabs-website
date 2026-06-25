@@ -29,9 +29,9 @@ export function PlaybookDelivery({ email: _email }: PlaybookDeliveryProps) {
           <Heading style={h1}>Your playbook is ready.</Heading>
 
           <Text style={paragraph}>
-            Here is the AI Revenue Infrastructure Playbook — the exact 3-layer
-            framework we used to take a portfolio brand from $200K to $3.9M in
-            45 days.
+            Here&apos;s the AI Revenue Infrastructure Playbook. It&apos;s the exact
+            3-layer framework we used to take a portfolio brand from $200K to
+            $3.9M in 45 days.
           </Text>
 
           <Section style={{ textAlign: "center" as const, margin: "28px 0" }}>
@@ -59,8 +59,8 @@ export function PlaybookDelivery({ email: _email }: PlaybookDeliveryProps) {
                   <td style={stepContent}>
                     <Text style={stepTitle}>The 3-Layer System</Text>
                     <Text style={stepDetail}>
-                      Pre-call intelligence, live call assistance, post-call
-                      automation — how each layer compounds.
+                      Pre-call intelligence, live call assistance, and post-call
+                      automation, plus how each layer builds on the last.
                     </Text>
                   </td>
                 </tr>
@@ -95,9 +95,9 @@ export function PlaybookDelivery({ email: _email }: PlaybookDeliveryProps) {
           <Hr style={hr} />
 
           <Text style={paragraph}>
-            If you want to find out which process in your business would benefit
-            most from this framework, apply for a discovery call. We will map it
-            out for you.
+            Want to know which process in your business would benefit most from
+            this framework? Apply for a discovery call and we&apos;ll map it out
+            for you.
           </Text>
 
           <Section style={{ textAlign: "center" as const, margin: "28px 0" }}>

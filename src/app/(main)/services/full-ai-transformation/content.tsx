@@ -9,8 +9,8 @@ import { FAQSchema } from "@/components/SchemaMarkup";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
 const faqs = [
-  { question: "What does 'full transformation' actually mean?", answer: "Every department \u2014 sales, ops, fulfillment, CS, finance, reporting \u2014 gets rebuilt with AI agents handling repetitive workflows. You end up with a business that runs on documented, optimized AI systems instead of manual processes. This is infrastructure-level change, not bolt-on tools." },
-  { question: "How does this affect exit multiples?", answer: "Acquirers pay premiums for businesses with documented, scalable infrastructure. AI-native operations reduce key-person risk, demonstrate operational maturity, and show clear paths to margin expansion. The governance framework and due-diligence documentation we build are specifically designed for this." },
+  { question: "What does 'full transformation' actually mean?", answer: "Every department (sales, ops, fulfillment, CS, finance, reporting) gets rebuilt with AI agents that handle the repetitive work. You end up with a business running on documented, optimized AI systems instead of manual processes. This is infrastructure-level change, not bolt-on tools." },
+  { question: "How does this affect exit multiples?", answer: "Acquirers pay premiums for businesses with documented, scalable infrastructure. AI-native operations cut key-person risk and give a buyer a clear read on how margins expand. The governance framework and due-diligence documentation we build are made for exactly that review." },
   { question: "What is the typical timeline for a full transformation?", answer: "3\u20136 months depending on company size and complexity. Month 1 covers audit and architecture. Months 2\u20134 are build and deployment across departments. The remaining time is optimization, documentation, and handoff. Larger organizations with more departments trend toward 6 months." },
   { question: "What acquirer documentation do you produce?", answer: "A complete AI infrastructure package: system architecture diagrams, workflow documentation, governance protocols, performance benchmarks, staff competency records, optimization histories, and executive dashboards. Everything an acquirer\u2019s technical due-diligence team needs to see." },
   { question: "Who qualifies for a Tier 3 engagement?", answer: "Businesses doing $3M+ annually with at least 10 employees across multiple departments. You need enough operational surface area to justify a full transformation. If you\u2019re not sure, apply and we\u2019ll tell you whether Tier 2 or Tier 3 is the right fit." },
@@ -36,7 +36,7 @@ export function ServiceDetailContent() {
               <ArrowLeft className="h-3 w-3" /> All Services
             </Link>
           </motion.div>
-          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-electric mb-3">Tier 3 &mdash; Exit prep</motion.p>
+          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-electric mb-3">Tier 3: Exit prep</motion.p>
           <motion.h1 variants={fadeUp} className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy leading-tight">Full AI Transformation</motion.h1>
           <motion.div variants={fadeUp} className="mt-4 flex items-baseline gap-3">
             <span className="text-3xl font-bold font-mono text-text-primary">$200K&ndash;$500K+</span>

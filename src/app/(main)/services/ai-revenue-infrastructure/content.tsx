@@ -36,7 +36,7 @@ export function ServiceDetailContent() {
               <ArrowLeft className="h-3 w-3" /> All Services
             </Link>
           </motion.div>
-          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-electric mb-3">Tier 2 &mdash; Most popular</motion.p>
+          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-electric mb-3">Tier 2: Most popular</motion.p>
           <motion.h1 variants={fadeUp} className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy leading-tight">AI Revenue Infrastructure</motion.h1>
           <motion.div variants={fadeUp} className="mt-4 flex items-baseline gap-3">
             <span className="text-3xl font-bold font-mono text-text-primary">$50K&ndash;$150K</span>
@@ -72,7 +72,7 @@ export function ServiceDetailContent() {
       <section className="bg-surface">
         <div className="mx-auto max-w-3xl px-6 lg:px-8 py-16 lg:py-20">
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-2xl border border-border bg-white p-6 lg:p-8">
-            <p className="text-sm font-semibold text-electric mb-2">Tier 2 result &mdash; Closer OS</p>
+            <p className="text-sm font-semibold text-electric mb-2">Tier 2 result: Closer OS</p>
             <p className="text-text-primary leading-relaxed">A full Tier 2 engagement grew revenue from $200K to $3.9M, dropped CAC by 90%, and achieved 23.4x ROAS in 45 days.</p>
             <Link href="/case-studies/portfolio-brand-ai-sales-infrastructure" className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric mt-4 hover:text-electric-dark transition-colors">
               View the full case study <ArrowRight className="h-3.5 w-3.5" />

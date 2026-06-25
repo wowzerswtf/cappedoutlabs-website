@@ -93,10 +93,10 @@ export function PrivacyContent() {
       <h3 className="font-semibold text-navy pt-2">3. Third-Party Services</h3>
       <p>We use the following third-party services to process your information:</p>
       <ul className="list-disc pl-5 space-y-1">
-        <li><strong>GoHighLevel</strong> — CRM and pipeline management for application processing</li>
-        <li><strong>Resend</strong> — transactional email delivery for application confirmations</li>
-        <li><strong>Vercel</strong> — website hosting and analytics</li>
-        <li><strong>Vimeo</strong> — video hosting and playback</li>
+        <li><strong>GoHighLevel</strong>: CRM and pipeline management for application processing</li>
+        <li><strong>Resend</strong>: transactional email delivery for application confirmations</li>
+        <li><strong>Vercel</strong>: website hosting and analytics</li>
+        <li><strong>Vimeo</strong>: video hosting and playback</li>
       </ul>
       <p>Each third-party service has its own privacy policy governing their use of your data.</p>
 
@@ -196,7 +196,7 @@ export function TermsContent() {
 
       <h3 className="font-semibold text-navy pt-2">5. Intellectual Property</h3>
       <p>
-        All content on this website — including text, graphics, logos, videos, and design —
+        All content on this website, including text, graphics, logos, videos, and design,
         is the property of Capped Out Labs, LLC and is protected by applicable intellectual
         property laws. You may not reproduce, distribute, or create derivative works from
         our content without written permission.

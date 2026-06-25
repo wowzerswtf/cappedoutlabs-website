@@ -29,7 +29,7 @@ export function VSLEmbed({ src }: VSLEmbedProps) {
           <Play className="h-6 w-6 text-navy ml-0.5" />
         </div>
         <p className="text-text-secondary text-sm font-medium">
-          VSL loads here — paste HeyGen URL
+          VSL loads here. Paste the HeyGen URL.
         </p>
       </div>
     </div>

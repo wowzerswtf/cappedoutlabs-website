@@ -9,10 +9,10 @@ import { FAQSchema } from "@/components/SchemaMarkup";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
 const faqs = [
-  { question: "How do you decide which businesses qualify?", answer: "We evaluate revenue trajectory, operational complexity, market position, and leadership quality. We\u2019re looking for businesses where AI infrastructure will create measurable, attributable lift \u2014 not speculative upside. If we can\u2019t model the return, we don\u2019t engage." },
+  { question: "How do you decide which businesses qualify?", answer: "We evaluate revenue trajectory, operational complexity, market position, and leadership quality. We\u2019re looking for businesses where AI infrastructure creates measurable, attributable lift, not speculative upside. If we can\u2019t model the return, we don\u2019t engage." },
   { question: "How do you choose between equity and revenue share?", answer: "It depends on the business stage and our engagement scope. Revenue share (10\u201320% on incremental lift) works best for businesses with clear, measurable workflows where we can isolate AI-driven revenue. Equity (3\u201310%) suits businesses where the transformation is broader and the value accrues over time, especially pre-exit." },
   { question: "What does the business evaluation process look like?", answer: "We review financials, operations, team structure, and growth trajectory. This typically takes 1\u20132 weeks and includes calls with leadership. We\u2019re assessing whether AI infrastructure will generate enough lift to justify our investment of time and resources. Most applicants hear back within 10 business days." },
-  { question: "What happens if the engagement doesn't produce results?", answer: "Revenue share is calculated on incremental lift \u2014 if there\u2019s no lift, there\u2019s no payment. For equity deals, we negotiate clawback or vesting structures that protect both sides. We don\u2019t take equity in businesses where we aren\u2019t confident we can move the numbers." },
+  { question: "What happens if the engagement doesn't produce results?", answer: "Revenue share is calculated on incremental lift. No lift, no payment. For equity deals, we negotiate clawback or vesting structures that protect both sides. We don\u2019t take equity in businesses where we aren\u2019t confident we can move the numbers." },
   { question: "What does a typical deal structure look like?", answer: "Revenue share: 10\u201320% on attributable incremental revenue over a 12\u201324 month window, with clear measurement methodology agreed upfront. Equity: 3\u201310% vesting over 12\u201324 months tied to milestone delivery. Both include the same deliverables as Tier 1 or Tier 2 engagements." },
 ];
 
@@ -36,7 +36,7 @@ export function ServiceDetailContent() {
               <ArrowLeft className="h-3 w-3" /> All Services
             </Link>
           </motion.div>
-          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-electric mb-3">Tier 4 &mdash; Selective</motion.p>
+          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest text-electric mb-3">Tier 4: Selective</motion.p>
           <motion.h1 variants={fadeUp} className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy leading-tight">Equity & Rev-Share</motion.h1>
           <motion.div variants={fadeUp} className="mt-4 flex items-baseline gap-3">
             <span className="text-3xl font-bold font-mono text-text-primary">No upfront cost</span>

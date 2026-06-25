@@ -19,19 +19,19 @@ const layers = [
   {
     name: "Layer 1 — Pre-Call Intelligence",
     description:
-      "Clay and Apollo enrichment pipelines pull company data, revenue signals, and LinkedIn activity for every booked lead. Claude API classifies each prospect into one of four buyer types — Visionary, Analyst, Connector, Skeptic — and generates a one-page brief with recommended talking points, likely objections, and the value proposition most likely to resonate.",
+      "Clay and Apollo enrichment pipelines pull company data, revenue signals, and LinkedIn activity for every booked lead. Claude API classifies each prospect into one of four buyer types (Visionary, Analyst, Connector, Skeptic) and generates a one-page brief with recommended talking points, likely objections, and the value proposition most likely to land.",
     result: "Show rate: 26.3% → 77.9%",
   },
   {
     name: "Layer 2 — Live Call Assistance",
     description:
-      "Real-time signal detection via Deepgram through Recall.ai on Google Meet. The system identifies objections, buying indicators, and competitor mentions during calls, delivering contextual prompts to the closer without disrupting conversation flow.",
+      "Real-time signal detection via Deepgram through Recall.ai on Google Meet. The system identifies objections, buying indicators, and competitor mentions during calls, then sends the closer contextual prompts without breaking the flow of the conversation.",
     result: "Close rate: 19.5% → 26.0%",
   },
   {
     name: "Layer 3 — Post-Call Automation",
     description:
-      "After every call, the system generates personalized follow-up emails, HeyGen video scripts, partner communications, and tracked deal room updates — all in seconds. What used to take closers 30-60 minutes per call became automatic and consistent.",
+      "After every call, the system generates personalized follow-up emails, HeyGen video scripts, partner communications, and tracked deal room updates, all in seconds. What used to take closers 30-60 minutes per call became automatic and consistent.",
     result: "30-60 min manual work → seconds",
   },
 ];
@@ -54,7 +54,7 @@ function CaseStudyArticleSchema() {
     datePublished: "2026-04-07",
     dateModified: "2026-04-07",
     description:
-      "AI sales infrastructure deployed into a digital incubator portfolio brand. Revenue grew from $200K to $3.9M (+1,866%), CAC dropped 90%, and ROAS reached 23.4x — all within 45 days.",
+      "AI sales infrastructure deployed into a digital incubator portfolio brand. Revenue grew from $200K to $3.9M (+1,866%), CAC dropped 90%, and ROAS reached 23.4x, all within 45 days.",
     url: "https://cappedoutlabs.com/case-studies/portfolio-brand-ai-sales-infrastructure",
     about: [
       { "@type": "Claim", name: "Revenue growth", description: "$200K to $3,933,000 (+1,866%) in 45 days" },
@@ -157,7 +157,7 @@ export function CloserOSContent() {
             viewport={{ once: true }}
             className="text-text-secondary leading-relaxed text-lg"
           >
-            A portfolio brand running $94K in monthly ad spend was generating leads the sales process couldn&apos;t convert. Closers spent 20-30 minutes on manual pre-call research. Follow-up took 30-60 minutes per call. Show rate was 26.3% — nearly 3 out of 4 booked calls were no-shows. Every rep was running their own system, which meant no system at all.
+            A portfolio brand running $94K in monthly ad spend was generating leads the sales process couldn&apos;t convert. Closers spent 20-30 minutes on manual pre-call research. Follow-up took 30-60 minutes per call. Show rate was 26.3%. Nearly 3 out of 4 booked calls were no-shows. Every rep was running their own system, which meant no system at all.
           </motion.p>
           <motion.blockquote
             initial={{ opacity: 0, y: 16 }}
@@ -166,7 +166,7 @@ export function CloserOSContent() {
             className="mt-8 border-l-4 border-electric pl-5 py-2"
           >
             <p className="text-text-primary leading-relaxed italic">
-              &ldquo;We were spending serious money on ads and watching leads disappear. The closer didn&apos;t have the right information before the call, follow-up was an afterthought, and every rep was running their own system — which meant no system at all.&rdquo;
+              &ldquo;We were spending serious money on ads and watching leads disappear. The closer didn&apos;t have the right information before the call, follow-up was an afterthought, and every rep was running their own system, which meant no system at all.&rdquo;
             </p>
             <footer className="mt-2 text-sm text-text-secondary">
               &mdash; Portfolio Operator, Digital Incubator

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | Capped Out Labs",
   },
   description:
-    "AI transformation firm that builds production systems, not strategy decks. Revenue-first. Exit-prep framing. From the team behind Capped Out Media.",
+    "AI transformation firm that builds production systems instead of strategy decks. Every build is tied to a revenue metric and to your exit. From the team behind Capped Out Media.",
   metadataBase: new URL("https://cappedoutlabs.com"),
   alternates: {
     canonical: "/",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "Capped Out Labs",
     title: "Capped Out Labs — AI Revenue Infrastructure for Operators",
     description:
-      "AI transformation firm that builds production systems, not strategy decks. Revenue-first. Exit-prep framing.",
+      "AI transformation firm that builds production systems instead of strategy decks. Every build is tied to a revenue metric and to your exit.",
     images: [
       {
         url: "https://cappedoutlabs.com/og-image.png",

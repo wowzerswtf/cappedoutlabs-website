@@ -26,8 +26,8 @@ export function Footer() {
                 Capped Out Labs
               </Link>
               <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-                AI revenue infrastructure for operators who are serious about
-                growth — and serious about exit.
+                AI revenue infrastructure for operators serious about growth,
+                and about the exit.
               </p>
               <p className="mt-2 text-xs text-text-secondary/60">
                 A Capped Out Media company

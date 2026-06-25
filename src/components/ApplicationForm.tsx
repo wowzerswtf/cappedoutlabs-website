@@ -380,7 +380,7 @@ export function ApplicationForm() {
                     rows={3}
                     value={formData.bottleneck}
                     onChange={(e) => updateField("bottleneck", e.target.value)}
-                    placeholder="Where is your business leaking time, money, or revenue right now?"
+                    placeholder="Where is your business leaking time or money right now?"
                     autoFocus
                   />
                 </div>

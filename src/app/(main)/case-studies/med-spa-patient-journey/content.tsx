@@ -23,7 +23,7 @@ const systems = [
   {
     name: "AI Booking Concierge",
     description:
-      "An intelligent scheduling system that handles booking across multiple locations via text, web, and phone. The concierge understands treatment types, provider availability, and patient preferences — converting inquiries into confirmed appointments without front-desk involvement.",
+      "A scheduling system that handles booking across multiple locations via text, web, and phone. The concierge understands treatment types, provider availability, and patient preferences, and turns inquiries into confirmed appointments without front-desk involvement.",
   },
   {
     name: "Predictive No-show Prevention",
@@ -33,7 +33,7 @@ const systems = [
   {
     name: "Smart Reminder System with Personalized Offers",
     description:
-      "Reminder sequences go beyond generic texts. Each message is tailored to the patient's treatment history and includes relevant add-on offers based on their profile — driving higher revenue per visit while reducing no-shows.",
+      "Reminder sequences go beyond generic texts. Each message is tailored to the patient's treatment history and includes relevant add-on offers based on their profile, which lifts revenue per visit and cuts no-shows.",
   },
   {
     name: "Post-treatment Nurture Sequences",
@@ -158,7 +158,7 @@ export function MedSpaContent() {
             className="space-y-4 text-text-secondary leading-relaxed text-lg"
           >
             <p>
-              A multi-location med spa was bleeding revenue from no-shows and one-time visitors. One in four booked appointments went unfilled. Patients who did show up rarely came back — the rebooking rate was 31%, and front desk staff were too overwhelmed with scheduling to follow up.
+              A multi-location med spa was bleeding revenue from no-shows and one-time visitors. One in four booked appointments went unfilled. Patients who did show up rarely came back. The rebooking rate was 31%, and front desk staff were too overwhelmed with scheduling to follow up.
             </p>
             <p>
               Revenue per consultation sat at $1,400 because there was no systematic way to recommend add-on treatments or create personalized care plans. The business was growing locations but not revenue per patient.
@@ -242,7 +242,7 @@ export function MedSpaContent() {
           >
             <p className="text-sm font-semibold text-navy mb-2">Key insight</p>
             <p className="text-text-secondary leading-relaxed">
-              The med spa&apos;s real problem wasn&apos;t marketing — it was the gap between booking and showing up, and the gap between first visit and return visit. The AI closed both gaps simultaneously: predictive no-show prevention kept the schedule full, and automated post-treatment nurture turned one-time patients into recurring revenue.
+              The med spa&apos;s problem was two gaps, not marketing: the gap between booking and showing up, and the gap between first visit and return visit. The AI closed both at once. Predictive no-show prevention kept the schedule full, and automated post-treatment nurture turned one-time patients into recurring revenue.
             </p>
           </motion.div>
         </div>

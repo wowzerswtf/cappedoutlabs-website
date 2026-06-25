@@ -78,7 +78,7 @@ export function AssessmentResults({
     <Html>
       <Head />
       <Preview>
-        {`${firstName}, your AI readiness score is ${totalScore}/25 — here's your personalized assessment.`}
+        {`${firstName}, your AI readiness score is ${totalScore}/25. Here's your personalized assessment.`}
       </Preview>
       <Body style={main}>
         {/* Navy header */}
@@ -178,8 +178,8 @@ export function AssessmentResults({
                     <td style={phaseContent}>
                       <Text style={phaseTitle}>Days 1–30: Audit &amp; Architecture</Text>
                       <Text style={phaseDetail}>
-                        Map your current workflows, identify the highest-leverage automation targets,
-                        and design the AI infrastructure blueprint.
+                        We map your current workflows, find the highest-leverage things to
+                        automate, and design the build.
                       </Text>
                     </td>
                   </tr>
@@ -202,8 +202,8 @@ export function AssessmentResults({
                     <td style={phaseContent}>
                       <Text style={phaseTitle}>Days 61–90: Optimize &amp; Handoff</Text>
                       <Text style={phaseDetail}>
-                        Fine-tune performance, train your team with recorded SOPs, and ensure
-                        the systems run independently.
+                        We tune performance, train your team with recorded SOPs, and hand it
+                        off so the systems run on their own.
                       </Text>
                     </td>
                   </tr>
@@ -223,8 +223,8 @@ export function AssessmentResults({
                   <td style={bulletCell}>&bull;</td>
                   <td style={bulletContent}>
                     <Text style={paragraph}>
-                      <strong>We think in exits.</strong> Every system we build is designed to increase
-                      enterprise value, not just automate a task.
+                      <strong>We think in exits.</strong> Every system we build is meant to raise
+                      enterprise value, not just check a box off a list.
                     </Text>
                   </td>
                 </tr>
@@ -233,7 +233,7 @@ export function AssessmentResults({
                   <td style={bulletContent}>
                     <Text style={paragraph}>
                       <strong>Production, not prototypes.</strong> 60% of AI projects never make it
-                      to production. Ours ship, perform, and compound.
+                      to production. Ours ship and keep compounding.
                     </Text>
                   </td>
                 </tr>
@@ -259,7 +259,7 @@ export function AssessmentResults({
                 <Heading style={h2}>Your Next Step</Heading>
                 <Text style={paragraph}>
                   Book a free 30-minute AI Infrastructure Discovery Call. We&apos;ll map your
-                  specific bottleneck to a 90-day build plan — no pitch deck, no filler.
+                  specific bottleneck to a 90-day build plan. No pitch deck, no filler.
                 </Text>
                 <Link href="https://calendly.com/cappedoutmedia/ai-assessment-meeting" style={ctaButton}>
                   Book Your Discovery Call
@@ -272,8 +272,8 @@ export function AssessmentResults({
               <>
                 <Heading style={h2}>Your Next Step</Heading>
                 <Text style={paragraph}>
-                  You&apos;re not quite ready for a full build — but you&apos;re closer than you think.
-                  We send weekly operator intelligence that helps businesses like yours get AI-ready.
+                  You&apos;re not quite ready for a full build, but you&apos;re closer than you think.
+                  We send weekly operator intelligence to help businesses like yours get AI-ready.
                 </Text>
                 <Link href="https://cappedoutlabs.com/resources" style={ctaButtonSecondary}>
                   Explore Our Resources

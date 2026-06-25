@@ -104,8 +104,8 @@ function ResultsInner() {
             className="mt-6 text-lg text-text-secondary max-w-xl mx-auto"
           >
             {config.action === "calendar"
-              ? "Your business is positioned to transform with AI infrastructure. Your full assessment has been sent to your email."
-              : "Your AI journey is underway. Your full assessment has been sent to your email with specific recommendations."}
+              ? "Your business is set up to put AI infrastructure to work. We've sent your full assessment to your email."
+              : "You're getting started with AI. We've sent your full assessment to your email with specific recommendations."}
           </motion.p>
         </motion.div>
       </section>
@@ -150,8 +150,8 @@ function ResultsInner() {
                 </h2>
                 <p className="text-text-secondary max-w-lg mx-auto">
                   Book a free 30-minute AI Infrastructure Discovery Call.
-                  We&apos;ll map your specific bottleneck to a 90-day build plan
-                  — no pitch deck, no filler.
+                  We&apos;ll map your specific bottleneck to a 90-day build plan.
+                  No pitch deck, no filler.
                 </p>
                 <div className="pt-2">
                   <Button asChild className="bg-electric hover:bg-electric-dark text-white rounded-lg h-12 px-8 text-base font-semibold">
@@ -174,7 +174,7 @@ function ResultsInner() {
                   Keep building your AI readiness
                 </h2>
                 <p className="text-text-secondary max-w-lg mx-auto">
-                  You&apos;re not quite ready for a full build — but you&apos;re
+                  You&apos;re not quite ready for a full build, but you&apos;re
                   closer than you think. Explore our resources to see what AI
                   infrastructure looks like in production.
                 </p>

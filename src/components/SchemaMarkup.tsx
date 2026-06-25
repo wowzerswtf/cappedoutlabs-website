@@ -62,9 +62,9 @@ export function VideoSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    name: "Capped Out Labs — How we build AI into how your company runs",
+    name: "Capped Out Labs: How we build AI into how your company runs",
     description:
-      "Capped Out Labs builds custom AI into how a company runs — making the work faster and cheaper, built once and reused across the business. Production systems, not strategy decks.",
+      "Capped Out Labs builds custom AI into how a company runs, so the work gets faster and cheaper and the system gets reused across the business. Production systems, not strategy decks.",
     thumbnailUrl: "https://cappedoutlabs.com/og-image.png",
     uploadDate: "2026-04-20",
     embedUrl: "https://player.vimeo.com/video/1180565378",
@@ -124,7 +124,7 @@ export function ServiceSchema() {
         name: "AI Revenue Sprint",
         provider: { "@type": "Organization", name: "Capped Out Labs" },
         description:
-          "2-week AI readiness audit with a single highest-leverage workflow built live. Includes 30-day support and ascension path to Tier 2.",
+          "2-week AI readiness audit with one high-leverage workflow built live. Includes 30 days of support and a clear path up to Tier 2.",
         offers: {
           "@type": "Offer",
           price: "15000",
@@ -208,7 +208,7 @@ export function AssessmentSchema() {
     "@type": "Quiz",
     name: "AI Readiness Assessment",
     description:
-      "Free 5-question AI readiness assessment for business operators. Scores your business across 5 dimensions — scale, pain clarity, AI maturity, urgency, and strategic fit — then delivers a personalized report with your tier, biggest opportunity, cost-of-waiting analysis, and 90-day roadmap.",
+      "Free 5-question AI readiness assessment for business operators. Scores your business across 5 dimensions (scale, pain clarity, AI maturity, urgency, and strategic fit), then delivers a personalized report with your tier, biggest opportunity, cost-of-waiting analysis, and 90-day roadmap.",
     url: "https://cappedoutlabs.com/assess",
     provider: {
       "@type": "Organization",
@@ -311,7 +311,7 @@ export function CaseStudySchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "Closer OS — AI Sales Infrastructure Case Study",
+    headline: "Closer OS: AI Sales Infrastructure Case Study",
     author: { "@type": "Organization", name: "Capped Out Labs" },
     publisher: {
       "@type": "Organization",
@@ -319,7 +319,7 @@ export function CaseStudySchema() {
       url: "https://cappedoutlabs.com",
     },
     description:
-      "AI sales infrastructure deployed into a digital incubator portfolio brand. Revenue grew from $200K to $3.9M (+1,866%), CAC dropped 90%, and ROAS reached 23.4x — all within 45 days of live data.",
+      "AI sales infrastructure deployed into a digital incubator portfolio brand. Revenue grew from $200K to $3.9M (+1,866%), CAC dropped 90%, and ROAS reached 23.4x, all within 45 days of live data.",
     url: "https://cappedoutlabs.com/case-studies",
     about: [
       {

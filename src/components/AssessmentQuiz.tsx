@@ -191,7 +191,7 @@ export function AssessmentQuiz() {
                     Let&apos;s personalize your assessment
                   </h2>
                   <p className="text-sm text-text-secondary">
-                    Takes under 2 minutes. Your results are sent instantly.
+                    Takes under 2 minutes. You get your results instantly.
                   </p>
                 </div>
 

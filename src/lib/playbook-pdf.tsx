@@ -310,7 +310,7 @@ function PlaybookDocument() {
           The AI Revenue{"\n"}Infrastructure Playbook
         </Text>
         <Text style={s.coverSubtitle}>
-          The exact 3-layer system that took a portfolio brand from $200K to $3.9M in 45 days — and how it applies to your business.
+          The exact 3-layer system that took a portfolio brand from $200K to $3.9M in 45 days, and how to apply it to yours.
         </Text>
         <Text style={s.coverMetric}>+1,866%</Text>
         <Text style={s.coverMetricLabel}>Revenue Growth in 45 Days</Text>
@@ -329,23 +329,23 @@ function PlaybookDocument() {
           Most businesses pour money into lead generation and hope the sales process handles the rest. It rarely does.
         </Text>
         <Text style={s.body}>
-          Here is what we see in almost every business doing $500K to $10M in revenue:
+          Here's what we see in almost every business doing $500K to $10M in revenue:
         </Text>
 
-        <Bullet>Sales reps spend 20-30 minutes researching each prospect before a call — or skip it entirely and wing it</Bullet>
-        <Bullet>Follow-up after calls takes 30-60 minutes of manual work — personalized emails, proposals, next steps</Bullet>
-        <Bullet>Show rates hover between 25-40% because there is no systematic pre-call engagement</Bullet>
+        <Bullet>Reps spend 20-30 minutes researching each prospect before a call, or skip it and wing it</Bullet>
+        <Bullet>Follow-up eats 30-60 minutes of manual work per call: personalized emails, proposals, next steps</Bullet>
+        <Bullet>Show rates sit between 25-40% because nothing happens before the call to earn the prospect's time</Bullet>
         <Bullet>Every rep runs their own process, which means no process at all</Bullet>
-        <Bullet>Leadership has no visibility into what is actually happening on calls</Bullet>
+        <Bullet>Leadership has no real idea what happens on the calls</Bullet>
 
         <Text style={s.body}>
-          The result: businesses spend aggressively on ads, generate leads, and then watch 60-80% of that investment evaporate in a broken sales process.
+          The result: you pour money into ads, generate leads, then watch 60-80% of that spend evaporate in a broken sales process.
         </Text>
 
         <View style={s.cardAccent}>
-          <Text style={s.h3}>The core insight</Text>
+          <Text style={s.h3}>The shift that matters</Text>
           <Text style={s.bodySecondary}>
-            Revenue infrastructure is not about generating more leads. It is about converting the leads you already have at dramatically higher rates — by giving your sales team the right information at the right moment at every stage of the deal.
+            Revenue infrastructure has nothing to do with generating more leads. It converts the leads you already have at far higher rates, by handing your sales team the right information at the right moment in every deal.
           </Text>
         </View>
 
@@ -361,25 +361,25 @@ function PlaybookDocument() {
         </Text>
 
         <View style={s.card}>
-          <Text style={s.h3}>Layer 1 — Pre-Call Intelligence</Text>
+          <Text style={s.h3}>Layer 1: Pre-Call Intelligence</Text>
           <Text style={s.bodySecondary}>
-            Before every sales call, the system automatically enriches the prospect with company data, revenue signals, and behavioral indicators. It classifies each buyer into one of four types — Visionary, Analyst, Connector, or Skeptic — and generates a one-page brief with recommended talking points, likely objections, and the value proposition most likely to land.
+            Before every sales call, the system enriches the prospect automatically with company data, revenue signals, and recent activity. It sorts each buyer into one of four types (Visionary, Analyst, Connector, or Skeptic) and writes a one-page brief with the talking points that tend to land, the objections to expect, and the angle most likely to close.
           </Text>
           <Text style={s.tableCellBold}>Result: Show rate went from 26.3% to 77.9%</Text>
         </View>
 
         <View style={s.card}>
-          <Text style={s.h3}>Layer 2 — Live Call Assistance</Text>
+          <Text style={s.h3}>Layer 2: Live Call Assistance</Text>
           <Text style={s.bodySecondary}>
-            During the call, real-time transcription detects objections, buying signals, and competitor mentions. The system surfaces contextual prompts to the closer without interrupting conversation flow — turning every rep into your best rep.
+            During the call, live transcription catches objections, buying signals, and competitor mentions. The closer gets quiet prompts without breaking the flow of the conversation. It's how an average rep starts performing like your best one.
           </Text>
           <Text style={s.tableCellBold}>Result: Close rate improved from 19.5% to 26.0%</Text>
         </View>
 
         <View style={s.card}>
-          <Text style={s.h3}>Layer 3 — Post-Call Automation</Text>
+          <Text style={s.h3}>Layer 3: Post-Call Automation</Text>
           <Text style={s.bodySecondary}>
-            After every call, the system generates personalized follow-up emails, video scripts, partner communications, and tracked deal room updates — all in seconds. What used to take closers 30-60 minutes of manual work becomes instant and consistent.
+            After every call, the system writes personalized follow-up emails, video scripts, partner messages, and deal-room updates in seconds. Work that used to eat 30-60 minutes per call is now instant and consistent.
           </Text>
           <Text style={s.tableCellBold}>Result: 30-60 min manual work per call reduced to seconds</Text>
         </View>
@@ -392,7 +392,7 @@ function PlaybookDocument() {
         <Text style={s.sectionTag}>The Results</Text>
         <Text style={s.h1}>45 days of production data</Text>
         <Text style={s.body}>
-          These numbers are from a live deployment into a real business — not a pilot, not a simulation. 45 days of production data with real revenue.
+          These numbers come from a live deployment into a real business. Not a pilot, not a simulation. 45 days of production data with real revenue on the line.
         </Text>
 
         <View style={s.statsRow}>
@@ -462,7 +462,7 @@ function PlaybookDocument() {
         <Text style={s.sectionTag}>Beyond Sales</Text>
         <Text style={s.h1}>This framework works across industries</Text>
         <Text style={s.body}>
-          The 3-layer architecture — intelligence before the interaction, assistance during, automation after — applies far beyond sales. We have deployed variations of this system across 8 industries:
+          The 3-layer architecture (intelligence before the interaction, help during it, automation after) applies far beyond sales. We've run variations of this system across 8 industries:
         </Text>
 
         {[
@@ -484,7 +484,7 @@ function PlaybookDocument() {
         <View style={[s.cardAccent, { marginTop: 16 }]}>
           <Text style={s.h3}>The pattern</Text>
           <Text style={s.bodySecondary}>
-            Every business has a revenue-critical process where humans make decisions based on incomplete information, follow up inconsistently, and lose momentum between interactions. AI infrastructure fixes all three simultaneously.
+            Every business has a process that decides whether revenue shows up. In most of them, people decide on incomplete information, follow up unevenly, and lose momentum between touches. AI infrastructure fixes all three at once.
           </Text>
         </View>
 
@@ -492,13 +492,13 @@ function PlaybookDocument() {
 
         <Text style={s.sectionTag}>What This Means for You</Text>
         <Text style={s.body}>
-          If your business is doing $500K or more in annual revenue, you likely have at least one process where this framework would produce measurable ROI within 90 days. The question is not whether AI can help — it is which process to target first.
+          If you're doing $500K or more in annual revenue, you've almost certainly got at least one process where this framework would pay back inside 90 days. The question isn't whether AI can help. It's which process to hit first.
         </Text>
 
         <View style={s.ctaBox}>
           <Text style={s.ctaTitle}>Ready to find your highest-leverage process?</Text>
           <Text style={s.ctaBody}>
-            Take the free 30-second AI readiness assessment. We will identify the single highest-ROI system for your business and show you exactly what the numbers could look like.
+            Apply for a discovery call. We'll find the single highest-ROI system in your business and show you what the numbers could realistically look like.
           </Text>
           <Link src="https://cappedoutlabs.com/apply">
             <View style={s.ctaButton}>

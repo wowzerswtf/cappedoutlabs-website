@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free AI Readiness Assessment | Capped Out Labs",
     description:
-      "5 questions. 2 minutes. Get your personalized AI readiness score, biggest opportunity, and 90-day roadmap — free.",
+      "5 questions. 2 minutes. Get your personalized AI readiness score, biggest opportunity, and 90-day roadmap. Free.",
     url: "https://cappedoutlabs.com/assess",
     type: "website",
   },

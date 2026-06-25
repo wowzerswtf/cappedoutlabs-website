@@ -8,7 +8,7 @@ import { fadeUp, staggerContainer } from "@/lib/animations";
 const sections = [
   {
     title: "Where Labs came from",
-    body: "Capped Out Media has been scaling supplement brands to acquisition for years. We've built businesses from zero, watched them grow to eight figures, and navigated the operational chaos that most agencies never see up close — regulatory pressure, Amazon, DTC, wholesale, influencer channels, fulfillment. About 18 months ago we started systematically replacing human workflows with AI — not because it was trendy, but because we needed to scale without linearly adding headcount. What we built became the product we now sell.",
+    body: "Capped Out Media has been scaling supplement brands to acquisition for years. We've built businesses from zero, watched them grow to eight figures, and dealt with the operational chaos most agencies never see up close: regulatory pressure, Amazon, DTC, wholesale, influencer channels, fulfillment. About 18 months ago we started replacing human workflows with AI. We weren't chasing a trend; we needed to scale without adding headcount in a straight line. What we built became the product we now sell.",
   },
   {
     title: "The problem with AI consulting",
@@ -39,7 +39,7 @@ export function AboutContent() {
             variants={fadeUp}
             className="text-base text-text-secondary leading-relaxed max-w-2xl mx-auto mb-8"
           >
-            Capped Out Labs is an AI transformation firm built by the operators behind Capped Out Media — a supplement incubator that has scaled brands to eight figures and through acquisition. Unlike AI consultants who learned to talk about business, we are operators who learned to build AI. That difference means every system we deploy is anchored to revenue metrics, not theory.
+            Capped Out Labs is an AI transformation firm built by the operators behind Capped Out Media, a supplement incubator that has scaled brands to eight figures and through acquisition. Unlike AI consultants who learned to talk about business, we are operators who learned to build AI. That difference means every system we deploy is anchored to a revenue metric, not theory.
           </motion.p>
           <motion.h1
             variants={fadeUp}
@@ -107,7 +107,7 @@ export function AboutContent() {
             Capped Out Media has thousands of reviews across the internet. Our
             track record is documented, public, and searchable. When you evaluate
             Labs, you&apos;re not evaluating a startup. You&apos;re evaluating an
-            operator who has built, scaled, and exited businesses — and is now
+            operator who has built, scaled, and exited businesses, and is now
             systematizing that process with AI.
           </motion.p>
         </motion.div>

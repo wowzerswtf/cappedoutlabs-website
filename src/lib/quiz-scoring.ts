@@ -118,7 +118,7 @@ const TIERS: Tier[] = [
     color: "green",
     colorHex: "#059669",
     action: "calendar",
-    summary: "Your business has the scale, the pain clarity, and the strategic mindset to transform with AI infrastructure. The gap isn\u2019t awareness \u2014 it\u2019s execution.",
+    summary: "Your business has the scale, the pain clarity, and the strategic mindset to transform with AI infrastructure. The gap is execution, not awareness.",
   },
   {
     id: "ai-primed",
@@ -126,7 +126,7 @@ const TIERS: Tier[] = [
     color: "blue",
     colorHex: "#2563EB",
     action: "calendar",
-    summary: "You\u2019re in a strong position to leverage AI. You have real pain points and the business maturity to act on them. The right partner closes the gap fast.",
+    summary: "You're in a strong position to put AI to work. You have real pain points and the business maturity to act on them. The right partner closes the gap fast.",
   },
   {
     id: "ai-curious",
@@ -142,7 +142,7 @@ const TIERS: Tier[] = [
     color: "gray",
     colorHex: "#64748B",
     action: "nurture",
-    summary: "You\u2019re early in your AI journey. That\u2019s not a bad thing \u2014 it means you can skip the mistakes most businesses make and go straight to what works.",
+    summary: "You're early with AI. That's not a bad thing. It means you can skip the mistakes most businesses make and go straight to what works.",
   },
 ];
 
@@ -203,7 +203,7 @@ export function getBottleneckService(result: ScoredResult): {
         name: "AI Sales Infrastructure (Closer OS)",
         headline: "Your sales bottleneck has a proven fix.",
         description:
-          "We\u2019ve deployed AI sales infrastructure that replaced manual processes end-to-end. One portfolio brand saw revenue grow from $200K to $3.9M in 45 days \u2014 CAC dropped 90% and show rate tripled.",
+          "We've deployed AI sales infrastructure that replaced the manual process completely. One portfolio brand saw revenue grow from $200K to $3.9M in 45 days. CAC dropped 90% and show rate tripled.",
         stat: "+1,866% revenue growth in 45 days",
       };
     case "contractor-os":
@@ -211,7 +211,7 @@ export function getBottleneckService(result: ScoredResult): {
         name: "AI Operations Platform (ContractorOS)",
         headline: "Your business shouldn\u2019t depend on any one person.",
         description:
-          "We build AI infrastructure that captures institutional knowledge and automates operational decisions \u2014 so the business runs whether you\u2019re there or not.",
+          "We build AI infrastructure that captures institutional knowledge and automates operational decisions, so the business runs whether you're there or not.",
         stat: "90% reduction in owner-dependent tasks",
       };
     case "ai-sales":
@@ -219,7 +219,7 @@ export function getBottleneckService(result: ScoredResult): {
         name: "AI Sales + Lead Automation",
         headline: "You have the leads. You need the system.",
         description:
-          "When lead volume outpaces your team\u2019s capacity, the answer isn\u2019t more reps \u2014 it\u2019s AI-powered qualification, routing, and follow-up that never sleeps.",
+          "When lead volume outpaces your team's capacity, the answer isn't more reps. It's AI qualification, routing, and follow-up that never stops.",
         stat: "77.9% show rate (up from 26.3%)",
       };
     case "data-reporting":
@@ -227,7 +227,7 @@ export function getBottleneckService(result: ScoredResult): {
         name: "AI Decision Intelligence",
         headline: "You can\u2019t optimize what you can\u2019t see.",
         description:
-          "We build executive dashboards and automated reporting that surface the metrics that actually matter \u2014 not vanity numbers, but the levers that move revenue.",
+          "We build executive dashboards and automated reporting that surface the metrics that actually matter: the levers that move revenue, not vanity numbers.",
         stat: "Real-time visibility across all revenue drivers",
       };
     default:
@@ -235,7 +235,7 @@ export function getBottleneckService(result: ScoredResult): {
         name: "AI Infrastructure Discovery",
         headline: "Let\u2019s find the biggest lever in your business.",
         description:
-          "When you know something\u2019s off but can\u2019t pinpoint it, that\u2019s exactly what a discovery call is for. We\u2019ll map your operations and find the #1 place AI moves the needle.",
+          "When you know something's off but can't pinpoint it, that's exactly what a discovery call is for. We'll map your operations and find the #1 place AI moves the needle.",
         stat: "Most clients find 3\u20135 high-impact opportunities",
       };
   }
@@ -253,25 +253,25 @@ export function getCostOfWaiting(result: ScoredResult): {
       return {
         monthly: "$125K\u2013$250K",
         annual: "$1.5M\u2013$3M",
-        context: "At your scale, a 15% efficiency gap means seven figures left on the table annually. That\u2019s not a rounding error \u2014 it\u2019s an acquisition, a product line, or a year of runway.",
+        context: "At your scale, a 15% efficiency gap means seven figures left on the table every year. That money buys an acquisition, a product line, or a year of runway.",
       };
     case "rev-3m-10m":
       return {
         monthly: "$37K\u2013$125K",
         annual: "$450K\u2013$1.5M",
-        context: "At your scale, a 15% efficiency gap means roughly $450K\u2013$1.5M/year in unrealized margin. That\u2019s a hire, a product line, or a down payment on your next acquisition.",
+        context: "At your scale, a 15% efficiency gap means roughly $450K\u2013$1.5M/year in unrealized margin. That's a hire, a product line, or a down payment on your next acquisition.",
       };
     case "rev-1m-3m":
       return {
         monthly: "$12K\u2013$37K",
         annual: "$150K\u2013$450K",
-        context: "At your scale, every month without the right systems is $12K\u2013$37K in unrealized efficiency. Over a year, that adds up to a full-time senior hire you\u2019re funding with waste.",
+        context: "At your scale, every month without the right systems is $12K\u2013$37K in unrealized efficiency. Over a year, that adds up to a senior hire you're funding with waste.",
       };
     case "rev-500k-1m":
       return {
         monthly: "$6K\u2013$12K",
         annual: "$75K\u2013$150K",
-        context: "At your stage, the cost isn\u2019t just money \u2014 it\u2019s your time. Every hour spent on tasks AI could handle is an hour not spent growing revenue.",
+        context: "At your stage, the bigger cost is your time. Every hour spent on tasks AI could handle is an hour not spent growing revenue.",
       };
     default:
       return {

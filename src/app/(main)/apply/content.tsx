@@ -10,14 +10,14 @@ import { CheckCircle2 } from "lucide-react";
 const steps = [
   "We review your application (within 24 hours)",
   "If it's a fit, we book a 30-minute discovery call",
-  "No pitch decks on the call — just a real conversation",
+  "No pitch decks on the call, just a real conversation",
   "You'll know within 48 hours of the call whether we're moving forward",
 ];
 
 const trustSignals = [
   "From the team that has pushed over a billion in sales",
-  "Limited spots per quarter — we're embedded partners, not a volume shop",
-  "Discovery call is free. No obligation.",
+  "Limited spots per quarter. We're embedded partners, not a volume shop",
+  "The discovery call is free, with no obligation",
 ];
 
 export function ApplyContent() {

@@ -23,22 +23,22 @@ const systems = [
   {
     name: "Automated Order Processing",
     description:
-      "Incoming orders from email, phone, and portal are parsed and processed by AI — extracting SKUs, quantities, pricing tiers, and delivery preferences. Orders that took 52 minutes of manual handling now complete in 7 minutes with automatic validation and confirmation.",
+      "Incoming orders from email, phone, and portal are parsed by AI, which pulls SKUs, quantities, pricing tiers, and delivery preferences. Orders that took 52 minutes of manual handling now complete in 7 minutes with automatic validation and confirmation.",
   },
   {
     name: "Predictive Reorder Engine",
     description:
-      "The system tracks purchase history, consumption patterns, and seasonal trends to predict when each customer will need to reorder — with 94% accuracy. Proactive reorder prompts go out before the customer runs low, capturing revenue that previously slipped to competitors.",
+      "The system tracks purchase history, consumption patterns, and seasonal trends to predict when each customer will need to reorder, with 94% accuracy. Proactive reorder prompts go out before the customer runs low, so revenue that used to slip to competitors stays in house.",
   },
   {
     name: "Conversational Customer Service",
     description:
-      "AI handles customer inquiries in natural conversation across phone, email, and chat. Order status, delivery tracking, product questions, and account changes are resolved without human intervention. The support team went from 4 staff to 1 managing escalations only.",
+      "AI handles customer inquiries in natural conversation across phone, email, and chat. Order status, delivery tracking, product questions, and account changes are resolved without human intervention. The support team went from 4 staff to 1, who handles escalations only.",
   },
   {
     name: "Proactive Upsell Messaging",
     description:
-      "Based on order history and product affinity analysis, the system sends personalized upsell recommendations at optimal timing. Complementary products, volume discounts, and new SKU introductions are surfaced to the right customers at the right moment.",
+      "Based on order history and product affinity, the system sends personalized upsell recommendations when the timing makes sense. Complementary products, volume discounts, and new SKUs reach the right customers at the right moment.",
   },
 ];
 
@@ -158,7 +158,7 @@ export function WholesaleContent() {
             className="space-y-4 text-text-secondary leading-relaxed text-lg"
           >
             <p>
-              A wholesale distributor was running on manual order processing and reactive customer service. Every order required 52 minutes of handling — verifying SKUs, checking inventory, confirming pricing, and sending acknowledgments. Four full-time customer service staff managed the volume.
+              A wholesale distributor was running on manual order processing and reactive customer service. Every order required 52 minutes of handling: verifying SKUs, checking inventory, confirming pricing, and sending acknowledgments. Four full-time customer service staff managed the volume.
             </p>
             <p>
               Reorder rates sat at 22%. Customers weren&apos;t coming back because nobody was tracking when they&apos;d need to restock. The business was leaving significant recurring revenue on the table simply because follow-up was manual and inconsistent.
@@ -242,7 +242,7 @@ export function WholesaleContent() {
           >
             <p className="text-sm font-semibold text-navy mb-2">Key insight</p>
             <p className="text-text-secondary leading-relaxed">
-              The 41% revenue increase came entirely from reorders — not new customers. The predictive reorder engine with 94% accuracy turned a one-and-done purchase pattern into a recurring revenue model. Meanwhile, reducing CS headcount from 4 to 1 wasn&apos;t about cutting costs — it was about letting the AI handle routine inquiries so the remaining team member could focus on high-value relationship management.
+              The 41% revenue increase came entirely from reorders, not new customers. The predictive reorder engine with 94% accuracy turned a one-and-done purchase pattern into a recurring revenue model. Cutting CS headcount from 4 to 1 wasn&apos;t a cost play. It let the AI handle routine inquiries so the one remaining person could focus on high-value relationships.
             </p>
           </motion.div>
         </div>

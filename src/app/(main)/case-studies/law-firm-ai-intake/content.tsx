@@ -23,7 +23,7 @@ const systems = [
   {
     name: "AI Intake Digitizer",
     description:
-      "Incoming inquiries are captured across phone, web form, and email, then instantly digitized into structured case profiles. The system extracts key details — practice area, urgency signals, potential case value — and routes to the right attorney without manual triage.",
+      "Incoming inquiries are captured across phone, web form, and email, then instantly digitized into structured case profiles. The system pulls the details that matter (practice area, urgency signals, potential case value) and routes to the right attorney without manual triage.",
   },
   {
     name: "Precedent Intelligence Engine",
@@ -33,7 +33,7 @@ const systems = [
   {
     name: "Personalized Follow-up Sequences",
     description:
-      "Automated nurture sequences trigger based on intake status, practice area, and engagement signals. Each message is personalized to the prospect's specific situation — not generic drip campaigns.",
+      "Automated nurture sequences trigger based on intake status, practice area, and engagement signals. Each message is personalized to the prospect's specific situation rather than blasted out as a generic drip campaign.",
   },
   {
     name: "Proposal Generator with E-Signature",
@@ -158,7 +158,7 @@ export function LawFirmContent() {
             className="space-y-4 text-text-secondary leading-relaxed text-lg"
           >
             <p>
-              A mid-size law firm was losing potential clients before the first conversation ever happened. Intake was handled manually — phone messages transcribed by hand, web form submissions sitting in a shared inbox, and email inquiries getting buried under casework.
+              A mid-size law firm was losing potential clients before the first conversation ever happened. Intake was handled manually: phone messages transcribed by hand, web form submissions sitting in a shared inbox, and email inquiries getting buried under casework.
             </p>
             <p>
               The principal was spending 22 hours a week on administrative overhead. Lead response times averaged 36 to 48 hours, and by the time a proposal went out, most prospects had already engaged a competitor. The proposal close rate sat at 19%.
@@ -245,7 +245,7 @@ export function LawFirmContent() {
           >
             <p className="text-sm font-semibold text-navy mb-2">Key insight</p>
             <p className="text-text-secondary leading-relaxed">
-              The firm&apos;s bottleneck wasn&apos;t lead generation — it was lead response. By compressing intake-to-proposal from days to minutes, the same inbound volume converted at 3.5x the previous rate. The AI didn&apos;t replace attorneys. It gave them back the 22 hours a week they were losing to admin so they could practice law.
+              The firm&apos;s bottleneck was speed of response, not lead generation. By compressing intake-to-proposal from days to minutes, the same inbound volume converted at 3.5x the previous rate. The AI didn&apos;t replace attorneys. It gave them back the 22 hours a week they were losing to admin so they could practice law.
             </p>
           </motion.div>
         </div>

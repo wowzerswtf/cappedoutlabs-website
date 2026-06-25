@@ -23,22 +23,22 @@ const systems = [
   {
     name: "Real-time Resume and Job Spec Scanner",
     description:
-      "AI ingests resumes and job specifications as they arrive, extracting skills, experience levels, certifications, and soft-skill indicators. Matching scores are generated instantly — no recruiter has to manually read through stacks of resumes to find candidates.",
+      "AI ingests resumes and job specifications as they arrive, extracting skills, experience levels, certifications, and soft-skill indicators. Matching scores are generated instantly, so no recruiter has to read through stacks of resumes by hand to find candidates.",
   },
   {
     name: "Personalized Multi-channel Outreach",
     description:
-      "For every matched candidate, the system writes personalized outreach across email, SMS, and call scripts. Each message references the candidate's specific background and the opportunity's unique selling points — not templated mass blasts.",
+      "For every matched candidate, the system writes personalized outreach across email, SMS, and call scripts. Each message references the candidate's specific background and what makes the role worth their time, instead of a templated mass blast.",
   },
   {
     name: "Automated Follow-up Engine",
     description:
-      "Multi-channel follow-up sequences run automatically based on candidate engagement signals. The system adjusts timing, channel, and messaging based on response patterns, keeping candidates warm without recruiter intervention.",
+      "Multi-channel follow-up sequences run automatically based on candidate engagement signals. The system adjusts timing, channel, and messaging based on response patterns, which keeps candidates warm without recruiter involvement.",
   },
   {
     name: "Best-match Surfacing Dashboard",
     description:
-      "Recruiters see a ranked dashboard of top candidates for every open role, updated in real time as new resumes come in and existing candidates respond. Time spent searching dropped to near-zero — the system brings the best matches to the surface.",
+      "Recruiters see a ranked dashboard of top candidates for every open role, updated in real time as new resumes come in and existing candidates respond. Time spent searching dropped to near zero. The system brings the best matches to the surface.",
   },
 ];
 
@@ -161,7 +161,7 @@ export function StaffingAgencyContent() {
               A regional staffing agency was struggling to scale without adding headcount. Recruiters were manually reading every resume, writing individual outreach emails, and tracking candidates across spreadsheets. Each placement took days of hands-on effort.
             </p>
             <p>
-              The average recruiter was placing 5 candidates per month and generating $180K in annual revenue. The bottleneck wasn&apos;t candidate supply — it was the manual work between intake and submission that burned hours on every single role.
+              The average recruiter was placing 5 candidates per month and generating $180K in annual revenue. The bottleneck was the manual work between intake and submission, not candidate supply. It burned hours on every single role.
             </p>
           </motion.div>
         </div>

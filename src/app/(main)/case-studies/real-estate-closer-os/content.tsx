@@ -23,17 +23,17 @@ const systems = [
   {
     name: "Pre-call Lead Intelligence Dashboard",
     description:
-      "Before every buyer consultation, agents get a one-page intelligence brief — property search history, financial signals, timeline indicators, and neighborhood preferences. Agents walk into calls with context that builds immediate trust and shortens the qualification cycle.",
+      "Before every buyer consultation, agents get a one-page intelligence brief: property search history, financial signals, timeline indicators, and neighborhood preferences. Agents walk into calls with context that builds immediate trust and shortens the qualification cycle.",
   },
   {
     name: "Live AI Call Assist",
     description:
-      "During buyer consultations, the system monitors the conversation in real time — surfacing comparable listings, flagging objection patterns, and prompting with relevant market data. Agents stay present in the conversation while the AI handles the research they used to do manually between calls.",
+      "During buyer consultations, the system monitors the conversation in real time. It surfaces comparable listings, flags objection patterns, and pulls up relevant market data. Agents stay present while the AI handles the research they used to do by hand between calls.",
   },
   {
     name: "Automated Post-showing Nurture Sequences",
     description:
-      "After every showing, personalized follow-up sequences trigger automatically — recap emails with property details, comparable market data, financing scenarios, and next-step prompts. Leads that used to go cold between showings now stay engaged through to offer.",
+      "After every showing, personalized follow-up sequences trigger automatically: recap emails with property details, comparable market data, financing scenarios, and next-step prompts. Leads that used to go cold between showings now stay engaged through to offer.",
   },
 ];
 
@@ -156,7 +156,7 @@ export function RealEstateContent() {
               A real estate team was generating leads but losing them in the gap between first contact and appointment. Only 14% of contacts converted to appointments, and of those, just 28% progressed to an offer. Agents were spending hours on manual research before calls and losing momentum with prospects between showings.
             </p>
             <p>
-              The team had the lead volume. What they didn&apos;t have was a system to convert attention into action at every stage of the buyer journey — from first call to final offer.
+              The team had the lead volume. What they didn&apos;t have was a system to convert attention into action at every stage of the buyer journey, from the first call to the final offer.
             </p>
           </motion.div>
         </div>
@@ -237,7 +237,7 @@ export function RealEstateContent() {
           >
             <p className="text-sm font-semibold text-navy mb-2">Key insight</p>
             <p className="text-text-secondary leading-relaxed">
-              Closer OS adapted for real estate proved that the same pre-call intelligence, live assist, and post-interaction automation framework works across industries. The 157% revenue increase per agent came from converting existing leads at dramatically higher rates — not from generating more leads. Every stage of the funnel improved because agents had the right context at the right moment.
+              Closer OS adapted for real estate proved that the same pre-call intelligence, live assist, and post-interaction automation framework works across industries. The 157% revenue increase per agent came from converting existing leads at much higher rates, not from generating more leads. Every stage of the funnel improved because agents had the right context at the right moment.
             </p>
           </motion.div>
         </div>

@@ -30,8 +30,8 @@ export function ResourcesIndexContent() {
             variants={fadeUp}
             className="mt-6 text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto"
           >
-            Guides and breakdowns from production AI deployments. Real data, real
-            systems, real results.
+            Guides and breakdowns from production AI deployments. Real systems
+            and real numbers, not theory.
           </motion.p>
         </motion.div>
       </section>

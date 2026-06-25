@@ -60,7 +60,7 @@ const TIER_CONFIG: Record<
     borderClass: "border-gray-200",
     action: "nurture",
     urgencyMessage:
-      "You're early — and that's an advantage. You can skip the mistakes 80% of businesses make with AI.",
+      "You're early, and that's an advantage. You can skip the mistakes 80% of businesses make with AI.",
     ctaText: "Get a Free Strategy Overview",
   },
 };
@@ -244,7 +244,7 @@ function FunnelResultsInner() {
                   {
                     num: "3",
                     title: "Get a 90-day build plan",
-                    desc: "Walk away with a concrete plan — whether you work with us or not.",
+                    desc: "Walk away with a concrete plan, whether you work with us or not.",
                   },
                 ].map((item) => (
                   <div key={item.num} className="flex items-start gap-3">

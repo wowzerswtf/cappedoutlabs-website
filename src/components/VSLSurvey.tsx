@@ -36,11 +36,11 @@ const SURVEY_SLIDES: SurveySlide[] = [
     question: "What's the biggest bottleneck in your business right now?",
     type: "radio",
     options: [
-      { id: "sales", label: "Sales — leads aren't converting or show rate is low" },
-      { id: "ops", label: "Operations — too many manual processes, can't scale" },
-      { id: "hiring", label: "Hiring — can't find or afford the right people" },
+      { id: "sales", label: "Sales: leads aren't converting, or show rate is low" },
+      { id: "ops", label: "Operations: too many manual processes to scale" },
+      { id: "hiring", label: "Hiring: can't find or afford the right people" },
       { id: "costs", label: "Customer acquisition costs are too high" },
-      { id: "systems", label: "No systems — running on tribal knowledge and hustle" },
+      { id: "systems", label: "No systems: running on tribal knowledge and hustle" },
     ],
   },
   {
@@ -48,10 +48,10 @@ const SURVEY_SLIDES: SurveySlide[] = [
     question: "Have you tried implementing AI or automation before?",
     type: "radio",
     options: [
-      { id: "yes-failed", label: "Yes — tried it, didn't stick or deliver ROI" },
-      { id: "yes-basic", label: "Yes — using basic tools (ChatGPT, Zapier, etc.)" },
-      { id: "yes-advanced", label: "Yes — have custom AI/ML systems in production" },
-      { id: "no", label: "No — haven't started yet" },
+      { id: "yes-failed", label: "Yes, but it didn't stick or deliver ROI" },
+      { id: "yes-basic", label: "Yes, using basic tools (ChatGPT, Zapier, etc.)" },
+      { id: "yes-advanced", label: "Yes, we run custom AI/ML systems in production" },
+      { id: "no", label: "No, haven't started yet" },
     ],
   },
   {
@@ -59,9 +59,9 @@ const SURVEY_SLIDES: SurveySlide[] = [
     question: "Do you have $15K–$100K+ allocated for AI infrastructure in the next 90 days?",
     type: "radio",
     options: [
-      { id: "yes", label: "Yes — budget is approved and ready" },
-      { id: "likely", label: "Likely — need to see the plan first" },
-      { id: "no", label: "No — not at this time", disqualify: true },
+      { id: "yes", label: "Yes, budget is approved and ready" },
+      { id: "likely", label: "Likely, but I need to see the plan first" },
+      { id: "no", label: "No, not right now", disqualify: true },
     ],
   },
   {
@@ -69,7 +69,7 @@ const SURVEY_SLIDES: SurveySlide[] = [
     question: "How soon do you want to move?",
     type: "radio",
     options: [
-      { id: "asap", label: "Immediately — ready to start this month" },
+      { id: "asap", label: "Immediately, ready to start this month" },
       { id: "30-days", label: "Within 30 days" },
       { id: "90-days", label: "Within 90 days" },
       { id: "exploring", label: "Just exploring for now" },
@@ -77,10 +77,10 @@ const SURVEY_SLIDES: SurveySlide[] = [
   },
   {
     id: "understand-model",
-    question: "Do you understand that we're a done-for-you AI deployment firm — not a consulting shop or agency?",
+    question: "Do you understand that we're a done-for-you AI deployment firm, not a consulting shop or agency?",
     type: "radio",
     options: [
-      { id: "yes", label: "Yes — I want production systems deployed into my business" },
+      { id: "yes", label: "Yes, I want production systems deployed into my business" },
       { id: "tell-me-more", label: "Tell me more on the call" },
     ],
   },
@@ -287,7 +287,7 @@ export function VSLSurvey({
               </h2>
               <p className="text-sm text-text-secondary mt-1 mb-6">
                 We work with operators doing $500K–$50M+ who want production AI
-                systems deployed into their business — not strategy decks.
+                systems deployed into their business, not strategy decks.
               </p>
             </>
           )}
@@ -467,7 +467,7 @@ export function VSLSurvey({
                   {step >= SURVEY_SLIDES.length && !loading && (
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <h3 className="text-lg font-bold text-navy">
-                        Last step — where should we reach you?
+                        Last step. Where should we reach you?
                       </h3>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

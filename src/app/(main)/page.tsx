@@ -14,9 +14,9 @@ import { fadeUp, staggerContainer } from "@/lib/animations";
 const homeFaqs = [
   { question: "How much does AI consulting cost?", answer: "Engagements start at $15,000 for a 2-week AI Revenue Sprint. Full infrastructure builds run $50K–$150K over 6–10 weeks. Full transformation for exit preparation is $200K–$500K+. We also offer equity and revenue-share arrangements for qualified operators." },
   { question: "How long does implementation take?", answer: "A single workflow can be built and deployed in 2 weeks. Full cross-department infrastructure takes 6–10 weeks. Complete business transformation runs 3–6 months. Every engagement includes a managed handoff period." },
-  { question: "What if we've tried AI before and it didn't work?", answer: "Almost every time we hear this, what happened is someone installed a tool and hoped the team would use it. Installing tools is not transformation. Building systems is. We use your previous attempt as a diagnostic to build something that actually sticks." },
+  { question: "What if we've tried AI before and it didn't work?", answer: "Almost every time we hear this, what happened is someone installed a tool and hoped the team would use it. Installing a tool isn't the same as changing how the business runs. We treat your last attempt as a diagnostic and build something that actually sticks." },
   { question: "Do you work with businesses our size?", answer: "We work with operators doing $250K and up across 30+ verticals. The common thread is a business with enough volume for AI to create leverage and enough complexity to make the investment worth it." },
-  { question: "What happens on the discovery call?", answer: "30-minute conversation. No pitch deck. We learn about your business, identify where AI would have the highest revenue impact, and tell you honestly whether we can help. If it's a fit, we scope a proposal. If not, we'll tell you why." },
+  { question: "What happens on the discovery call?", answer: "It's a 30-minute conversation, no pitch deck. We learn about your business, figure out where AI would have the highest revenue impact, and tell you honestly whether we can help. If it's a fit, we scope a proposal. If it isn't, we'll tell you why." },
 ];
 
 const stats = [
@@ -76,7 +76,7 @@ const solutions = [
   {
     icon: TrendingUp,
     title: "Exit-prep architecture",
-    body: "AI-systematized businesses command higher multiples. Built for that outcome.",
+    body: "AI-systematized businesses command higher multiples. We build for that.",
   },
 ];
 
@@ -219,7 +219,7 @@ export default function HomePage() {
             <VSLEmbed src="https://player.vimeo.com/video/1180565378?title=0&byline=0&portrait=0" />
           </motion.div>
           <p className="mt-4 text-sm text-text-secondary text-center">
-            10 minutes. No pitch deck. Just proof.
+            10 minutes showing how the work actually gets built.
           </p>
         </div>
       </section>
@@ -565,7 +565,7 @@ export default function HomePage() {
               {
                 n: "02",
                 title: "Hidden costs, named",
-                body: "Beyond our fee, expect $200 to $2,000 per month in API and tooling costs depending on scope, and 2 to 4 hours per week from one internal operator during the build. We'll show you the line items in the proposal. No surprises at month three.",
+                body: "Beyond our fee, expect $200 to $2,000 per month in API and tooling costs depending on scope, and 2 to 4 hours per week from one internal operator during the build. We'll show you the line items in the proposal so nothing surprises you at month three.",
               },
               {
                 n: "03",
