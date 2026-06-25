@@ -21,7 +21,16 @@ async function ghlRequest(method: string, path: string, body?: unknown) {
 
 export async function POST(request: Request) {
   try {
-    const { firstName, lastName, email, phone } = await request.json();
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      consent,
+      consentLanguage,
+      consentVersion,
+      consentTimestamp,
+    } = await request.json();
 
     if (!email || !firstName) {
       return NextResponse.json(
@@ -35,13 +44,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false }, { status: 500 });
     }
 
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+    const userAgent = request.headers.get("user-agent") || "unknown";
+
     const contactRes = await ghlRequest("POST", "/contacts/", {
       locationId: GHL_LOCATION_ID,
       firstName,
       lastName,
       email,
       phone,
-      tags: ["partial-applicant"],
+      tags: consent
+        ? ["partial-applicant", "tcpa-consent"]
+        : ["partial-applicant"],
       source: "cappedoutlabs.com",
     });
 
@@ -57,6 +74,26 @@ export async function POST(request: Request) {
 
     const contactId = contactRes.data?.contact?.id;
     console.log("Partial lead captured:", contactId, email);
+
+    // Record consent proof (best-effort, non-fatal)
+    if (contactId && consent) {
+      const body = [
+        "TCPA / COMMUNICATIONS CONSENT CAPTURED (partial lead)",
+        `Consent: granted`,
+        `Version: ${consentVersion || "unversioned"}`,
+        `Timestamp: ${consentTimestamp || new Date().toISOString()}`,
+        `IP: ${ip}`,
+        `User-Agent: ${userAgent}`,
+        `Phone: ${phone}`,
+        "",
+        "Language shown and agreed to:",
+        consentLanguage || "(language not recorded)",
+      ].join("\n");
+      const noteRes = await ghlRequest("POST", `/contacts/${contactId}/notes`, { body });
+      if (!noteRes.ok) {
+        console.error("Partial consent note failed:", noteRes.status, noteRes.data);
+      }
+    }
 
     return NextResponse.json({ success: true, contactId });
   } catch {

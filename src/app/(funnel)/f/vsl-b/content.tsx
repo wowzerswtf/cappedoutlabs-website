@@ -588,8 +588,8 @@ export function VSLBContent() {
       <footer className="bg-white border-t border-gray-100 py-6 px-4">
         <div className="max-w-[800px] mx-auto text-center space-y-3">
           <p className="text-xs text-gray-400">
-            Copyright {new Date().getFullYear()}, Capped Out Labs, LLC. All
-            rights reserved. This site is not a part of the Facebook&trade;
+            Copyright {new Date().getFullYear()}, Capped Out Media LLC (dba Capped
+            Out Labs). All rights reserved. This site is not a part of the Facebook&trade;
             website or Facebook&trade; Inc. Additionally, this site is NOT
             endorsed by Facebook&trade; in any way. FACEBOOK&trade; is a
             trademark of FACEBOOK&trade;, Inc.

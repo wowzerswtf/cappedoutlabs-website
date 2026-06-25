@@ -63,7 +63,7 @@ export function Footer() {
 
           <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-xs text-text-secondary/50">
-              &copy; {new Date().getFullYear()} Capped Out Labs. All rights reserved.
+              &copy; {new Date().getFullYear()} Capped Out Media LLC (dba Capped Out Labs). All rights reserved.
             </p>
             <div className="flex gap-6">
               <button

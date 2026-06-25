@@ -3,6 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, Check, ArrowLeft, X } from "lucide-react";
+import { ConsentCheckbox } from "@/components/ConsentCheckbox";
+import { CONSENT_TEXT, CONSENT_VERSION } from "@/lib/consent";
 
 // ── Survey Configuration ─────────────────────────────────────────
 const SURVEY_SLIDES: SurveySlide[] = [
@@ -214,7 +216,7 @@ export function VSLSurvey({
       return;
     }
     if (!agreedTerms) {
-      setError("Please agree to the terms to continue.");
+      setError("Please check the box to agree to be contacted before continuing.");
       return;
     }
 
@@ -233,6 +235,10 @@ export function VSLSurvey({
           companyName: companyName.trim(),
           revenue: answers["revenue"] || "",
           message: `VSL Funnel Application\n\nBusiness Type: ${answers["business-type"] || "N/A"}${answers["business-type-other"] ? ` (${answers["business-type-other"]})` : ""}\nRevenue: ${answers["revenue"] || "N/A"}\nBiggest Bottleneck: ${answers["biggest-bottleneck"] || "N/A"}\nAI Experience: ${answers["ai-experience"] || "N/A"}\nBudget: ${answers["budget"] || "N/A"}\nTimeline: ${answers["timeline"] || "N/A"}\nUnderstands Model: ${answers["understand-model"] || "N/A"}`,
+          consent: agreedTerms,
+          consentLanguage: CONSENT_TEXT,
+          consentVersion: CONSENT_VERSION,
+          consentTimestamp: new Date().toISOString(),
           source: "vsl-funnel",
         }),
       });
@@ -536,25 +542,15 @@ export function VSLSurvey({
                         />
                       </div>
 
-                      <div className="flex items-start gap-2 pt-1">
-                        <input
-                          type="checkbox"
-                          id="vsl-terms"
-                          checked={agreedTerms}
-                          onChange={(e) => {
-                            setAgreedTerms(e.target.checked);
-                            setError("");
-                          }}
-                          className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#2563EB] focus:ring-[#2563EB]"
-                        />
-                        <label
-                          htmlFor="vsl-terms"
-                          className="text-xs text-gray-500 leading-relaxed"
-                        >
-                          I agree to receive communications from Capped Out Labs
-                          and accept the Terms of Service and Privacy Policy.
-                        </label>
-                      </div>
+                      <ConsentCheckbox
+                        id="vsl-consent"
+                        checked={agreedTerms}
+                        onChange={(v) => {
+                          setAgreedTerms(v);
+                          setError("");
+                        }}
+                        className="pt-1"
+                      />
 
                       {error && (
                         <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">

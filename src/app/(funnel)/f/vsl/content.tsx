@@ -62,8 +62,8 @@ export function VSLFunnelContent() {
       <footer className="bg-white border-t border-gray-100 py-6 px-4">
         <div className="max-w-[800px] mx-auto text-center space-y-3">
           <p className="text-xs text-gray-400">
-            Copyright {new Date().getFullYear()}, Capped Out Labs, LLC. All
-            rights reserved. This site is not a part of the Facebook&trade;
+            Copyright {new Date().getFullYear()}, Capped Out Media LLC (dba Capped
+            Out Labs). All rights reserved. This site is not a part of the Facebook&trade;
             website or Facebook&trade; Inc. Additionally, this site is NOT
             endorsed by Facebook&trade; in any way. FACEBOOK&trade; is a
             trademark of FACEBOOK&trade;, Inc.
@@ -104,11 +104,17 @@ export function VSLFunnelContent() {
       <LegalModal id="terms-modal" title="Terms of Service">
         <p>
           By accessing this website or applying for services, you agree to be
-          bound by these Terms of Service. Capped Out Labs, LLC provides AI
-          transformation consulting services. Results described in case studies
-          and marketing materials are specific to those clients and are not
-          guaranteed. All engagements are governed by individual service
-          agreements executed between parties.
+          bound by these Terms of Service. Capped Out Media LLC (doing business as
+          Capped Out Labs) provides AI transformation and implementation services.
+          By submitting your phone number and checking the consent box, you give
+          your prior express written consent for Capped Out Media to contact you at
+          that number, including by automated technology, AI or prerecorded voice,
+          and SMS. Consent is not a condition of purchase, and you can reply STOP to
+          opt out. Results described in case studies are specific to those clients
+          and are not guaranteed. All engagements are governed by individual service
+          agreements, and disputes are resolved by binding individual arbitration
+          under Utah law. See the full Terms of Service and Privacy Policy at
+          cappedoutlabs.com.
         </p>
       </LegalModal>
 
@@ -131,12 +137,16 @@ export function VSLFunnelContent() {
 
       <LegalModal id="privacy-modal" title="Privacy Policy">
         <p>
-          Capped Out Labs, LLC respects your privacy. Information collected
-          through this application is used solely for the purpose of evaluating
-          your business for a potential engagement. We do not sell, rent, or
-          share your personal information with third parties. Data is stored
-          securely and retained only as long as necessary to fulfill the stated
-          purpose.
+          Capped Out Media LLC (doing business as Capped Out Labs) respects your
+          privacy. Information you submit, including your phone number, is used to
+          evaluate your business and to contact you about your inquiry by phone,
+          text, and email, including with automated technology, AI or prerecorded
+          voice, and SMS where you have consented. Message frequency varies and
+          message and data rates may apply; reply STOP to opt out. We do not sell
+          or rent your personal information, and we do not share your SMS opt-in
+          with third parties for their marketing. Data is stored securely and
+          retained as long as necessary, including consent records for legal
+          compliance. See the full Privacy Policy at cappedoutlabs.com.
         </p>
       </LegalModal>
 

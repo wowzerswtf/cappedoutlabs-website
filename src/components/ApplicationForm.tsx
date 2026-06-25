@@ -15,6 +15,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader2, ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { ConsentCheckbox } from "@/components/ConsentCheckbox";
+import { CONSENT_TEXT, CONSENT_VERSION } from "@/lib/consent";
 
 const revenueOptions = [
   "Under $500K",
@@ -74,6 +76,7 @@ export function ApplicationForm() {
   const [direction, setDirection] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [consent, setConsent] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     businessName: "",
@@ -102,7 +105,7 @@ export function ApplicationForm() {
 
   function canAdvance(): boolean {
     if (step === 0) {
-      return !!(formData.fullName.trim() && formData.email.trim() && formData.phone.trim());
+      return !!(formData.fullName.trim() && formData.email.trim() && formData.phone.trim() && consent);
     }
     if (step === 1) {
       return !!(formData.businessName.trim() && formData.annualRevenue && formData.teamSize);
@@ -112,7 +115,13 @@ export function ApplicationForm() {
 
   function nextStep() {
     if (!canAdvance()) {
-      setError("Please fill in all required fields.");
+      const contactFilled =
+        formData.fullName.trim() && formData.email.trim() && formData.phone.trim();
+      setError(
+        step === 0 && contactFilled && !consent
+          ? "Please check the box to agree to be contacted before continuing."
+          : "Please fill in all required fields."
+      );
       return;
     }
     setError("");
@@ -128,6 +137,10 @@ export function ApplicationForm() {
           lastName: nameParts.slice(1).join(" ") || "",
           email: formData.email,
           phone: formData.phone,
+          consent,
+          consentLanguage: CONSENT_TEXT,
+          consentVersion: CONSENT_VERSION,
+          consentTimestamp: new Date().toISOString(),
         }),
       }).catch(() => {}); // fire-and-forget
     }
@@ -179,6 +192,10 @@ export function ApplicationForm() {
       aiHistory: formData.aiHistory,
       tierInterest: formData.tierInterest,
       referralSource: formData.referralSource,
+      consent,
+      consentLanguage: CONSENT_TEXT,
+      consentVersion: CONSENT_VERSION,
+      consentTimestamp: new Date().toISOString(),
       submittedAt: new Date().toISOString(),
       source: "cappedoutlabs.com",
     };
@@ -303,6 +320,15 @@ export function ApplicationForm() {
                     onChange={(e) => updateField("phone", e.target.value)}
                   />
                 </div>
+                <ConsentCheckbox
+                  id="apply-consent"
+                  checked={consent}
+                  onChange={(v) => {
+                    setConsent(v);
+                    if (error) setError("");
+                  }}
+                  className="pt-1"
+                />
               </>
             )}
 

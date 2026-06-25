@@ -33,7 +33,7 @@ export default function FunnelLayout({
       <footer className="border-t border-border/50 bg-white">
         <div className="mx-auto max-w-5xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-text-secondary/50">
-            &copy; {new Date().getFullYear()} Capped Out Labs, LLC
+            &copy; {new Date().getFullYear()} Capped Out Media LLC (dba Capped Out Labs)
           </p>
           <div className="flex gap-6">
             <button

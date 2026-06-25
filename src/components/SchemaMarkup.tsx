@@ -3,6 +3,7 @@ export function OrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Capped Out Labs",
+    legalName: "Capped Out Media LLC",
     url: "https://cappedoutlabs.com",
     logo: "https://cappedoutlabs.com/og-image.png",
     description:

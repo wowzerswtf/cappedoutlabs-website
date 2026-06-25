@@ -43,6 +43,15 @@ interface ApplicationPayload {
   referralSource: string;
   submittedAt: string;
   source: string;
+  // TCPA / communications consent record
+  consent?: boolean;
+  consentLanguage?: string;
+  consentVersion?: string;
+  consentTimestamp?: string;
+  // Extra fields sent by the VSL funnel survey
+  companyName?: string;
+  revenue?: string;
+  message?: string;
 }
 
 // ── Resend confirmation email ────────────────────────────────────
@@ -80,6 +89,35 @@ async function ghlRequest(method: string, path: string, body?: unknown) {
   return { status: res.status, ok: res.ok, data };
 }
 
+// ── GHL: write an immutable consent record as a contact note ─────
+// TCPA requires keeping proof of what the person agreed to, when, and from where.
+async function addConsentNote(
+  contactId: string,
+  payload: ApplicationPayload,
+  ip: string,
+  userAgent: string
+) {
+  if (!payload.consent) return;
+  const body = [
+    "TCPA / COMMUNICATIONS CONSENT CAPTURED",
+    `Consent: granted`,
+    `Version: ${payload.consentVersion || "unversioned"}`,
+    `Timestamp: ${payload.consentTimestamp || payload.submittedAt}`,
+    `IP: ${ip}`,
+    `User-Agent: ${userAgent}`,
+    `Source: ${payload.source || "cappedoutlabs.com"}`,
+    `Phone: ${payload.phone}`,
+    "",
+    "Language shown and agreed to:",
+    payload.consentLanguage || "(language not recorded)",
+  ].join("\n");
+
+  const res = await ghlRequest("POST", `/contacts/${contactId}/notes`, { body });
+  if (!res.ok) {
+    console.error("GHL consent note failed:", res.status, res.data);
+  }
+}
+
 // ── GHL: find existing contact by email ──────────────────────────
 async function findContactByEmail(email: string): Promise<string | null> {
   const res = await ghlRequest("POST", "/contacts/search", {
@@ -95,7 +133,11 @@ async function findContactByEmail(email: string): Promise<string | null> {
 }
 
 // ── GHL: create or update contact + add to pipeline ─────────────
-async function createGhlContact(payload: ApplicationPayload) {
+async function createGhlContact(
+  payload: ApplicationPayload,
+  ip: string,
+  userAgent: string
+) {
   if (!GHL_API_KEY || !GHL_LOCATION_ID) {
     throw new Error("GHL_API_KEY and GHL_LOCATION_ID are required");
   }
@@ -106,6 +148,10 @@ async function createGhlContact(payload: ApplicationPayload) {
       id,
       field_value: payload[key as keyof ApplicationPayload],
     }));
+
+  const tags = payload.consent
+    ? ["labs-applicant", "tcpa-consent"]
+    : ["labs-applicant"];
 
   // Check if contact already exists (from partial lead capture)
   const existingId = await findContactByEmail(payload.email);
@@ -118,7 +164,7 @@ async function createGhlContact(payload: ApplicationPayload) {
       firstName: payload.firstName,
       lastName: payload.lastName,
       phone: payload.phone,
-      tags: ["labs-applicant"],
+      tags,
       source: payload.source || "cappedoutlabs.com",
       customFields,
     });
@@ -138,7 +184,7 @@ async function createGhlContact(payload: ApplicationPayload) {
       lastName: payload.lastName,
       email: payload.email,
       phone: payload.phone,
-      tags: ["labs-applicant"],
+      tags,
       source: payload.source || "cappedoutlabs.com",
       customFields,
     });
@@ -156,6 +202,9 @@ async function createGhlContact(payload: ApplicationPayload) {
 
     console.log("GHL contact created:", contactId);
   }
+
+  // Record consent proof against the contact (best-effort, non-fatal)
+  await addConsentNote(contactId, payload, ip, userAgent);
 
   // Step 2: Create opportunity in pipeline at "Applied" stage
   const oppRes = await ghlRequest("POST", "/opportunities/", {
@@ -199,10 +248,17 @@ export async function POST(request: Request) {
     );
   }
 
+  // Capture request metadata for the consent record
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown";
+  const userAgent = request.headers.get("user-agent") || "unknown";
+
   // Fire both simultaneously
   const [resendResult, ghlResult] = await Promise.allSettled([
     sendConfirmationEmail(payload),
-    createGhlContact(payload),
+    createGhlContact(payload, ip, userAgent),
   ]);
 
   // Log results
