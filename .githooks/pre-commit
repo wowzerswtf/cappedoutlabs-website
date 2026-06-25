@@ -1,0 +1,4 @@
+#!/bin/sh
+# Block commits that introduce AI-writing tells in user-facing copy.
+# Bypass with `git commit --no-verify` if you really mean it.
+node "$(git rev-parse --show-toplevel)/scripts/check-ai-slop.mjs"
