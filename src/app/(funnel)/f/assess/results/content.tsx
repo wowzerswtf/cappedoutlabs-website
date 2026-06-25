@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { CalendarEmbed } from "@/components/CalendarEmbed";
+import { ghlBookingUrl } from "@/lib/calendar";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import {
   CheckCircle2,
@@ -198,20 +200,12 @@ function FunnelResultsInner() {
                 </span>
               </div>
 
-              <div className="pt-1">
-                <Button
-                  asChild
-                  className="bg-electric hover:bg-electric-dark text-white rounded-xl h-14 px-10 text-base font-semibold shadow-lg shadow-electric/20"
-                >
-                  <a
-                    href="https://calendly.com/cappedoutmedia/ai-assessment-meeting"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {config.ctaText}
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </a>
-                </Button>
+              <div className="pt-3 text-left">
+                <CalendarEmbed
+                  id="assess-funnel"
+                  firstName={name.split(" ")[0]}
+                  lastName={name.split(" ").slice(1).join(" ")}
+                />
               </div>
 
               <p className="text-xs text-text-secondary/60 italic">
@@ -352,7 +346,10 @@ function FunnelResultsInner() {
                 className="bg-navy hover:bg-navy-light text-white rounded-xl h-14 px-10 text-base font-semibold"
               >
                 <a
-                  href="https://calendly.com/cappedoutmedia/ai-assessment-meeting"
+                  href={ghlBookingUrl({
+                    firstName: name.split(" ")[0],
+                    lastName: name.split(" ").slice(1).join(" "),
+                  })}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, Check, ArrowLeft, X } from "lucide-react";
 import { ConsentCheckbox } from "@/components/ConsentCheckbox";
+import { CalendarEmbed } from "@/components/CalendarEmbed";
 import { CONSENT_TEXT, CONSENT_VERSION } from "@/lib/consent";
 
 // ── Survey Configuration ─────────────────────────────────────────
@@ -348,28 +349,26 @@ export function VSLSurvey({
 
           {/* ── Submitted / Thank You Screen ── */}
           {submitted && (
-            <div className="text-center py-8 space-y-4">
-              <div className="w-16 h-16 mx-auto rounded-full bg-green-100 flex items-center justify-center">
-                <Check className="w-8 h-8 text-green-600" />
+            <div className="py-2 space-y-5">
+              <div className="text-center space-y-2">
+                <div className="w-14 h-14 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+                  <Check className="w-7 h-7 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-navy">
+                  You&apos;re a fit. Book your call.
+                </h3>
+                <p className="text-sm text-text-secondary max-w-md mx-auto">
+                  Pick a time below for your AI Infrastructure Discovery Call.
+                  We&apos;ll map your bottleneck to a 90-day build plan.
+                </p>
               </div>
-              <h3 className="text-2xl font-bold text-navy">
-                Application received
-              </h3>
-              <p className="text-text-secondary max-w-md mx-auto">
-                We review every application personally. If you&apos;re a fit,
-                you&apos;ll hear from our team within 24 hours to schedule your
-                discovery call.
-              </p>
-              <p className="text-sm text-text-secondary/70 max-w-md mx-auto">
-                We take 3 clients per month. Qualified applicants get priority
-                scheduling.
-              </p>
-              <button
-                onClick={handleClose}
-                className="mt-4 px-6 py-3 bg-navy text-white rounded-lg font-semibold hover:bg-navy/90 transition-colors"
-              >
-                Close
-              </button>
+              <CalendarEmbed
+                id="vsl"
+                firstName={fullName.trim().split(" ")[0]}
+                lastName={fullName.trim().split(" ").slice(1).join(" ")}
+                email={email.trim()}
+                phone={phone.trim()}
+              />
             </div>
           )}
 

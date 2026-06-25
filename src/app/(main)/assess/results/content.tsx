@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { WebPageSchema } from "@/components/SchemaMarkup";
+import { CalendarEmbed } from "@/components/CalendarEmbed";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { CheckCircle2, ArrowRight, Mail, Calendar } from "lucide-react";
 
@@ -153,13 +154,12 @@ function ResultsInner() {
                   We&apos;ll map your specific bottleneck to a 90-day build plan.
                   No pitch deck, no filler.
                 </p>
-                <div className="pt-2">
-                  <Button asChild className="bg-electric hover:bg-electric-dark text-white rounded-lg h-12 px-8 text-base font-semibold">
-                    <a href="https://calendly.com/cappedoutmedia/ai-assessment-meeting" target="_blank" rel="noopener noreferrer">
-                      Book Your Discovery Call
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </a>
-                  </Button>
+                <div className="pt-4 text-left">
+                  <CalendarEmbed
+                    id="assess"
+                    firstName={name.split(" ")[0]}
+                    lastName={name.split(" ").slice(1).join(" ")}
+                  />
                 </div>
                 <p className="text-xs text-text-secondary italic">
                   We take on 3 new build clients per month to maintain quality.

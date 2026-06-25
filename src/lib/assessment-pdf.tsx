@@ -686,15 +686,15 @@ function AssessmentPDFDocument(props: AssessmentPDFProps) {
               We'll map your specific bottleneck to a 90-day build plan.
               No pitch deck, no filler.
             </Text>
-            <Link src="https://calendly.com/cappedoutmedia/ai-assessment-meeting">
+            <Link src="https://cappedoutlabs.com/book">
               <View style={s.ctaButton}>
                 <Text style={s.ctaButtonText}>
                   Book Your Discovery Call
                 </Text>
               </View>
             </Link>
-            <Link src="https://calendly.com/cappedoutmedia/ai-assessment-meeting">
-              <Text style={s.ctaUrl}>calendly.com/cappedoutmedia/ai-assessment-meeting</Text>
+            <Link src="https://cappedoutlabs.com/book">
+              <Text style={s.ctaUrl}>cappedoutlabs.com/book</Text>
             </Link>
             <Text style={s.ctaScarcity}>
               We take on 3 new build clients per month to maintain

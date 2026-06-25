@@ -261,7 +261,7 @@ export function AssessmentResults({
                   Book a free 30-minute AI Infrastructure Discovery Call. We&apos;ll map your
                   specific bottleneck to a 90-day build plan. No pitch deck, no filler.
                 </Text>
-                <Link href="https://calendly.com/cappedoutmedia/ai-assessment-meeting" style={ctaButton}>
+                <Link href="https://cappedoutlabs.com/book" style={ctaButton}>
                   Book Your Discovery Call
                 </Link>
                 <Text style={scarcityText}>

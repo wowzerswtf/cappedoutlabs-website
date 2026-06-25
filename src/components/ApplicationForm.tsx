@@ -213,6 +213,20 @@ export function ApplicationForm() {
         throw new Error(data.error || "Submission failed");
       }
 
+      try {
+        sessionStorage.setItem(
+          "cappedout_booking",
+          JSON.stringify({
+            firstName,
+            lastName,
+            email: formData.email,
+            phone: formData.phone,
+          })
+        );
+      } catch {
+        // sessionStorage unavailable — thank-you page just won't prefill
+      }
+
       router.push("/thank-you");
     } catch (err) {
       try {
