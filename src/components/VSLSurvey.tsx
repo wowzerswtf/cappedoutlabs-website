@@ -171,11 +171,16 @@ export function VSLSurvey({
     setSelectedOption(option.id);
     setAnswers((prev) => ({ ...prev, [slideId]: option.id }));
 
-    // Check for disqualification
+    // Disqualifying answer: we still want the lead for nurture, so flag it
+    // internally and send them straight to the contact form. They submit like
+    // anyone else, but get tagged for nurture (not the sales pipeline) and see
+    // a resources screen instead of the calendar.
     if (option.disqualify) {
       setTimeout(() => {
         setDisqualified(true);
         setSelectedOption(null);
+        setDirection(1);
+        setStep(SURVEY_SLIDES.length); // jump to contact form
       }, 350);
       return;
     }
@@ -224,6 +229,17 @@ export function VSLSurvey({
     setLoading(true);
     setError("");
 
+    // Resolve a stored answer (option id) back to its human-readable label so
+    // GHL shows "$1M – $5M", not "1m-5m".
+    const labelFor = (slideId: string) => {
+      const slide = SURVEY_SLIDES.find((s) => s.id === slideId);
+      const opt = slide?.options.find((o) => o.id === answers[slideId]);
+      if (slideId === "business-type" && opt?.id === "other") {
+        return answers["business-type-other"] || opt?.label || "";
+      }
+      return opt?.label || "";
+    };
+
     try {
       const res = await fetch("/api/apply", {
         method: "POST",
@@ -233,9 +249,18 @@ export function VSLSurvey({
           lastName: fullName.split(" ").slice(1).join(" ") || "",
           email: email.trim(),
           phone: phone.trim(),
-          companyName: companyName.trim(),
+          // Map survey answers onto the GHL custom-field keys the API expects
+          businessName: companyName.trim(),
+          annualRevenue: labelFor("revenue"),
+          bottleneck: labelFor("biggest-bottleneck"),
+          aiHistory: labelFor("ai-experience"),
+          referralSource: "VSL Funnel",
+          // Keep raw revenue too (back-compat with anything reading `revenue`)
           revenue: answers["revenue"] || "",
-          message: `VSL Funnel Application\n\nBusiness Type: ${answers["business-type"] || "N/A"}${answers["business-type-other"] ? ` (${answers["business-type-other"]})` : ""}\nRevenue: ${answers["revenue"] || "N/A"}\nBiggest Bottleneck: ${answers["biggest-bottleneck"] || "N/A"}\nAI Experience: ${answers["ai-experience"] || "N/A"}\nBudget: ${answers["budget"] || "N/A"}\nTimeline: ${answers["timeline"] || "N/A"}\nUnderstands Model: ${answers["understand-model"] || "N/A"}`,
+          // Full Q&A — written as a contact note so nothing is ever lost
+          message: `VSL Funnel Application\n\nBusiness Type: ${labelFor("business-type") || "N/A"}\nRevenue: ${labelFor("revenue") || "N/A"}\nBiggest Bottleneck: ${labelFor("biggest-bottleneck") || "N/A"}\nAI Experience: ${labelFor("ai-experience") || "N/A"}\nBudget: ${labelFor("budget") || "N/A"}\nTimeline: ${labelFor("timeline") || "N/A"}\nUnderstands Model: ${labelFor("understand-model") || "N/A"}`,
+          // Disqualified leads are captured for nurture, not the sales pipeline
+          disqualified,
           consent: agreedTerms,
           consentLanguage: CONSENT_TEXT,
           consentVersion: CONSENT_VERSION,
@@ -287,7 +312,7 @@ export function VSLSurvey({
 
         <div className="p-6 sm:p-8">
           {/* Header */}
-          {!submitted && !disqualified && (
+          {!submitted && (
             <>
               <h2 className="text-xl sm:text-2xl font-bold text-navy pr-8">
                 Capped Out Labs — Application
@@ -300,7 +325,7 @@ export function VSLSurvey({
           )}
 
           {/* Progress bar */}
-          {!submitted && !disqualified && (
+          {!submitted && (
             <div className="mb-6">
               <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                 <motion.div
@@ -316,27 +341,31 @@ export function VSLSurvey({
             </div>
           )}
 
-          {/* ── Disqualified Screen ── */}
-          {disqualified && (
+          {/* ── Nurture Screen (submitted but not a current fit) ── */}
+          {submitted && disqualified && (
             <div className="text-center py-8 space-y-4">
+              <div className="w-14 h-14 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+                <Check className="w-7 h-7 text-[#2563EB]" />
+              </div>
               <h3 className="text-2xl font-bold text-navy">
-                Thanks for your interest
+                Got it — you&apos;re on our radar
               </h3>
               <p className="text-text-secondary max-w-md mx-auto">
-                Based on your answers, our done-for-you AI deployment model
-                may not be the right fit right now. We work best with
-                businesses doing $500K+ with budget allocated for
-                infrastructure.
+                Our done-for-you deployment model is built for businesses that
+                are a bit further along, so we&apos;re not going to book a call
+                today. But we&apos;ll keep you in the loop as you grow, and
+                we&apos;ll send over the AI plays that move the needle most at
+                your stage.
               </p>
               <p className="text-text-secondary max-w-md mx-auto">
-                Check out our free resources at{" "}
+                In the meantime, dig into our free resources at{" "}
                 <a
                   href="/resources"
                   className="text-[#2563EB] hover:underline font-medium"
                 >
                   cappedoutlabs.com/resources
-                </a>{" "}
-                for AI strategies you can implement today.
+                </a>
+                . Plenty there you can put to work this week.
               </p>
               <button
                 onClick={handleClose}
@@ -347,8 +376,8 @@ export function VSLSurvey({
             </div>
           )}
 
-          {/* ── Submitted / Thank You Screen ── */}
-          {submitted && (
+          {/* ── Submitted / Thank You Screen (qualified) ── */}
+          {submitted && !disqualified && (
             <div className="py-2 space-y-5">
               <div className="text-center space-y-2">
                 <div className="w-14 h-14 mx-auto rounded-full bg-green-100 flex items-center justify-center">
@@ -373,7 +402,7 @@ export function VSLSurvey({
           )}
 
           {/* ── Survey Slides ── */}
-          {!submitted && !disqualified && (
+          {!submitted && (
             <div className="relative overflow-hidden min-h-[320px]">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div

@@ -43,6 +43,9 @@ interface ApplicationPayload {
   referralSource: string;
   submittedAt: string;
   source: string;
+  // Lead failed a funnel qualifier (revenue/budget). Still captured for
+  // nurture, but kept out of the sales pipeline and not tagged as an applicant.
+  disqualified?: boolean;
   // TCPA / communications consent record
   consent?: boolean;
   consentLanguage?: string;
@@ -118,6 +121,21 @@ async function addConsentNote(
   }
 }
 
+// ── GHL: write the application Q&A as a contact note ─────────────
+// Custom fields only cover a few answers; this keeps the full survey on record.
+async function addApplicationNote(contactId: string, payload: ApplicationPayload) {
+  if (!payload.message) return;
+  const header = payload.disqualified
+    ? "VSL APPLICATION (NURTURE — did not meet qualifier)"
+    : "VSL APPLICATION";
+  const body = [header, "", payload.message].join("\n");
+
+  const res = await ghlRequest("POST", `/contacts/${contactId}/notes`, { body });
+  if (!res.ok) {
+    console.error("GHL application note failed:", res.status, res.data);
+  }
+}
+
 // ── GHL: find existing contact by email ──────────────────────────
 async function findContactByEmail(email: string): Promise<string | null> {
   const res = await ghlRequest("POST", "/contacts/search", {
@@ -149,9 +167,12 @@ async function createGhlContact(
       field_value: payload[key as keyof ApplicationPayload],
     }));
 
-  const tags = payload.consent
-    ? ["labs-applicant", "tcpa-consent"]
+  // Qualified leads are applicants; disqualified leads are nurture-only and
+  // must NOT carry the applicant tag (keeps the CRM's "qualified" view clean).
+  const baseTags = payload.disqualified
+    ? ["labs-nurture", "labs-disqualified"]
     : ["labs-applicant"];
+  const tags = payload.consent ? [...baseTags, "tcpa-consent"] : baseTags;
 
   // Check if contact already exists (from partial lead capture)
   const existingId = await findContactByEmail(payload.email);
@@ -203,8 +224,15 @@ async function createGhlContact(
     console.log("GHL contact created:", contactId);
   }
 
-  // Record consent proof against the contact (best-effort, non-fatal)
+  // Record consent proof + the full survey Q&A (best-effort, non-fatal)
   await addConsentNote(contactId, payload, ip, userAgent);
+  await addApplicationNote(contactId, payload);
+
+  // Disqualified leads stay out of the sales pipeline — no opportunity created.
+  if (payload.disqualified) {
+    console.log("GHL contact captured for nurture (no opportunity):", contactId);
+    return { contactId, opportunityId: undefined };
+  }
 
   // Step 2: Create opportunity in pipeline at "Applied" stage
   const oppRes = await ghlRequest("POST", "/opportunities/", {
