@@ -17,6 +17,10 @@ interface ApplicationConfirmationProps {
   businessName: string;
   tierInterest: string;
   annualRevenue: string;
+  // Nurture-only lead: no call, no booking CTA
+  disqualified?: boolean;
+  // Prefilled GHL booking link so they can grab a slot from the email
+  bookingUrl?: string;
 }
 
 export function ApplicationConfirmation({
@@ -25,11 +29,70 @@ export function ApplicationConfirmation({
   businessName = "",
   tierInterest = "",
   annualRevenue = "",
+  disqualified = false,
+  bookingUrl = "https://cappedoutlabs.com/book",
 }: ApplicationConfirmationProps) {
+  if (disqualified) {
+    return (
+      <Html>
+        <Head />
+        <Preview>We got your application, {firstName}. You&apos;re on our radar.</Preview>
+        <Body style={main}>
+          <Section style={header}>
+            <Text style={headerText}>Capped Out Labs</Text>
+          </Section>
+
+          <Container style={container}>
+            <Heading style={h1}>We got your application, {firstName}.</Heading>
+
+            <Text style={paragraph}>Hi {firstName},</Text>
+            <Text style={paragraph}>
+              Straight answer: our done-for-you deployment model is built for
+              businesses a bit further along, so we won&apos;t book a call today.
+            </Text>
+            <Text style={paragraph}>
+              You&apos;re on our radar though. As you grow, we&apos;ll send over
+              the AI plays that move the needle most at your stage, pulled from
+              what&apos;s working in our client builds right now.
+            </Text>
+
+            <Hr style={hr} />
+
+            <Text style={paragraph}>
+              In the meantime, dig into the free resources. Plenty there you can
+              put to work this week.
+            </Text>
+
+            <Section style={{ textAlign: "center" as const, margin: "28px 0" }}>
+              <Link href="https://cappedoutlabs.com/resources" style={ctaButton}>
+                Browse the Free Resources
+              </Link>
+            </Section>
+
+            <Hr style={hr} />
+
+            <Text style={paragraph}>Talk soon,</Text>
+            <Text style={signoff}>
+              Waynard
+              <br />
+              Capped Out Labs
+              <br />
+              <Link href="https://cappedoutlabs.com" style={link}>
+                cappedoutlabs.com
+              </Link>
+            </Text>
+          </Container>
+
+          <EmailFooter />
+        </Body>
+      </Html>
+    );
+  }
+
   return (
     <Html>
       <Head />
-      <Preview>We got your application, {firstName}. Here&apos;s what happens next.</Preview>
+      <Preview>Your application is in, {firstName}. Next step: book your call.</Preview>
       <Body style={main}>
         {/* Navy header bar */}
         <Section style={header}>
@@ -37,13 +100,12 @@ export function ApplicationConfirmation({
         </Section>
 
         <Container style={container}>
-          <Heading style={h1}>We got your application, {firstName}.</Heading>
+          <Heading style={h1}>You&apos;re a fit, {firstName}. Book your call.</Heading>
 
           <Text style={paragraph}>Hi {firstName},</Text>
           <Text style={paragraph}>
-            We&apos;ve received it and it&apos;s in our review queue.
+            Your application is in. Here&apos;s how it goes from here:
           </Text>
-          <Text style={paragraph}>Here&apos;s what happens next:</Text>
 
           {/* Three steps */}
           <Section style={stepsSection}>
@@ -58,9 +120,10 @@ export function ApplicationConfirmation({
                     <div style={stepCircle}>1</div>
                   </td>
                   <td style={stepContent}>
-                    <Text style={stepTitle}>We review your application</Text>
+                    <Text style={stepTitle}>Book your discovery call</Text>
                     <Text style={stepDetail}>
-                      Usually within 24 hours, often faster.
+                      Pick a time on the calendar below. Already grabbed one?
+                      You&apos;re set, the calendar invite is in your inbox.
                     </Text>
                   </td>
                 </tr>
@@ -70,11 +133,11 @@ export function ApplicationConfirmation({
                   </td>
                   <td style={stepContent}>
                     <Text style={stepTitle}>
-                      If it&apos;s a fit, we reach out to book a call
+                      We review your application before the call
                     </Text>
                     <Text style={stepDetail}>
-                      30 minutes. No pitch decks. Real conversation about your
-                      business.
+                      We show up already knowing your business. 30 minutes. No
+                      pitch decks. We map your bottleneck to a 90-day build plan.
                     </Text>
                   </td>
                 </tr>
@@ -95,16 +158,22 @@ export function ApplicationConfirmation({
             </table>
           </Section>
 
+          {/* Primary CTA: booking */}
+          <Section style={{ textAlign: "center" as const, margin: "28px 0" }}>
+            <Link href={bookingUrl} style={ctaButton}>
+              Book Your Call
+            </Link>
+          </Section>
+
           <Hr style={hr} />
 
           <Text style={paragraph}>
-            While you wait, watch the VSL if you haven&apos;t already. It explains
-            how we work and what the systems look like in production.
+            Before the call, watch the VSL if you haven&apos;t already. It
+            explains how we work and what the systems look like in production.
           </Text>
 
-          {/* CTA Button */}
           <Section style={{ textAlign: "center" as const, margin: "28px 0" }}>
-            <Link href="https://cappedoutlabs.com/#vsl" style={ctaButton}>
+            <Link href="https://cappedoutlabs.com/#vsl" style={secondaryButton}>
               Watch: How We Build AI Systems
             </Link>
           </Section>
@@ -113,8 +182,7 @@ export function ApplicationConfirmation({
 
           <Text style={paragraph}>
             One thing worth knowing: we take on a limited number of clients each
-            quarter. If we reach out, it means we genuinely believe we can move
-            your numbers.
+            quarter. The call is where we find out if you&apos;re one of them.
           </Text>
 
           <Text style={paragraph}>Talk soon,</Text>
@@ -129,23 +197,28 @@ export function ApplicationConfirmation({
           </Text>
         </Container>
 
-        {/* Footer */}
-        <Section style={footer}>
-          <Text style={footerText}>
-            You received this because you applied at{" "}
-            <Link href="https://cappedoutlabs.com" style={footerLink}>
-              cappedoutlabs.com
-            </Link>
-            . A Capped Out Media company.
-          </Text>
-          <Text style={footerText}>
-            <Link href="{{{RESEND_UNSUBSCRIBE_URL}}}" style={footerLink}>
-              Unsubscribe
-            </Link>
-          </Text>
-        </Section>
+        <EmailFooter />
       </Body>
     </Html>
+  );
+}
+
+function EmailFooter() {
+  return (
+    <Section style={footer}>
+      <Text style={footerText}>
+        You received this because you applied at{" "}
+        <Link href="https://cappedoutlabs.com" style={footerLink}>
+          cappedoutlabs.com
+        </Link>
+        . A Capped Out Media company.
+      </Text>
+      <Text style={footerText}>
+        <Link href="{{{RESEND_UNSUBSCRIBE_URL}}}" style={footerLink}>
+          Unsubscribe
+        </Link>
+      </Text>
+    </Section>
   );
 }
 
@@ -250,6 +323,17 @@ const hr: React.CSSProperties = {
 };
 
 const ctaButton: React.CSSProperties = {
+  backgroundColor: "#2563EB",
+  borderRadius: "6px",
+  color: "#ffffff",
+  display: "inline-block",
+  fontSize: "15px",
+  fontWeight: "600",
+  padding: "12px 28px",
+  textDecoration: "none",
+};
+
+const secondaryButton: React.CSSProperties = {
   backgroundColor: "#1a3a5c",
   borderRadius: "6px",
   color: "#ffffff",

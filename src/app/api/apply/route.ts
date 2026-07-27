@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { ApplicationConfirmation } from "@/emails/ApplicationConfirmation";
+import { ghlBookingUrl } from "@/lib/calendar";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -65,13 +66,22 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
   return getResend().emails.send({
     from: `${fromName} <${fromEmail}>`,
     to: payload.email,
-    subject: `We got your application, ${payload.firstName}`,
+    subject: payload.disqualified
+      ? `We got your application, ${payload.firstName}`
+      : `You're a fit, ${payload.firstName}. Book your call.`,
     react: ApplicationConfirmation({
       firstName: payload.firstName,
       lastName: payload.lastName,
       businessName: payload.businessName,
       tierInterest: payload.tierInterest,
       annualRevenue: payload.annualRevenue,
+      disqualified: payload.disqualified,
+      bookingUrl: ghlBookingUrl({
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        email: payload.email,
+        phone: payload.phone,
+      }),
     }),
   });
 }
