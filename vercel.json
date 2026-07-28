@@ -2,6 +2,12 @@
   "framework": "nextjs",
   "buildCommand": "next build",
   "outputDirectory": ".next",
+  "crons": [
+    {
+      "path": "/api/telegram/poll",
+      "schedule": "*/5 * * * *"
+    }
+  ],
   "rewrites": [
     {
       "source": "/f/out",
