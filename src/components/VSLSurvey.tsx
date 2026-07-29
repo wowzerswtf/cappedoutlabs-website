@@ -124,9 +124,15 @@ const slideMotion = {
 export function VSLSurvey({
   open,
   onClose,
+  source = "vsl-funnel",
+  referralSource = "VSL Funnel",
 }: {
   open: boolean;
   onClose: () => void;
+  /** Attribution tag sent to /api/apply and Meta (e.g. "apply-now") */
+  source?: string;
+  /** Human-readable label written to GHL (e.g. "Apply Now Page") */
+  referralSource?: string;
 }) {
   const [step, setStep] = useState(0); // 0..6 = survey slides, 7 = contact form
   const [direction, setDirection] = useState(1);
@@ -260,18 +266,18 @@ export function VSLSurvey({
           annualRevenue: labelFor("revenue"),
           bottleneck: labelFor("biggest-bottleneck"),
           aiHistory: labelFor("ai-experience"),
-          referralSource: "VSL Funnel",
+          referralSource,
           // Keep raw revenue too (back-compat with anything reading `revenue`)
           revenue: answers["revenue"] || "",
           // Full Q&A — written as a contact note so nothing is ever lost
-          message: `VSL Funnel Application\n\nBusiness Type: ${labelFor("business-type") || "N/A"}\nRevenue: ${labelFor("revenue") || "N/A"}\nBiggest Bottleneck: ${labelFor("biggest-bottleneck") || "N/A"}\nAI Experience: ${labelFor("ai-experience") || "N/A"}\nBudget: ${labelFor("budget") || "N/A"}\nTimeline: ${labelFor("timeline") || "N/A"}\nUnderstands Model: ${labelFor("understand-model") || "N/A"}`,
+          message: `${referralSource} Application\n\nBusiness Type: ${labelFor("business-type") || "N/A"}\nRevenue: ${labelFor("revenue") || "N/A"}\nBiggest Bottleneck: ${labelFor("biggest-bottleneck") || "N/A"}\nAI Experience: ${labelFor("ai-experience") || "N/A"}\nBudget: ${labelFor("budget") || "N/A"}\nTimeline: ${labelFor("timeline") || "N/A"}\nUnderstands Model: ${labelFor("understand-model") || "N/A"}`,
           // Disqualified leads are captured for nurture, not the sales pipeline
           disqualified,
           consent: agreedTerms,
           consentLanguage: CONSENT_TEXT,
           consentVersion: CONSENT_VERSION,
           consentTimestamp: new Date().toISOString(),
-          source: "vsl-funnel",
+          source,
         }),
       });
 
@@ -281,7 +287,7 @@ export function VSLSurvey({
       }
 
       if (!disqualified) {
-        metaTrack("Lead", { source: "vsl-funnel" }, metaEventId);
+        metaTrack("Lead", { source }, metaEventId);
       }
 
       setSubmitted(true);

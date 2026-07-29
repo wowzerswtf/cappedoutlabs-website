@@ -17,26 +17,28 @@ Event taxonomy:
   event_id `ghl-appt-{id}` so poll/webhook/retries never double-count
 
 Tasks:
-- [ ] `src/lib/meta/capi.ts` — server CAPI client (SHA-256 user_data hashing,
+- [x] `src/lib/meta/capi.ts` — server CAPI client (SHA-256 user_data hashing,
       fbp/fbc/IP/UA from request, test_event_code support, silent no-op
       without env)
-- [ ] `src/lib/meta/client.ts` — typed fbq wrapper + event-id generator
-- [ ] `src/components/MetaPixel.tsx` — base code loader, SPA PageView,
+- [x] `src/lib/meta/client.ts` — typed fbq wrapper + event-id generator
+- [x] `src/components/MetaPixel.tsx` — base code loader, SPA PageView,
       funnel ViewContent
-- [ ] Root layout renders `<MetaPixel />`
-- [ ] `/api/apply` — CAPI Lead / LeadDisqualified with dedup eventId
-- [ ] `/api/apply/partial` — CAPI PartialLead
-- [ ] `/api/assess` — CAPI CompleteRegistration with dedup eventId
-- [ ] `/api/telegram/poll` — CAPI Schedule on new bookings
-- [ ] `/api/telegram/ghl-webhook` — CAPI Schedule on instant bookings
-- [ ] `ApplicationForm` + `VSLSurvey` — send eventId, fire fbq Lead on success
-- [ ] `AssessmentQuiz` + `FunnelQuiz` — send eventId, fire fbq
+- [x] Root layout renders `<MetaPixel />`
+- [x] `/api/apply` — CAPI Lead / LeadDisqualified with dedup eventId
+- [x] `/api/apply/partial` — CAPI PartialLead
+- [x] `/api/assess` — CAPI CompleteRegistration with dedup eventId
+- [x] `/api/telegram/poll` — CAPI Schedule on new bookings
+- [x] `/api/telegram/ghl-webhook` — CAPI Schedule on instant bookings
+- [x] `ApplicationForm` + `VSLSurvey` — send eventId, fire fbq Lead on success
+- [x] `AssessmentQuiz` + `FunnelQuiz` — send eventId, fire fbq
       CompleteRegistration on success
-- [ ] `/api/meta/test` — secret-gated CAPI test-fire endpoint for Events
+- [x] `/api/meta/test` — secret-gated CAPI test-fire endpoint for Events
       Manager verification
-- [ ] Env placeholders in `.env.local` + docs in AGENTS.md
-- [ ] `npm run lint` + `npm run build` clean
-- [ ] Commit + push (deploys dark; goes live when env vars land in Vercel)
+- [x] Env placeholders in `.env.local` + docs in AGENTS.md
+- [x] `npm run build` clean (lint has pre-existing errors in untouched files;
+      none in the new Meta code)
+- [x] Commit c66be99 pushed (deploys dark; goes live when env vars land in
+      Vercel)
 
 Blocked on Waynard (2 min): create "Capped Out Labs" web dataset in Events
 Manager under the Labs Business Manager, generate a Conversions API access
@@ -66,3 +68,27 @@ cron; optional instant webhook endpoint for GHL workflows.
 
 Note: GHL contacts/search has ~20s Elasticsearch indexing lag on new
 contacts — harmless at a 5-minute poll cadence with the 15-min overlap window.
+
+---
+
+# /apply-now ad landing page — 2026-07-29
+
+Rebuild of the page the media team deployed on cappedoutlab.com (typo domain,
+not our infra, form posted nowhere). Same sections and copy on our own domain,
+with the working vsl-b intake behind every CTA.
+
+- [x] `src/app/(funnel)/apply-now/` — page + content (hero, proof band,
+      operating gap, services, apply CTA, FB ad disclaimer, sticky mobile CTA)
+- [x] Every CTA opens `VSLSurvey` → qualifies → posts `/api/apply` → pops the
+      GHL calendar for qualified leads (nurture screen for disqualified)
+- [x] `VSLSurvey` gained `source`/`referralSource` props ("apply-now" /
+      "Apply Now Page") — vsl-b defaults unchanged
+- [x] `MetaPixel` fires ViewContent on `/apply-now` (inline + SPA nav)
+- [x] `NEXT_PUBLIC_META_PIXEL_ID=3578788369100460` set in Vercel
+      prod/preview/dev + `.env.local` — the pixel the live ads' account uses
+      (dataset "COM"; swap to a dedicated Labs pixel = one env var change).
+      Browser pixel now LIVE; CAPI still dark until `META_CAPI_ACCESS_TOKEN`.
+- [x] Build clean, slop lint clean, deployed, verified live
+
+Next: point the Meta ads' link_url at https://cappedoutlabs.com/apply-now and
+retire cappedoutlab.com.
