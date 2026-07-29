@@ -17,6 +17,7 @@ import {
 import { Loader2, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import { ConsentCheckbox } from "@/components/ConsentCheckbox";
 import { CONSENT_TEXT, CONSENT_VERSION } from "@/lib/consent";
+import { metaTrack, newMetaEventId } from "@/lib/meta/client";
 
 const revenueOptions = [
   "Under $500K",
@@ -179,7 +180,12 @@ export function ApplicationForm() {
       website = `https://${website}`;
     }
 
+    // Shared browser/server event ID so Meta counts this Lead once
+    const metaEventId = newMetaEventId();
+
     const payload = {
+      metaEventId,
+      pageUrl: window.location.href,
       firstName,
       lastName,
       businessName: formData.businessName,
@@ -226,6 +232,8 @@ export function ApplicationForm() {
       } catch {
         // sessionStorage unavailable — thank-you page just won't prefill
       }
+
+      metaTrack("Lead", { source: "apply-page" }, metaEventId);
 
       router.push("/thank-you");
     } catch (err) {

@@ -6,6 +6,7 @@ import { Loader2, Check, ArrowLeft, X } from "lucide-react";
 import { ConsentCheckbox } from "@/components/ConsentCheckbox";
 import { CalendarEmbed } from "@/components/CalendarEmbed";
 import { CONSENT_TEXT, CONSENT_VERSION } from "@/lib/consent";
+import { metaTrack, newMetaEventId } from "@/lib/meta/client";
 
 // ── Survey Configuration ─────────────────────────────────────────
 const SURVEY_SLIDES: SurveySlide[] = [
@@ -240,11 +241,16 @@ export function VSLSurvey({
       return opt?.label || "";
     };
 
+    // Shared browser/server event ID so Meta counts this Lead once
+    const metaEventId = newMetaEventId();
+
     try {
       const res = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          metaEventId,
+          pageUrl: window.location.href,
           firstName: fullName.split(" ")[0] || fullName.trim(),
           lastName: fullName.split(" ").slice(1).join(" ") || "",
           email: email.trim(),
@@ -272,6 +278,10 @@ export function VSLSurvey({
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error || "Submission failed");
+      }
+
+      if (!disqualified) {
+        metaTrack("Lead", { source: "vsl-funnel" }, metaEventId);
       }
 
       setSubmitted(true);

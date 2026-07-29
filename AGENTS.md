@@ -44,3 +44,36 @@ and appointment status change — no GHL login needed.
   sample cards; without `test=1` it runs a real poll cycle.
 - **Swap to a dedicated bot later:** create one with @BotFather, message it
   once, then update `TELEGRAM_BOT_TOKEN` in Vercel. Nothing else changes.
+
+## Meta (Facebook) conversion tracking
+
+Browser pixel + server Conversions API, reporting to the dedicated Capped Out
+Labs pixel (NOT the Capped Out Media pixels - the two businesses run separate
+ad accounts). Ships dark: with the env vars unset, every tracking call is a
+silent no-op.
+
+- **Pixel loader:** `src/components/MetaPixel.tsx`, rendered from the root
+  layout. Fires PageView on load + App Router navigations, ViewContent on
+  funnel landers (`/f/*`).
+- **Server CAPI client:** `src/lib/meta/capi.ts` (SHA-256 hashed user_data,
+  fbp/fbc cookie forwarding, never throws). Browser helper: `src/lib/meta/client.ts`.
+- **Events:**
+  - `Lead` - qualified application (`/api/apply`). Fired browser-side AND
+    server-side with a shared `metaEventId` so Meta dedupes to one conversion.
+  - `LeadDisqualified` (custom) - failed-qualifier VSL applications, CAPI only.
+  - `PartialLead` (custom) - step-1 contact capture (`/api/apply/partial`), CAPI only.
+  - `CompleteRegistration` - assessment quiz completion (`/api/assess`),
+    browser + CAPI dedup.
+  - `Schedule` - GHL booking, CAPI only, fired from the Telegram poll route
+    and the instant webhook with event_id `ghl-appt-{id}` (dedupes poll
+    retries and poll-vs-webhook double reporting).
+- **Env:** `NEXT_PUBLIC_META_PIXEL_ID`, `META_CAPI_ACCESS_TOKEN`, optional
+  `META_TEST_EVENT_CODE` (routes CAPI events to Events Manager > Test Events).
+  Set in Vercel (all three environments) + `.env.local`. The pixel ID is
+  baked into the client bundle at build time - redeploy after changing it.
+- **Verify:** `GET /api/meta/test?secret=<CRON_SECRET>&code=<TEST_EVENT_CODE>`
+  fires a test Lead through CAPI; watch it arrive in Events Manager > Test
+  Events. Browser side: Meta Pixel Helper extension on the live site.
+- **Ad set optimization:** point lead campaigns at `Lead`, booking campaigns
+  at `Schedule`. `LeadDisqualified`/`PartialLead` exist for audience building
+  and diagnostics, not optimization.

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { ApplicationConfirmation } from "@/emails/ApplicationConfirmation";
 import { ghlBookingUrl } from "@/lib/calendar";
+import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -56,6 +57,11 @@ interface ApplicationPayload {
   companyName?: string;
   revenue?: string;
   message?: string;
+  // Meta event ID minted client-side; the browser fbq Lead call carries the
+  // same ID so Meta dedupes the pixel + CAPI pair into one conversion.
+  metaEventId?: string;
+  // Page the form was submitted from (event_source_url for CAPI)
+  pageUrl?: string;
 }
 
 // ── Resend confirmation email ────────────────────────────────────
@@ -293,10 +299,28 @@ export async function POST(request: Request) {
     "unknown";
   const userAgent = request.headers.get("user-agent") || "unknown";
 
-  // Fire both simultaneously
+  // Meta conversion: qualified applications are the Lead event ad sets
+  // optimize on; disqualified ones are tracked separately so they never
+  // pollute the optimization signal. Best-effort - never blocks the lead.
+  const metaEvent = sendMetaEvent({
+    eventName: payload.disqualified ? "LeadDisqualified" : "Lead",
+    eventId: payload.metaEventId,
+    eventSourceUrl: payload.pageUrl,
+    userData: {
+      ...userDataFromRequest(request),
+      email: payload.email,
+      phone: payload.phone,
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+    },
+    customData: { source: payload.source || "cappedoutlabs.com" },
+  });
+
+  // Fire everything simultaneously
   const [resendResult, ghlResult] = await Promise.allSettled([
     sendConfirmationEmail(payload),
     createGhlContact(payload, ip, userAgent),
+    metaEvent,
   ]);
 
   // Log results

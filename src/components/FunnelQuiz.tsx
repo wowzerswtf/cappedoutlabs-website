@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Loader2, ArrowLeft, Check, Shield, Clock, Star } from "lucide-react";
 import { QUESTIONS } from "@/lib/quiz-scoring";
 import type { QuizAnswer } from "@/lib/quiz-scoring";
+import { metaTrack, newMetaEventId } from "@/lib/meta/client";
 
 const TOTAL_STEPS = QUESTIONS.length + 1; // gate + 5 questions
 const PROGRESS_OFFSET = 0.15; // Start at 15% — upfront progress bias
@@ -174,11 +175,16 @@ export function FunnelQuiz() {
       ([questionId, answerId]) => ({ questionId, answerId })
     );
 
+    // Shared browser/server event ID so Meta counts this conversion once
+    const metaEventId = newMetaEventId();
+
     try {
       const res = await fetch("/api/assess", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          metaEventId,
+          pageUrl: window.location.href,
           contact: {
             firstName: firstName.trim(),
             lastName: "",
@@ -194,6 +200,8 @@ export function FunnelQuiz() {
       if (!res.ok) {
         throw new Error(data.error || "Submission failed");
       }
+
+      metaTrack("CompleteRegistration", { source: "funnel-quiz" }, metaEventId);
 
       const params = new URLSearchParams({
         tier: data.tier.id,

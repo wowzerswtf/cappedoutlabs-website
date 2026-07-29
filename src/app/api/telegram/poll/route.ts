@@ -27,6 +27,7 @@ import {
   type NotifyState,
 } from "@/lib/notify/ghl";
 import { formatBooking, formatBookingChange, formatLead } from "@/lib/notify/format";
+import { sendMetaEvent } from "@/lib/meta/capi";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -198,8 +199,27 @@ export async function GET(request: Request) {
     try {
       if (!prev) {
         if (status !== "cancelled") {
-          await sendTelegram(formatBooking(a, await bookingContext(a, cache)));
+          const ctx = await bookingContext(a, cache);
+          await sendTelegram(formatBooking(a, ctx));
           summary.newBookings++;
+          // Meta conversion: booking = Schedule. Deterministic event_id keyed
+          // on the GHL appointment id dedupes poll retries and the instant
+          // webhook. sendMetaEvent never throws, so a Meta outage can't roll
+          // back the Telegram state above.
+          await sendMetaEvent({
+            eventName: "Schedule",
+            eventId: `ghl-appt-${a.id}`,
+            actionSource: "system_generated",
+            userData: {
+              email: ctx.contact?.email,
+              phone: ctx.contact?.phone,
+              firstName: ctx.contact?.firstName,
+              lastName: ctx.contact?.lastName,
+            },
+            customData: ctx.calendarName
+              ? { calendar: ctx.calendarName }
+              : undefined,
+          });
         }
       } else {
         const [prevStatus, prevStart] = prev;

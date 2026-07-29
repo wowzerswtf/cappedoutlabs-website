@@ -12,6 +12,7 @@ import { NextResponse } from "next/server";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import { loadState, saveState } from "@/lib/notify/ghl";
 import { formatWhen } from "@/lib/notify/format";
+import { sendMetaEvent } from "@/lib/meta/capi";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
@@ -75,6 +76,27 @@ export async function POST(request: Request) {
   }
 
   await sendTelegram(lines.join("\n"));
+
+  // Meta conversion: instant Schedule for bookings. Uses the same
+  // `ghl-appt-{id}` event_id scheme as the cron poll, so whichever path
+  // reports first wins and the other is deduped by Meta. If the payload
+  // has no appointment id, skip - the poll will report it with one.
+  if (isBooking) {
+    const apptId = str(calendar, "id", "appointmentId", "appointment_id");
+    if (apptId) {
+      await sendMetaEvent({
+        eventName: "Schedule",
+        eventId: `ghl-appt-${apptId}`,
+        actionSource: "system_generated",
+        userData: {
+          email,
+          phone,
+          firstName: str(payload, "first_name", "firstName"),
+          lastName: str(payload, "last_name", "lastName"),
+        },
+      });
+    }
+  }
 
   // Suppress the duplicate from the next cron poll.
   if (contactId && !isBooking) {

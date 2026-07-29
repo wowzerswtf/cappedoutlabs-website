@@ -9,6 +9,7 @@ import {
 } from "@/lib/quiz-scoring";
 import { AssessmentResults } from "@/emails/AssessmentResults";
 import { generateAssessmentPDF } from "@/lib/assessment-pdf";
+import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -39,6 +40,10 @@ const CUSTOM_FIELDS: Record<string, string> = {
 interface AssessPayload {
   contact: QuizContact;
   answers: QuizAnswer[];
+  // Meta event ID minted client-side; the browser CompleteRegistration call
+  // carries the same ID so pixel + CAPI dedupe into one conversion.
+  metaEventId?: string;
+  pageUrl?: string;
 }
 
 // ── GHL API helper ─────────��─────────────────────────────────────
@@ -257,10 +262,26 @@ export async function POST(request: Request) {
     answerTexts[qId] = { text: answer.text, tag: answer.tag };
   }
 
-  // Fire email + GHL in parallel
+  // Meta conversion: quiz completions are CompleteRegistration (distinct
+  // from Lead so application-optimized ad sets stay clean). Best-effort.
+  const metaEvent = sendMetaEvent({
+    eventName: "CompleteRegistration",
+    eventId: payload.metaEventId,
+    eventSourceUrl: payload.pageUrl,
+    userData: {
+      ...userDataFromRequest(request),
+      email: contact.email,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+    },
+    customData: { quiz_score: result.total, quiz_tier: result.tier.label },
+  });
+
+  // Fire email + GHL + Meta in parallel
   const [resendResult, ghlResult] = await Promise.allSettled([
     sendAssessmentEmail(contact, result),
     upsertGhlContact(contact, result.tier.label, result.total, answerTexts),
+    metaEvent,
   ]);
 
   console.log(

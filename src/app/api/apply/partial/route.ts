@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 
 const GHL_API_KEY = process.env.GHL_API_KEY;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
@@ -49,6 +50,19 @@ export async function POST(request: Request) {
       request.headers.get("x-real-ip") ||
       "unknown";
     const userAgent = request.headers.get("user-agent") || "unknown";
+
+    // Meta: custom PartialLead event - top-of-form contact capture. CAPI
+    // only (no browser twin), fire-and-forget so it never delays capture.
+    sendMetaEvent({
+      eventName: "PartialLead",
+      userData: {
+        ...userDataFromRequest(request),
+        email,
+        phone,
+        firstName,
+        lastName,
+      },
+    }).catch(() => {});
 
     const contactRes = await ghlRequest("POST", "/contacts/", {
       locationId: GHL_LOCATION_ID,

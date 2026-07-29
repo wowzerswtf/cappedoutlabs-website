@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, ArrowLeft, Check } from "lucide-react";
 import { QUESTIONS, type QuizAnswer } from "@/lib/quiz-scoring";
+import { metaTrack, newMetaEventId } from "@/lib/meta/client";
 
 const TOTAL_STEPS = QUESTIONS.length + 1; // gate screen + 5 questions
 
@@ -112,11 +113,16 @@ export function AssessmentQuiz() {
       ([questionId, answerId]) => ({ questionId, answerId })
     );
 
+    // Shared browser/server event ID so Meta counts this conversion once
+    const metaEventId = newMetaEventId();
+
     try {
       const res = await fetch("/api/assess", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          metaEventId,
+          pageUrl: window.location.href,
           contact: {
             firstName: firstName.trim(),
             lastName: lastName.trim(),
@@ -132,6 +138,8 @@ export function AssessmentQuiz() {
       if (!res.ok) {
         throw new Error(data.error || "Submission failed");
       }
+
+      metaTrack("CompleteRegistration", { source: "assess-page" }, metaEventId);
 
       // Redirect to results with tier info
       const params = new URLSearchParams({
