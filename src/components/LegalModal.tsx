@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { X } from "lucide-react";
 
 interface LegalModalProps {
@@ -12,6 +12,9 @@ interface LegalModalProps {
 
 export function LegalModal({ open, onClose, title, children }: LegalModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
     if (open) {
@@ -24,12 +27,39 @@ export function LegalModal({ open, onClose, title, children }: LegalModalProps) 
     };
   }, [open]);
 
+  // Move focus into the dialog on open, restore it on close, and keep Tab
+  // cycling inside (focus trap). Escape closes.
   useEffect(() => {
+    if (!open) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    closeButtonRef.current?.focus();
+
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || !dialogRef.current) return;
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     }
-    if (open) window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      previouslyFocused?.focus();
+    };
   }, [open, onClose]);
 
   if (!open) return null;
@@ -42,14 +72,22 @@ export function LegalModal({ open, onClose, title, children }: LegalModalProps) 
         if (e.target === overlayRef.current) onClose();
       }}
     >
-      <div className="relative w-full max-w-2xl max-h-[85vh] bg-white rounded-2xl shadow-2xl flex flex-col">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        className="relative w-full max-w-2xl max-h-[85vh] bg-white rounded-2xl shadow-2xl flex flex-col"
+      >
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-          <h2 className="text-lg font-bold text-navy">{title}</h2>
+          <h2 id={titleId} className="text-lg font-bold text-navy">{title}</h2>
           <button
+            ref={closeButtonRef}
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Close"
+            className="p-3 rounded-lg hover:bg-gray-100 transition-colors"
           >
-            <X className="h-5 w-5 text-text-secondary" />
+            <X className="h-5 w-5 text-text-secondary" aria-hidden="true" />
           </button>
         </div>
         <div className="overflow-y-auto px-6 py-6 text-sm text-text-primary leading-relaxed space-y-4">

@@ -15,3 +15,13 @@
 **Fix:** `ApplicationConfirmation` now has two variants keyed off `payload.disqualified`: qualified leads get a booking-first email with a prefilled GHL booking CTA; nurture leads get a no-call email pointing at /resources.
 
 **Rule going forward:** any change to the post-submit UX (booking, qualification, routing) must be checked against the transactional emails in `src/emails/` in the same commit.
+
+## 2026-07-29 — The Jul 27 email fix missed a second copy of the email living in GHL
+
+**What happened:** A test applicant booked a call and still got "if it's a fit, we reach out to book a call." The site's Resend email was fine — the stale copy came from the GHL workflow "Labs — New Application" (id 760afbfe-34d1-47fb-b82f-4f3ad24cf35f), which fires ~12 minutes after every new application and contains a word-for-word paste of the pre-Jul-27 application email. Confirmed via the contact's GHL conversation: the message's `source` is `workflow`, and neither Resend nor the calendar confirmation matched the copy.
+
+**Why it was missed:** the Jul 27 fix (fee449d) only covered `src/emails/`. The same copy had been duplicated into a GHL workflow email, which no repo-side check can see.
+
+**Fix:** remove the contact-facing email action from "Labs — New Application" (keep the internal notification step). The Resend transactional email + the calendar's "Confirmed: your discovery call" notification already cover every path. GHL workflow actions have no public write API, so this is a GHL UI change.
+
+**Rule going forward:** transactional copy must have exactly one owner per audience. Contact-facing application emails live in `src/emails/` only; GHL workflows are for internal notifications and long-tail nurture. When email copy changes, grep the repo AND audit the GHL workflow list (`GET /workflows/`).
