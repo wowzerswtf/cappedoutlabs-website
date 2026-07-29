@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { ApplyNowContent } from "./content";
 
 export const metadata: Metadata = {
-  title: "We Build AI Into How Your Company Runs",
+  title: { absolute: "Capped Out Labs | AI Revenue Infrastructure" },
   description:
-    "Practical revenue systems that remove repetitive work, sharpen decisions, and keep getting more valuable as your company grows. Apply for a discovery call.",
+    "Capped Out Labs builds practical AI revenue infrastructure for established operators.",
   robots: { index: false, follow: false },
 };
 
