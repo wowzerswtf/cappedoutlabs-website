@@ -190,14 +190,53 @@ async function createGhlContact(
     : ["labs-applicant"];
   const tags = payload.consent ? [...baseTags, "tcpa-consent"] : baseTags;
 
-  // Check if contact already exists (from partial lead capture)
-  const existingId = await findContactByEmail(payload.email);
+  // Check if contact already exists (from partial lead capture). GHL's
+  // contact search index lags a few seconds behind writes, so a contact
+  // created by /api/apply/partial moments earlier can be invisible here;
+  // the duplicate-400 fallback below covers that race.
+  let contactId: string | null = await findContactByEmail(payload.email);
+  let created = false;
 
-  let contactId: string;
+  if (!contactId) {
+    // Create new contact
+    const contactRes = await ghlRequest("POST", "/contacts/", {
+      locationId: GHL_LOCATION_ID,
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      email: payload.email,
+      phone: payload.phone,
+      tags,
+      source: payload.source || "cappedoutlabs.com",
+      customFields,
+    });
 
-  if (existingId) {
+    if (contactRes.ok) {
+      contactId = contactRes.data?.contact?.id;
+      if (!contactId) {
+        console.error("GHL contact response missing ID:", contactRes.data);
+        throw new Error("GHL contact created but no ID returned");
+      }
+      created = true;
+      console.log("GHL contact created:", contactId);
+    } else {
+      // "This location does not allow duplicated contacts" includes the
+      // existing contact's id in meta - fall through to the update path.
+      const duplicateId =
+        contactRes.status === 400 || contactRes.status === 422
+          ? contactRes.data?.meta?.contactId
+          : undefined;
+      if (!duplicateId) {
+        console.error("GHL contact creation failed:", contactRes.status, contactRes.data);
+        throw new Error(`GHL contact creation failed (${contactRes.status})`);
+      }
+      contactId = duplicateId as string;
+      console.log("GHL duplicate detected, updating existing contact:", contactId);
+    }
+  }
+
+  if (!created) {
     // Update existing contact with full application data
-    const updateRes = await ghlRequest("PUT", `/contacts/${existingId}`, {
+    const updateRes = await ghlRequest("PUT", `/contacts/${contactId}`, {
       firstName: payload.firstName,
       lastName: payload.lastName,
       phone: payload.phone,
@@ -211,33 +250,7 @@ async function createGhlContact(
       throw new Error(`GHL contact update failed (${updateRes.status})`);
     }
 
-    contactId = existingId;
     console.log("GHL contact updated:", contactId);
-  } else {
-    // Create new contact
-    const contactRes = await ghlRequest("POST", "/contacts/", {
-      locationId: GHL_LOCATION_ID,
-      firstName: payload.firstName,
-      lastName: payload.lastName,
-      email: payload.email,
-      phone: payload.phone,
-      tags,
-      source: payload.source || "cappedoutlabs.com",
-      customFields,
-    });
-
-    if (!contactRes.ok) {
-      console.error("GHL contact creation failed:", contactRes.status, contactRes.data);
-      throw new Error(`GHL contact creation failed (${contactRes.status})`);
-    }
-
-    contactId = contactRes.data?.contact?.id;
-    if (!contactId) {
-      console.error("GHL contact response missing ID:", contactRes.data);
-      throw new Error("GHL contact created but no ID returned");
-    }
-
-    console.log("GHL contact created:", contactId);
   }
 
   // Record consent proof + the full survey Q&A (best-effort, non-fatal)
