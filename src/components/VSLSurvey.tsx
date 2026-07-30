@@ -104,7 +104,7 @@ type SurveySlide = {
   showOtherField?: string;
 };
 
-const TOTAL_SLIDES = SURVEY_SLIDES.length + 1; // slides + contact form
+const TOTAL_SLIDES = SURVEY_SLIDES.length + 1; // contact step + slides
 
 const slideMotion = {
   enter: (dir: number) => ({ x: dir > 0 ? 50 : -50, opacity: 0 }),
@@ -134,7 +134,7 @@ export function VSLSurvey({
   /** Human-readable label written to GHL (e.g. "Apply Now Page") */
   referralSource?: string;
 }) {
-  const [step, setStep] = useState(0); // 0..6 = survey slides, 7 = contact form
+  const [step, setStep] = useState(0); // 0 = contact capture, 1..7 = survey slides
   const [direction, setDirection] = useState(1);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [otherText, setOtherText] = useState("");
@@ -176,27 +176,36 @@ export function VSLSurvey({
 
   function handleOptionSelect(slideId: string, option: SurveyOption) {
     setSelectedOption(option.id);
-    setAnswers((prev) => ({ ...prev, [slideId]: option.id }));
+    const nextAnswers = { ...answers, [slideId]: option.id };
+    setAnswers(nextAnswers);
 
-    // Disqualifying answer: we still want the lead for nurture, so flag it
-    // internally and send them straight to the contact form. They submit like
-    // anyone else, but get tagged for nurture (not the sales pipeline) and see
-    // a resources screen instead of the calendar.
+    // Disqualifying answer: contact info was already captured at step 0, so
+    // submit immediately flagged for nurture (not the sales pipeline). They
+    // see the resources screen instead of the calendar, but the lead is in
+    // GHL either way.
     if (option.disqualify) {
       setTimeout(() => {
         setDisqualified(true);
         setSelectedOption(null);
-        setDirection(1);
-        setStep(SURVEY_SLIDES.length); // jump to contact form
+        submitApplication(nextAnswers, true);
       }, 350);
       return;
     }
 
     // Check if "other" field needed
-    const slide = SURVEY_SLIDES[step];
+    const slide = SURVEY_SLIDES[step - 1];
     if (slide?.showOtherField === option.id) {
       // Don't auto-advance — let them type
       setSelectedOption(null);
+      return;
+    }
+
+    // Final slide answered: submit the whole application right away
+    if (step === SURVEY_SLIDES.length) {
+      setTimeout(() => {
+        setSelectedOption(null);
+        submitApplication(nextAnswers, false);
+      }, 350);
       return;
     }
 
@@ -222,7 +231,7 @@ export function VSLSurvey({
     setStep((s) => Math.max(s - 1, 0));
   }
 
-  async function handleSubmit(e: FormEvent) {
+  function handleContactContinue(e: FormEvent) {
     e.preventDefault();
     if (!fullName.trim() || !email.trim() || !phone.trim()) {
       setError("Please fill in all required fields.");
@@ -232,7 +241,34 @@ export function VSLSurvey({
       setError("Please check the box to agree to be contacted before continuing.");
       return;
     }
+    setError("");
 
+    // Capture the contact in GHL right away (fire-and-forget) so a mid-survey
+    // drop-off is still a callable lead, tagged partial-applicant. The full
+    // submit below finds this contact by email and upgrades it in place.
+    fetch("/api/apply/partial", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstName: fullName.split(" ")[0] || fullName.trim(),
+        lastName: fullName.split(" ").slice(1).join(" ") || "",
+        email: email.trim(),
+        phone: phone.trim(),
+        consent: agreedTerms,
+        consentLanguage: CONSENT_TEXT,
+        consentVersion: CONSENT_VERSION,
+        consentTimestamp: new Date().toISOString(),
+      }),
+    }).catch(() => {});
+
+    setDirection(1);
+    setStep(1);
+  }
+
+  async function submitApplication(
+    finalAnswers: Record<string, string>,
+    isDisqualified: boolean
+  ) {
     setLoading(true);
     setError("");
 
@@ -240,9 +276,9 @@ export function VSLSurvey({
     // GHL shows "$1M – $5M", not "1m-5m".
     const labelFor = (slideId: string) => {
       const slide = SURVEY_SLIDES.find((s) => s.id === slideId);
-      const opt = slide?.options.find((o) => o.id === answers[slideId]);
+      const opt = slide?.options.find((o) => o.id === finalAnswers[slideId]);
       if (slideId === "business-type" && opt?.id === "other") {
-        return answers["business-type-other"] || opt?.label || "";
+        return finalAnswers["business-type-other"] || opt?.label || "";
       }
       return opt?.label || "";
     };
@@ -268,11 +304,11 @@ export function VSLSurvey({
           aiHistory: labelFor("ai-experience"),
           referralSource,
           // Keep raw revenue too (back-compat with anything reading `revenue`)
-          revenue: answers["revenue"] || "",
+          revenue: finalAnswers["revenue"] || "",
           // Full Q&A — written as a contact note so nothing is ever lost
           message: `${referralSource} Application\n\nBusiness Type: ${labelFor("business-type") || "N/A"}\nRevenue: ${labelFor("revenue") || "N/A"}\nBiggest Bottleneck: ${labelFor("biggest-bottleneck") || "N/A"}\nAI Experience: ${labelFor("ai-experience") || "N/A"}\nBudget: ${labelFor("budget") || "N/A"}\nTimeline: ${labelFor("timeline") || "N/A"}\nUnderstands Model: ${labelFor("understand-model") || "N/A"}`,
           // Disqualified leads are captured for nurture, not the sales pipeline
-          disqualified,
+          disqualified: isDisqualified,
           consent: agreedTerms,
           consentLanguage: CONSENT_TEXT,
           consentVersion: CONSENT_VERSION,
@@ -286,7 +322,7 @@ export function VSLSurvey({
         throw new Error(data.error || "Submission failed");
       }
 
-      if (!disqualified) {
+      if (!isDisqualified) {
         metaTrack("Lead", { source }, metaEventId);
       }
 
@@ -301,7 +337,8 @@ export function VSLSurvey({
   }
 
   const progress = (step + 1) / (TOTAL_SLIDES + 1);
-  const currentSlide = step < SURVEY_SLIDES.length ? SURVEY_SLIDES[step] : null;
+  const currentSlide =
+    step >= 1 && step <= SURVEY_SLIDES.length ? SURVEY_SLIDES[step - 1] : null;
 
   if (!open) return null;
 
@@ -497,6 +534,15 @@ export function VSLSurvey({
                           </div>
                         )}
 
+                      {error && (
+                        <div
+                          role="alert"
+                          className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700"
+                        >
+                          {error}
+                        </div>
+                      )}
+
                       {/* Back button */}
                       {step > 0 && (
                         <div className="pt-2">
@@ -514,11 +560,15 @@ export function VSLSurvey({
                   )}
 
                   {/* ── Contact Form (final slide) ── */}
-                  {step >= SURVEY_SLIDES.length && !loading && (
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                  {step === 0 && !loading && (
+                    <form onSubmit={handleContactContinue} className="space-y-4">
                       <h3 className="text-lg font-bold text-navy">
-                        Last step. Where should we reach you?
+                        First, where can we reach you?
                       </h3>
+                      <p className="text-sm text-text-secondary">
+                        Then a few quick questions so we can route you to the
+                        right next step.
+                      </p>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
@@ -607,20 +657,8 @@ export function VSLSurvey({
                         disabled={loading}
                         className="w-full py-4 bg-[#1a3a5c] hover:bg-[#142d49] border-2 border-[#2563EB] text-white rounded-lg text-base font-bold uppercase tracking-wide shadow-lg transition-all duration-200 disabled:opacity-60"
                       >
-                        Submit Application
+                        Start My Application
                       </button>
-
-                      {/* Back button */}
-                      <div>
-                        <button
-                          type="button"
-                          onClick={goBack}
-                          className="flex items-center gap-1.5 text-sm text-text-secondary hover:text-navy transition-colors"
-                        >
-                          <ArrowLeft className="h-3.5 w-3.5" />
-                          Back
-                        </button>
-                      </div>
                     </form>
                   )}
 
