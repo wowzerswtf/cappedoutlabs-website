@@ -27,7 +27,7 @@ const SURVEY_SLIDES: SurveySlide[] = [
     question: "What's your current annual revenue?",
     type: "radio",
     options: [
-      { id: "under-500k", label: "Under $500K", disqualify: true },
+      { id: "under-500k", label: "Under $500K" },
       { id: "500k-1m", label: "$500K – $1M" },
       { id: "1m-5m", label: "$1M – $5M" },
       { id: "5m-10m", label: "$5M – $10M" },
