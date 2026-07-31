@@ -371,8 +371,8 @@ export function VSLSurvey({
                 Capped Out Labs — Application
               </h2>
               <p className="text-sm text-text-secondary mt-1 mb-6">
-                We work with operators doing $500K–$50M+ who want production AI
-                systems deployed into their business, not strategy decks.
+                We work with operators who want production AI systems deployed
+                into their business, not strategy decks.
               </p>
             </>
           )}

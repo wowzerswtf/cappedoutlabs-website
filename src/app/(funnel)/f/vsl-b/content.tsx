@@ -408,7 +408,6 @@ export function VSLBContent() {
             {[
               {
                 tier: "Sprint",
-                price: "$15K–$25K",
                 desc: "One AI system deployed in 30 days",
                 features: [
                   "Single revenue bottleneck",
@@ -419,7 +418,6 @@ export function VSLBContent() {
               },
               {
                 tier: "Infrastructure",
-                price: "$50K–$100K",
                 desc: "Full AI revenue stack in 90 days",
                 features: [
                   "Multi-system deployment",
@@ -431,13 +429,12 @@ export function VSLBContent() {
               },
               {
                 tier: "Equity / Rev-Share",
-                price: "Custom",
                 desc: "We invest our systems for equity",
                 features: [
                   "Full transformation",
                   "Skin-in-the-game alignment",
                   "Exit-prep framing",
-                  "Reserved for $5M+ operators",
+                  "Reserved for established operators",
                 ],
                 highlight: false,
               },
@@ -458,8 +455,7 @@ export function VSLBContent() {
                 <p className="text-sm font-bold text-electric uppercase tracking-wide">
                   {t.tier}
                 </p>
-                <p className="text-2xl font-bold text-navy mt-2">{t.price}</p>
-                <p className="text-xs text-text-secondary mt-1 mb-4">
+                <p className="text-base font-semibold text-navy mt-2 mb-4">
                   {t.desc}
                 </p>
                 <ul className="space-y-2">
@@ -523,7 +519,7 @@ export function VSLBContent() {
               },
               {
                 q: "What kind of businesses do you work with?",
-                a: "Operators doing $500K–$50M+ in annual revenue who have bottlenecks that AI can solve: sales, operations, intake, fulfillment, customer service, anything that runs on people and process. We've deployed across contracting, law firms, med spas, staffing agencies, wholesale distribution, real estate, and creative agencies. We're not a fit for pre-revenue startups or businesses looking for chatbots.",
+                a: "Operators with bottlenecks that AI can solve: sales, operations, intake, fulfillment, customer service, anything that runs on people and process. We've deployed across contracting, law firms, med spas, staffing agencies, wholesale distribution, real estate, and creative agencies. We're not a fit for pre-revenue startups or businesses looking for chatbots.",
               },
               {
                 q: "How fast do you see results?",
@@ -600,12 +596,16 @@ export function VSLBContent() {
             factors including your business, experience, and effort.
           </p>
           <div className="flex items-center justify-center gap-4">
-            <a href="/apply" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
+            <a href="/terms" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
               Terms
             </a>
             <span className="text-xs text-gray-300">|</span>
-            <a href="/apply" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
+            <a href="/privacy" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
               Privacy
+            </a>
+            <span className="text-xs text-gray-300">|</span>
+            <a href="/accessibility" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
+              Accessibility
             </a>
             <span className="text-xs text-gray-300">|</span>
             <span className="text-xs text-gray-400">

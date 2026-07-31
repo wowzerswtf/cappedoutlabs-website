@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { VSLSurvey } from "@/components/VSLSurvey";
-import { LegalModal, PrivacyContent, TermsContent } from "@/components/LegalModal";
+import { LegalModal, PrivacyContent, TermsContent, AccessibilityContent } from "@/components/LegalModal";
 import "./apply-now.css";
 
 // 1:1 rebuild of the ad landing page the media team ran on cappedoutlab.com
@@ -16,6 +16,7 @@ export function ApplyNowContent() {
   const [surveyOpen, setSurveyOpen] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
+  const [accessibilityOpen, setAccessibilityOpen] = useState(false);
 
   const openSurvey = () => setSurveyOpen(true);
 
@@ -153,6 +154,7 @@ export function ApplyNowContent() {
             <div className="legal-nav">
               <button type="button" onClick={() => setTermsOpen(true)}>Terms of Service</button>
               <button type="button" onClick={() => setPrivacyOpen(true)}>Privacy Policy</button>
+              <button type="button" onClick={() => setAccessibilityOpen(true)}>Accessibility</button>
             </div>
           </div>
         </footer>
@@ -170,6 +172,9 @@ export function ApplyNowContent() {
       </LegalModal>
       <LegalModal open={termsOpen} onClose={() => setTermsOpen(false)} title="Terms of Service">
         <TermsContent />
+      </LegalModal>
+      <LegalModal open={accessibilityOpen} onClose={() => setAccessibilityOpen(false)} title="Accessibility Statement">
+        <AccessibilityContent />
       </LegalModal>
     </>
   );

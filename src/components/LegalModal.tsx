@@ -222,6 +222,58 @@ export function PrivacyContent() {
   );
 }
 
+export function AccessibilityContent() {
+  return (
+    <>
+      <p className="text-xs text-text-secondary">Last updated: July 31, 2026</p>
+
+      <p>
+        Capped Out Media LLC (dba Capped Out Labs) wants everyone to be able to
+        use cappedoutlabs.com, including people who rely on assistive
+        technology. We aim to meet the Web Content Accessibility Guidelines
+        (WCAG) 2.1 Level AA across the site.
+      </p>
+
+      <h3 className="font-semibold text-navy pt-2">What we do</h3>
+      <ul className="list-disc pl-5 space-y-1">
+        <li>Semantic HTML landmarks and a logical heading structure on every page</li>
+        <li>Keyboard access to all interactive elements, with visible focus outlines</li>
+        <li>Dialogs that trap focus, close on Escape, and return focus where you left off</li>
+        <li>Text and background colors chosen to meet AA contrast ratios</li>
+        <li>Touch targets sized for mobile use</li>
+        <li>Reduced-motion support that honors your system preference</li>
+        <li>Alt text on meaningful images and labels on all form fields</li>
+      </ul>
+
+      <h3 className="font-semibold text-navy pt-2">Known limitations</h3>
+      <p>
+        Some embedded third-party content, such as the Vimeo video player and
+        our scheduling calendar, is controlled by those providers and may not
+        fully match our standards. If any of it blocks you, contact us and we
+        will get you the same information another way.
+      </p>
+
+      <h3 className="font-semibold text-navy pt-2">Feedback</h3>
+      <p>
+        If you hit a barrier anywhere on this site, tell us. Email{" "}
+        <a href="mailto:hello@cappedoutlabs.com" className="text-electric underline">
+          hello@cappedoutlabs.com
+        </a>{" "}
+        with the page address and a short description of the problem. We
+        respond within 5 business days and treat accessibility fixes as
+        priority work.
+      </p>
+
+      <h3 className="font-semibold text-navy pt-2">Compatibility</h3>
+      <p>
+        The site is built to work with current versions of Chrome, Firefox,
+        Safari, and Edge, and with screen readers including NVDA, JAWS, and
+        VoiceOver. It is tested on desktop and mobile viewports.
+      </p>
+    </>
+  );
+}
+
 export function TermsContent() {
   return (
     <>

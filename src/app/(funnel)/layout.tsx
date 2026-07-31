@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { LegalModal, PrivacyContent, TermsContent } from "@/components/LegalModal";
+import { LegalModal, PrivacyContent, TermsContent, AccessibilityContent } from "@/components/LegalModal";
 
 export default function FunnelLayout({
   children,
@@ -11,6 +11,7 @@ export default function FunnelLayout({
 }) {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
+  const [accessibilityOpen, setAccessibilityOpen] = useState(false);
 
   return (
     <>
@@ -48,6 +49,12 @@ export default function FunnelLayout({
             >
               Terms of Service
             </button>
+            <button
+              onClick={() => setAccessibilityOpen(true)}
+              className="text-xs text-text-secondary/50 hover:text-text-secondary transition-colors"
+            >
+              Accessibility
+            </button>
           </div>
         </div>
       </footer>
@@ -66,6 +73,14 @@ export default function FunnelLayout({
         title="Terms of Service"
       >
         <TermsContent />
+      </LegalModal>
+
+      <LegalModal
+        open={accessibilityOpen}
+        onClose={() => setAccessibilityOpen(false)}
+        title="Accessibility Statement"
+      >
+        <AccessibilityContent />
       </LegalModal>
     </>
   );
