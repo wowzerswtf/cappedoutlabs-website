@@ -312,28 +312,40 @@ export async function POST(request: Request) {
     "unknown";
   const userAgent = request.headers.get("user-agent") || "unknown";
 
-  // Meta conversion: qualified applications are the Lead event ad sets
-  // optimize on; disqualified ones are tracked separately so they never
-  // pollute the optimization signal. Best-effort - never blocks the lead.
+  // Meta conversion: every completed application fires Lead — the survey no
+  // longer gates the win (Waynard 2026-08-02: count all applicants).
+  // Disqualified ones ALSO fire LeadDisqualified so the nurture audience
+  // stays buildable. Best-effort - never blocks the lead.
+  const userData = {
+    ...userDataFromRequest(request),
+    email: payload.email,
+    phone: payload.phone,
+    firstName: payload.firstName,
+    lastName: payload.lastName,
+  };
   const metaEvent = sendMetaEvent({
-    eventName: payload.disqualified ? "LeadDisqualified" : "Lead",
+    eventName: "Lead",
     eventId: payload.metaEventId,
     eventSourceUrl: payload.pageUrl,
-    userData: {
-      ...userDataFromRequest(request),
-      email: payload.email,
-      phone: payload.phone,
-      firstName: payload.firstName,
-      lastName: payload.lastName,
-    },
+    userData,
     customData: { source: payload.source || "cappedoutlabs.com" },
   });
+  const metaDqEvent = payload.disqualified
+    ? sendMetaEvent({
+        eventName: "LeadDisqualified",
+        eventId: payload.metaEventId ? `${payload.metaEventId}-dq` : undefined,
+        eventSourceUrl: payload.pageUrl,
+        userData,
+        customData: { source: payload.source || "cappedoutlabs.com" },
+      })
+    : Promise.resolve(null);
 
   // Fire everything simultaneously
   const [resendResult, ghlResult] = await Promise.allSettled([
     sendConfirmationEmail(payload),
     createGhlContact(payload, ip, userAgent),
     metaEvent,
+    metaDqEvent,
   ]);
 
   // Log results

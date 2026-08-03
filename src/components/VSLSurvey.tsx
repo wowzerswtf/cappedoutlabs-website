@@ -322,9 +322,9 @@ export function VSLSurvey({
         throw new Error(data.error || "Submission failed");
       }
 
-      if (!isDisqualified) {
-        metaTrack("Lead", { source }, metaEventId);
-      }
+      // Every completed application counts as a Lead — the browser half
+      // dedupes against the server CAPI event via the shared metaEventId.
+      metaTrack("Lead", { source }, metaEventId);
 
       setSubmitted(true);
     } catch (err) {
