@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { ApplicationConfirmation } from "@/emails/ApplicationConfirmation";
 import { ghlBookingUrl } from "@/lib/calendar";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
+import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -90,6 +91,26 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
       }),
     }),
   });
+}
+
+// ── Telegram: instant ping for EVERY application ─────────────────
+// Fires directly from the submit path so no lead is ever silent — the
+// 5-minute poll only announces brand-new contacts, which missed repeat
+// emails and made disqualified leads invisible.
+async function sendApplicationTelegram(payload: ApplicationPayload) {
+  const status = payload.disqualified
+    ? "🟡 <b>New application — NO BUDGET YET (nurture)</b>"
+    : "🟢 <b>New application — QUALIFIED</b>";
+  const lines = [
+    status,
+    `👤 ${escapeHtml(`${payload.firstName} ${payload.lastName}`.trim())}${payload.businessName ? ` — ${escapeHtml(payload.businessName)}` : ""}`,
+    payload.annualRevenue ? `💰 Revenue: ${escapeHtml(payload.annualRevenue)}` : "",
+    payload.bottleneck ? `🧱 Bottleneck: ${escapeHtml(payload.bottleneck)}` : "",
+    `📧 ${escapeHtml(payload.email)}`,
+    payload.phone ? `📱 ${escapeHtml(payload.phone)}` : "",
+    `🔗 Source: ${escapeHtml(payload.source || "cappedoutlabs.com")}`,
+  ].filter(Boolean);
+  await sendTelegram(lines.join("\n"));
 }
 
 // ── GHL API helper ───────────────────────────────────────────────
@@ -257,19 +278,18 @@ async function createGhlContact(
   await addConsentNote(contactId, payload, ip, userAgent);
   await addApplicationNote(contactId, payload);
 
-  // Disqualified leads stay out of the sales pipeline — no opportunity created.
-  if (payload.disqualified) {
-    console.log("GHL contact captured for nurture (no opportunity):", contactId);
-    return { contactId, opportunityId: undefined };
-  }
-
-  // Step 2: Create opportunity in pipeline at "Applied" stage
+  // Step 2: Create opportunity in pipeline at "Applied" stage. EVERY
+  // application gets one (Waynard 2026-08-02: every lead must be visible in
+  // GHL); disqualified ones are labeled so sales can triage at a glance.
+  const oppName = payload.disqualified
+    ? `${payload.firstName} ${payload.lastName} — ${payload.businessName} [NURTURE: no budget yet]`
+    : `${payload.firstName} ${payload.lastName} — ${payload.businessName}`;
   const oppRes = await ghlRequest("POST", "/opportunities/", {
     pipelineId: PIPELINE_ID,
     pipelineStageId: APPLIED_STAGE_ID,
     contactId,
     locationId: GHL_LOCATION_ID,
-    name: `${payload.firstName} ${payload.lastName} — ${payload.businessName}`,
+    name: oppName,
     status: "open",
     monetaryValue: 0,
   });
@@ -341,12 +361,18 @@ export async function POST(request: Request) {
     : Promise.resolve(null);
 
   // Fire everything simultaneously
-  const [resendResult, ghlResult] = await Promise.allSettled([
+  const [resendResult, ghlResult, , , telegramResult] = await Promise.allSettled([
     sendConfirmationEmail(payload),
     createGhlContact(payload, ip, userAgent),
     metaEvent,
     metaDqEvent,
+    sendApplicationTelegram(payload),
   ]);
+  console.log(
+    "Telegram:",
+    telegramResult.status,
+    telegramResult.status === "rejected" ? telegramResult.reason : "sent"
+  );
 
   // Log results
   console.log(

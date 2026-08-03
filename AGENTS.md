@@ -36,6 +36,13 @@ and appointment status change — no GHL login needed.
 - **Instant path (optional):** point a GHL workflow webhook action at
   `POST /api/telegram/ghl-webhook?secret=<CRON_SECRET>` for zero-delay
   notifications; the poll dedupes against it automatically.
+- **Instant application pings (2026-08-02):** `/api/apply` sends a Telegram
+  card for EVERY completed application (qualified 🟢 or no-budget 🟡), and
+  `/api/apply/partial` pings 📝 when a new partial contact is captured. These
+  fire directly from the submit path, so repeat-email submissions and
+  disqualified leads are never silent (the poll only announces brand-new
+  contacts). A brand-new applicant may therefore ping twice: instantly from
+  the API, and again from the next poll cycle — intentional redundancy.
 - **Libs:** `src/lib/notify/{telegram,ghl,format}.ts`.
 - **Env:** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `CRON_SECRET` (all three
   Vercel envs + `.env.local`), plus the existing `GHL_API_KEY` /
@@ -58,9 +65,13 @@ silent no-op.
 - **Server CAPI client:** `src/lib/meta/capi.ts` (SHA-256 hashed user_data,
   fbp/fbc cookie forwarding, never throws). Browser helper: `src/lib/meta/client.ts`.
 - **Events:**
-  - `Lead` - qualified application (`/api/apply`). Fired browser-side AND
-    server-side with a shared `metaEventId` so Meta dedupes to one conversion.
-  - `LeadDisqualified` (custom) - failed-qualifier VSL applications, CAPI only.
+  - `Lead` - EVERY completed application (`/api/apply`), qualified or not
+    (Waynard 2026-08-02: every applicant counts as a win). Fired browser-side
+    AND server-side with a shared `metaEventId` so Meta dedupes to one
+    conversion.
+  - `LeadDisqualified` (custom) - fired IN ADDITION to `Lead` for
+    failed-qualifier applications (event_id `{metaEventId}-dq`), CAPI only —
+    exists for nurture-audience building.
   - `PartialLead` (custom) - step-1 contact capture (`/api/apply/partial`), CAPI only.
   - `CompleteRegistration` - assessment quiz completion (`/api/assess`),
     browser + CAPI dedup.

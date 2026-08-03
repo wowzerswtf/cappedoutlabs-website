@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
+import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 
 const GHL_API_KEY = process.env.GHL_API_KEY;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
@@ -88,6 +89,20 @@ export async function POST(request: Request) {
 
     const contactId = contactRes.data?.contact?.id;
     console.log("Partial lead captured:", contactId, email);
+
+    // Instant ping the moment contact info lands — even if they bail on the
+    // survey, this lead is known immediately (poll would lag up to 5 min).
+    sendTelegram(
+      [
+        "📝 <b>Partial lead — survey in progress</b>",
+        `👤 ${escapeHtml(`${firstName} ${lastName || ""}`.trim())}`,
+        `📧 ${escapeHtml(email)}`,
+        phone ? `📱 ${escapeHtml(phone)}` : "",
+        "⏳ Contact captured at survey step 1 — full application may follow.",
+      ]
+        .filter(Boolean)
+        .join("\n")
+    ).catch((err) => console.error("Partial Telegram failed:", err));
 
     // Record consent proof (best-effort, non-fatal)
     if (contactId && consent) {
