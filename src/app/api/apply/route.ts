@@ -295,6 +295,20 @@ async function createGhlContact(
   });
 
   if (!oppRes.ok) {
+    // Repeat applicant: GHL forbids a second opportunity per contact in the
+    // same pipeline. Refresh the existing one's name so status stays current.
+    const existingId = oppRes.data?.meta?.existingId;
+    if (oppRes.data?.code === "OPPORTUNITY_NO_DUPLICATE" && existingId) {
+      const updRes = await ghlRequest("PUT", `/opportunities/${existingId}`, {
+        name: oppName,
+      });
+      console.log(
+        updRes.ok
+          ? `GHL opportunity refreshed (repeat applicant): ${existingId}`
+          : `GHL opportunity refresh failed: ${updRes.status}`
+      );
+      return { contactId, opportunityId: existingId as string };
+    }
     console.error("GHL opportunity creation failed:", oppRes.status, oppRes.data);
     // Contact was created — don't throw, just log the opportunity failure
   } else {
