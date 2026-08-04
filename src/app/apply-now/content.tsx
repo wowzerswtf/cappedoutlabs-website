@@ -152,9 +152,11 @@ export function ApplyNowContent() {
           <div>
             <p>&copy; {new Date().getFullYear()} Capped Out Media LLC. All rights reserved.</p>
             <div className="legal-nav">
-              <button type="button" onClick={() => setTermsOpen(true)}>Terms of Service</button>
-              <button type="button" onClick={() => setPrivacyOpen(true)}>Privacy Policy</button>
-              <button type="button" onClick={() => setAccessibilityOpen(true)}>Accessibility</button>
+              {/* Real hrefs so carrier/compliance reviewers can crawl the legal
+                  pages; JS users still get the in-place modal. */}
+              <a href="/terms" onClick={(e) => { e.preventDefault(); setTermsOpen(true); }}>Terms of Service</a>
+              <a href="/privacy" onClick={(e) => { e.preventDefault(); setPrivacyOpen(true); }}>Privacy Policy</a>
+              <a href="/accessibility" onClick={(e) => { e.preventDefault(); setAccessibilityOpen(true); }}>Accessibility</a>
             </div>
           </div>
         </footer>

@@ -43,21 +43,21 @@ export function ConsentCheckbox({
           via automated technology, AI or prerecorded voice, and SMS. Not required
           to buy; reply STOP to opt out. Msg &amp; data rates may apply. I agree to
           the{" "}
-          <button
-            type="button"
-            onClick={() => setTermsOpen(true)}
+          <a
+            href="/terms"
+            onClick={(e) => { e.preventDefault(); setTermsOpen(true); }}
             className="underline underline-offset-2 hover:text-navy"
           >
             Terms
-          </button>{" "}
+          </a>{" "}
           and{" "}
-          <button
-            type="button"
-            onClick={() => setPrivacyOpen(true)}
+          <a
+            href="/privacy"
+            onClick={(e) => { e.preventDefault(); setPrivacyOpen(true); }}
             className="underline underline-offset-2 hover:text-navy"
           >
             Privacy Policy
-          </button>
+          </a>
           .
         </label>
       </div>
