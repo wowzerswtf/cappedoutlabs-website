@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Script from "next/script";
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Box, TrendingUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -697,6 +698,17 @@ export default function HomePage() {
 
       {/* CTA */}
       <CTABanner />
+
+      {/* GHL chat widget - conversations land in the GHL inbox, and the
+          telegram poll pings on inbound replies. lazyOnload keeps it off the
+          critical path. */}
+      <Script
+        src="https://widgets.leadconnectorhq.com/loader.js"
+        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+        data-widget-id="6a7228fa5a8261fbe4d88e26"
+        data-source="WEB_USER"
+        strategy="lazyOnload"
+      />
     </>
   );
 }
