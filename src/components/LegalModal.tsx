@@ -158,9 +158,12 @@ export function PrivacyContent() {
 
       <h3 className="font-semibold text-navy pt-2">5. SMS Messaging Program</h3>
       <p>
-        Message frequency varies. Message and data rates may apply. We do not sell or
-        share your mobile phone number or SMS opt-in with any third party for their
-        marketing. Carriers are not liable for delayed or undelivered messages.
+        Message frequency varies. Message and data rates may apply. No mobile
+        information will be shared with third parties or affiliates for marketing or
+        promotional purposes. Text messaging originator opt-in data and consent will
+        not be shared with any third parties, excluding aggregators and providers of
+        the text message services. Reply STOP to opt out and HELP for help. Carriers
+        are not liable for delayed or undelivered messages.
       </p>
 
       <h3 className="font-semibold text-navy pt-2">6. AI Calls and Call Recording</h3>
@@ -316,9 +319,11 @@ export function TermsContent() {
       </p>
 
       <h3 className="font-semibold text-navy pt-2">5. SMS Messaging Terms</h3>
-      <p>Reply STOP to opt out and HELP for help. Message and data rates may apply. We
-        do not sell or share your mobile opt-in with third parties for their marketing.
-        Carriers are not liable for delayed or undelivered messages.</p>
+      <p>Reply STOP to opt out and HELP for help. Message frequency varies. Message
+        and data rates may apply. Mobile information and text messaging opt-in data
+        will not be shared with third parties or affiliates for marketing or
+        promotional purposes. Carriers are not liable for delayed or undelivered
+        messages.</p>
 
       <h3 className="font-semibold text-navy pt-2">6. AI Interactions and Call Recording</h3>
       <p>You understand and agree that some calls may be placed or handled by an
