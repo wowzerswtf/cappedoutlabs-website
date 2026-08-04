@@ -25,3 +25,20 @@
 **Fix:** remove the contact-facing email action from "Labs — New Application" (keep the internal notification step). The Resend transactional email + the calendar's "Confirmed: your discovery call" notification already cover every path. GHL workflow actions have no public write API, so this is a GHL UI change.
 
 **Rule going forward:** transactional copy must have exactly one owner per audience. Contact-facing application emails live in `src/emails/` only; GHL workflows are for internal notifications and long-tail nurture. When email copy changes, grep the repo AND audit the GHL workflow list (`GET /workflows/`).
+
+## 2026-08-04 — GHL conversations API queues SMS even with no phone number
+Sent a test SMS via POST /conversations/messages on a location with NO phone
+system: the API returned 200 with a messageId and the message sits "pending"
+forever (to Tommy Ferrell's thread, body "test" — check it after the number
+goes live; there is no delete-message endpoint). Lesson: "did the API accept
+it" is not "will it send". The SMS engine gates every send on
+GET /phone-system/numbers/location/{id} (404 "No Twilio account found" = no
+number) via hasSmsNumber() in src/lib/notify/sms.ts.
+
+## 2026-08-04 — probing cappedoutlabs.com from this machine needs curl -k
+All three local TLS stacks (Git Bash curl, curl.exe/schannel, PS 5.1) fail
+cert verification against www.cappedoutlabs.com (exit 60 / "could not
+establish trust relationship"), while leadconnectorhq.com verifies fine.
+Something local is intercepting or the chain trips these stacks; browsers are
+fine. For deploy verification probes use `curl -skL` and note www 307s to the
+apex domain.
