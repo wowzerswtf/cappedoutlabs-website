@@ -20,7 +20,20 @@ export interface GhlContact {
   tags?: string[];
   dateAdded?: string;
   timezone?: string | null;
+  dnd?: boolean;
   customFields?: { id: string; value: unknown }[];
+}
+
+export interface GhlConversation {
+  id: string;
+  contactId?: string;
+  contactName?: string;
+  fullName?: string;
+  phone?: string;
+  lastMessageBody?: string;
+  lastMessageDate?: number | string;
+  lastMessageDirection?: string;
+  lastMessageType?: string;
 }
 
 export interface GhlAppointment {
@@ -43,6 +56,10 @@ export interface NotifyState {
   seenLeadIds?: string[];
   // Appointment id -> last known [status, startTimeMs].
   appts?: Record<string, [string, number]>;
+  // SMS engine: dedupe key (e.g. "rem24-<apptId>") -> sentAt ms.
+  sms?: Record<string, number>;
+  // Newest inbound conversation message already announced on Telegram (ms).
+  lastInboundMs?: number;
 }
 
 function locationId(): string {
@@ -178,6 +195,20 @@ export async function fetchUserName(userId: string): Promise<string | null> {
   } catch {
     return null;
   }
+}
+
+// --- Conversations (inbound SMS/reply detection) ---
+
+export async function fetchConversations(limit = 50): Promise<GhlConversation[]> {
+  const params = new URLSearchParams({
+    locationId: locationId(),
+    limit: String(limit),
+  });
+  const data = await ghlRequest<{ conversations: GhlConversation[] }>(
+    "GET",
+    `/conversations/search?${params}`
+  );
+  return data.conversations ?? [];
 }
 
 // --- Custom field id -> human name map ---

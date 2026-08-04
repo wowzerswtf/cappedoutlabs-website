@@ -52,6 +52,39 @@ and appointment status change — no GHL login needed.
 - **Swap to a dedicated bot later:** create one with @BotFather, message it
   once, then update `TELEGRAM_BOT_TOKEN` in Vercel. Nothing else changes.
 
+## SMS lead follow-up engine (GHL)
+
+Every consented lead gets texted automatically through the GHL conversations
+API, so replies land in the GHL inbox where the sales team works. Built in
+code because GHL workflows cannot be created via API.
+
+- **Sender + templates:** `src/lib/notify/sms.ts`. Hard guards no caller can
+  skip: `tcpa-consent` tag + phone required, DND respected, TCPA quiet hours
+  (8am-9pm recipient-local) on poll-driven sends, `SMS_PAUSED=1` kill switch.
+- **Ships dark until a number exists:** the conversations API queues messages
+  even with NO phone number on the location (verified 2026-08-04 — returns a
+  messageId, message sits "pending" forever). `hasSmsNumber()` probes
+  `/phone-system/numbers/location/{id}` (cached 5 min) and blocks all sends
+  until the LC Phone number + A2P registration are live. No code change
+  needed at go-live.
+- **Instant texts:** `/api/apply` sends the qualified booking-link text or the
+  no-budget nurture text the moment an application lands (quiet-hours exempt:
+  the lead is mid-funnel on their phone).
+- **Poll-driven texts** (piggyback on the 5-min Telegram poll cron, dedupe
+  keys in `tg_notify_state.sms`): booking confirmation, 24h reminder, 1h
+  reminder, no-show / never-dispositioned recovery (fires when an appointment
+  is marked `noshow` OR still `confirmed` 30min-48h past start), and an
+  abandoned-partial nudge 15min-24h after step-1 capture.
+- **Inbound replies -> Telegram:** the poll watches the conversations feed and
+  DMs Waynard the moment any lead replies (SMS or email), with the message
+  body quoted.
+- **Backlog outreach:** `GET /api/sms/outreach?secret=<CRON_SECRET>` dry-runs
+  a one-time "texting might be easier" blast to consented, unbooked leads
+  (auto-excludes test contacts, booked contacts, already-texted). Add
+  `&send=1` to fire. Each contact can only ever receive it once.
+- Templates carry brand name + STOP language on first-touch messages (A2P
+  carrier rules). No em dashes, no slop — the linter covers these files.
+
 ## Meta (Facebook) conversion tracking
 
 Browser pixel + server Conversions API, reporting to the dedicated Capped Out

@@ -12,11 +12,12 @@
 // can use `?secret=...`. `?test=1` sends sample cards end-to-end.
 
 import { NextResponse } from "next/server";
-import { sendTelegram } from "@/lib/notify/telegram";
+import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import {
   fetchCalendarEvents,
   fetchCalendars,
   fetchContact,
+  fetchConversations,
   fetchCustomFieldMap,
   fetchNewestContacts,
   fetchUserName,
@@ -28,6 +29,8 @@ import {
 } from "@/lib/notify/ghl";
 import { formatBooking, formatBookingChange, formatLead } from "@/lib/notify/format";
 import { sendMetaEvent } from "@/lib/meta/capi";
+import { formatWhen, sendSms, smsTemplates } from "@/lib/notify/sms";
+import { ghlBookingUrl } from "@/lib/calendar";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -36,6 +39,17 @@ const LEAD_OVERLAP_MS = 15 * 60 * 1000; // re-scan window behind lastLeadTs
 const APPT_PAST_MS = 30 * 24 * 60 * 60 * 1000; // look 30d back
 const APPT_FUTURE_MS = 180 * 24 * 60 * 60 * 1000; // look 180d ahead
 const SEEN_LEAD_CAP = 200;
+
+// SMS automation windows. Windows are ranges (not instants) so a send blocked
+// by quiet hours or a transient failure retries on later cycles until the
+// window closes; the state key prevents doubles once one send succeeds.
+const HOUR = 60 * 60 * 1000;
+const REM24_WINDOW: [number, number] = [20 * HOUR, 24 * HOUR]; // time until start
+const REM1_WINDOW: [number, number] = [15 * 60 * 1000, 1 * HOUR];
+const NOSHOW_WINDOW: [number, number] = [30 * 60 * 1000, 48 * HOUR]; // time since start
+const PARTIAL_WINDOW: [number, number] = [15 * 60 * 1000, 24 * HOUR]; // since capture
+const SMS_KEY_TTL_MS = 60 * 24 * HOUR;
+const APPLY_URL = "https://www.cappedoutlabs.com/apply-now";
 
 function authorized(request: Request): boolean {
   const secret = process.env.CRON_SECRET;
@@ -96,6 +110,22 @@ async function bookingContext(a: GhlAppointment, cache: BookingCtxCache) {
   };
 }
 
+// Send one SMS at most once per state key. Marks the key only on success so
+// quiet-hours skips and no-phone-number failures retry while their window is
+// still open.
+async function trySms(
+  key: string,
+  smsSent: Record<string, number>,
+  contact: GhlContact | null,
+  message: string,
+  opts: { respectQuietHours?: boolean } = {}
+): Promise<boolean> {
+  if (smsSent[key]) return false;
+  const res = await sendSms(contact, message, opts);
+  if (res.ok) smsSent[key] = Date.now();
+  return res.ok;
+}
+
 async function sendTestCards(): Promise<void> {
   const sampleContact: GhlContact = {
     id: "test-contact",
@@ -148,6 +178,8 @@ export async function GET(request: Request) {
       lastLeadTs: contacts[0]?.dateAdded ?? new Date(0).toISOString(),
       seenLeadIds: contacts.map((c) => c.id).slice(0, SEEN_LEAD_CAP),
       appts: Object.fromEntries(events.map((a) => [a.id, [apptStatus(a), apptStartMs(a)]])),
+      sms: {},
+      lastInboundMs: Date.now(),
     };
     await saveState(baseline, stateId);
     await sendTelegram(
@@ -156,7 +188,16 @@ export async function GET(request: Request) {
     return NextResponse.json({ ok: true, mode: "baseline", appointments: events.length });
   }
 
-  const summary = { newLeads: 0, newBookings: 0, changes: 0, errors: [] as string[] };
+  const summary = {
+    newLeads: 0,
+    newBookings: 0,
+    changes: 0,
+    sms: 0,
+    replies: 0,
+    errors: [] as string[],
+  };
+  // Copy of the SMS dedupe map; mutated by trySms and saved with the state.
+  const smsSent: Record<string, number> = { ...(state.sms ?? {}) };
 
   // --- New leads ---
   const lastLeadMs = new Date(state.lastLeadTs ?? 0).getTime();
@@ -220,6 +261,21 @@ export async function GET(request: Request) {
               ? { calendar: ctx.calendarName }
               : undefined,
           });
+          // Booking confirmation text. Transactional (they just booked), so
+          // quiet hours don't apply.
+          if (ctx.contact?.firstName && startMs > Date.now()) {
+            const sent = await trySms(
+              `confirm-${a.id}`,
+              smsSent,
+              ctx.contact,
+              smsTemplates.bookingConfirm(
+                ctx.contact.firstName,
+                formatWhen(startMs, ctx.contact.timezone),
+                ctx.assignedName
+              )
+            );
+            if (sent) summary.sms++;
+          }
         }
       } else {
         const [prevStatus, prevStart] = prev;
@@ -275,10 +331,131 @@ export async function GET(request: Request) {
     }
   }
 
+  // --- SMS: appointment reminders + no-show recovery ---
+  for (const a of events) {
+    const status = apptStatus(a);
+    if (status === "cancelled") continue;
+    const startMs = apptStartMs(a);
+    if (!startMs) continue;
+    const untilStart = startMs - now;
+    const sinceStart = now - startMs;
+
+    const wantsRem24 =
+      status === "confirmed" && untilStart > REM24_WINDOW[0] && untilStart <= REM24_WINDOW[1];
+    const wantsRem1 =
+      status === "confirmed" && untilStart > REM1_WINDOW[0] && untilStart <= REM1_WINDOW[1];
+    // Explicit no-shows get recovery right away; appointments still sitting
+    // at "confirmed" after their start time were never dispositioned, so the
+    // softer "if we missed each other" text covers both cases safely.
+    const wantsRecovery =
+      (status === "noshow" && sinceStart > 0 && sinceStart <= NOSHOW_WINDOW[1]) ||
+      (status === "confirmed" &&
+        sinceStart > NOSHOW_WINDOW[0] &&
+        sinceStart <= NOSHOW_WINDOW[1]);
+
+    if (!wantsRem24 && !wantsRem1 && !wantsRecovery) continue;
+
+    const ctx = await bookingContext(a, cache);
+    const first = ctx.contact?.firstName;
+    if (!first) continue;
+
+    let sent = false;
+    if (wantsRem24) {
+      sent = await trySms(
+        `rem24-${a.id}`,
+        smsSent,
+        ctx.contact,
+        smsTemplates.reminder24h(first, formatWhen(startMs, ctx.contact?.timezone)),
+        { respectQuietHours: true }
+      );
+    } else if (wantsRem1) {
+      sent = await trySms(
+        `rem1-${a.id}`,
+        smsSent,
+        ctx.contact,
+        smsTemplates.reminder1h(first, formatWhen(startMs, ctx.contact?.timezone))
+      );
+    } else if (wantsRecovery) {
+      sent = await trySms(
+        `noshow-${a.id}`,
+        smsSent,
+        ctx.contact,
+        smsTemplates.noShowRecovery(
+          first,
+          ghlBookingUrl({
+            firstName: ctx.contact?.firstName ?? undefined,
+            lastName: ctx.contact?.lastName ?? undefined,
+            email: ctx.contact?.email ?? undefined,
+            phone: ctx.contact?.phone ?? undefined,
+          })
+        ),
+        { respectQuietHours: true }
+      );
+    }
+    if (sent) summary.sms++;
+  }
+
+  // --- SMS: abandoned partial applications ---
+  // Contact captured at survey step 1 but never finished; nudge once between
+  // 15 minutes and 24 hours after capture.
+  for (const c of contacts) {
+    const tags = c.tags ?? [];
+    if (!tags.includes("partial-applicant")) continue;
+    if (tags.includes("labs-applicant") || tags.includes("labs-nurture")) continue;
+    const age = now - new Date(c.dateAdded ?? 0).getTime();
+    if (age < PARTIAL_WINDOW[0] || age > PARTIAL_WINDOW[1]) continue;
+    if (!c.firstName) continue;
+    const sent = await trySms(
+      `partial-${c.id}`,
+      smsSent,
+      c,
+      smsTemplates.partialAbandon(c.firstName, APPLY_URL),
+      { respectQuietHours: true }
+    );
+    if (sent) summary.sms++;
+  }
+
+  // --- Inbound replies -> Telegram ---
+  // The whole point of texting is getting answers; make sure a reply is
+  // impossible to miss.
+  let lastInboundMs = state.lastInboundMs ?? Date.now();
+  try {
+    const conversations = await fetchConversations(50);
+    const inbound = conversations
+      .filter((c) => (c.lastMessageDirection ?? "").toLowerCase() === "inbound")
+      .map((c) => ({ c, ts: new Date(c.lastMessageDate ?? 0).getTime() }))
+      .filter(({ ts }) => ts > lastInboundMs)
+      .sort((a, b) => a.ts - b.ts);
+    for (const { c, ts } of inbound) {
+      const kind = (c.lastMessageType ?? "").includes("EMAIL") ? "email" : "text";
+      await sendTelegram(
+        [
+          `💬 <b>Lead replied (${kind})</b>`,
+          `👤 ${escapeHtml(c.contactName || c.fullName || "Unknown")}`,
+          c.lastMessageBody ? `«${escapeHtml(c.lastMessageBody.slice(0, 400))}»` : "",
+          "Open the GHL conversations inbox to respond.",
+        ]
+          .filter(Boolean)
+          .join("\n")
+      );
+      lastInboundMs = Math.max(lastInboundMs, ts);
+      summary.replies++;
+    }
+  } catch (err) {
+    summary.errors.push(`inbound: ${String(err)}`);
+  }
+
+  // Drop dedupe keys older than the TTL so state stays small.
+  for (const [key, ts] of Object.entries(smsSent)) {
+    if (now - ts > SMS_KEY_TTL_MS) delete smsSent[key];
+  }
+
   const next: NotifyState = {
     lastLeadTs: new Date(newestNotifiedMs).toISOString(),
     seenLeadIds: [...seenLeadIds].slice(-SEEN_LEAD_CAP),
     appts: nextAppts,
+    sms: smsSent,
+    lastInboundMs,
   };
   await saveState(next, stateId);
 

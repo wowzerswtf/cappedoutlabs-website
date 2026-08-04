@@ -4,6 +4,7 @@ import { ApplicationConfirmation } from "@/emails/ApplicationConfirmation";
 import { ghlBookingUrl } from "@/lib/calendar";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
+import { sendSms, smsTemplates } from "@/lib/notify/sms";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -387,6 +388,33 @@ export async function POST(request: Request) {
     telegramResult.status,
     telegramResult.status === "rejected" ? telegramResult.reason : "sent"
   );
+
+  // Instant SMS the moment the application lands. The lead is mid-funnel on
+  // their phone right now, so speed-to-lead beats quiet hours here. Consent
+  // was captured in this same request; a repeat contact who opted out earlier
+  // is blocked server-side by GHL's DND. Best-effort, never blocks the lead.
+  if (ghlResult.status === "fulfilled" && payload.consent && payload.phone) {
+    const smsResult = await sendSms(
+      {
+        id: ghlResult.value.contactId,
+        firstName: payload.firstName,
+        phone: payload.phone,
+        tags: ["tcpa-consent"],
+      },
+      payload.disqualified
+        ? smsTemplates.appliedNurture(payload.firstName)
+        : smsTemplates.appliedQualified(
+            payload.firstName,
+            ghlBookingUrl({
+              firstName: payload.firstName,
+              lastName: payload.lastName,
+              email: payload.email,
+              phone: payload.phone,
+            })
+          )
+    ).catch((err) => ({ ok: false, error: String(err) }));
+    console.log("Apply SMS:", JSON.stringify(smsResult));
+  }
 
   // Log results
   console.log(
