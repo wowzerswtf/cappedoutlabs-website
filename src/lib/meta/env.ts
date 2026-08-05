@@ -36,6 +36,11 @@ export function serverTrackingBlockedReason(): string | null {
   // Test Events. They never reach production reporting, so they always pass.
   if (process.env.META_TEST_EVENT_CODE) return null;
 
+  // Vercel sets VERCEL=1 in every deployment environment. Its absence means
+  // this is running on a workstation - `next start` locally would otherwise
+  // slip through the NODE_ENV check below, since it sets NODE_ENV=production.
+  if (!process.env.VERCEL) return "not running on Vercel";
+
   const vercelEnv = process.env.VERCEL_ENV;
   if (vercelEnv && vercelEnv !== "production") return `VERCEL_ENV=${vercelEnv}`;
   if (process.env.NODE_ENV !== "production") return `NODE_ENV=${process.env.NODE_ENV}`;
