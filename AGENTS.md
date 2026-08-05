@@ -87,10 +87,21 @@ code because GHL workflows cannot be created via API.
 
 ## Meta (Facebook) conversion tracking
 
-Browser pixel + server Conversions API, reporting to the dedicated Capped Out
-Labs pixel (NOT the Capped Out Media pixels - the two businesses run separate
-ad accounts). Ships dark: with the env vars unset, every tracking call is a
-silent no-op.
+Browser pixel + server Conversions API. Ships dark: with the env vars unset,
+every tracking call is a silent no-op.
+
+**Labs does NOT have its own pixel or ad account.** An earlier version of this
+doc claimed it did; that was never true in production. Verified 2026-08-05:
+Labs reports into dataset `3578788369100460` ("COM"), owned by business
+`379600927945081`, and the Labs campaigns run inside ad account
+`1079590823153736` alongside the SCIO client campaigns. Consequences to keep
+in mind:
+- Events Manager blends both businesses. Separate them by aggregating on
+  `url` / `host` (Labs is cappedoutlabs.com, SCIO is invite.cappedoutmedia.com).
+- Never build a lookalike off this dataset's Lead events without a URL rule -
+  the seed would blend two unrelated ICPs.
+- Campaign-level reporting is NOT affected; each campaign is credited with the
+  conversions it drove.
 
 - **Pixel loader:** `src/components/MetaPixel.tsx`, rendered from the root
   layout. Fires PageView on load + App Router navigations, ViewContent on
@@ -115,9 +126,30 @@ silent no-op.
   `META_TEST_EVENT_CODE` (routes CAPI events to Events Manager > Test Events).
   Set in Vercel (all three environments) + `.env.local`. The pixel ID is
   baked into the client bundle at build time - redeploy after changing it.
+- **Environment gate (`src/lib/meta/env.ts`)** - added 2026-08-05 after a
+  dataset audit found `127.0.0.1` in the live event stream: local dev was
+  writing conversions into the production dataset, which is SHARED with
+  Capped Out Media. Two guards:
+  - Browser: the inline pixel snippet checks `window.location.hostname`
+    against `PRODUCTION_HOSTS` before `fbq('init')`. Runtime, not build time,
+    because one build serves preview and production. Blocked host means fbq
+    is never defined and the nav effect no-ops by itself.
+  - Server: `sendMetaEvent` suppresses when `VERCEL` is unset (workstation -
+    catches `next start`, which sets NODE_ENV=production), when
+    `VERCEL_ENV` is preview/development, or when NODE_ENV is not production.
+    Fails open if none is conclusive, so a missing system var can never drop
+    real conversions. Test-coded events always pass.
+  - **Adding a production domain means adding it to `PRODUCTION_HOSTS`**, or
+    the pixel silently stops firing there.
 - **Verify:** `GET /api/meta/test?secret=<CRON_SECRET>&code=<TEST_EVENT_CODE>`
   fires a test Lead through CAPI; watch it arrive in Events Manager > Test
-  Events. Browser side: Meta Pixel Helper extension on the live site.
+  Events. `code` is REQUIRED - the route refuses to write into production
+  reporting unless you pass `&force=1` on purpose. Browser side: Meta Pixel
+  Helper extension on the live site, or the headless check described below.
+- **Headless verification** (proves both directions): load a page with
+  Playwright and assert `typeof window.fbq`. On cappedoutlabs.com it must be
+  `"function"` with requests to `connect.facebook.net`; on `127.0.0.1` or
+  `localhost` it must be `"undefined"` with zero facebook requests.
 - **Ad set optimization:** point lead campaigns at `Lead`, booking campaigns
   at `Schedule`. `LeadDisqualified`/`PartialLead` exist for audience building
   and diagnostics, not optimization.

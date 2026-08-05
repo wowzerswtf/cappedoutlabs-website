@@ -3,9 +3,16 @@
 // Fires a test Lead through the Conversions API so setup can be verified in
 // Events Manager without submitting a real application:
 //
-//   GET /api/meta/test?secret=<CRON_SECRET>            -> production event
 //   GET /api/meta/test?secret=<CRON_SECRET>&code=TESTX -> routed to the
 //        Test Events tab (get the code from Events Manager > Test Events)
+//   GET /api/meta/test?secret=<CRON_SECRET>&force=1    -> real production
+//        event, deliberately opted into
+//
+// `code` is required by default. This route used to fire a REAL Lead into
+// the production dataset when called bare, which is exactly the kind of
+// pollution src/lib/meta/env.ts exists to prevent - and the dataset is
+// shared with Capped Out Media, so a stray test Lead skews live campaign
+// numbers. Opting into a production event now has to be explicit.
 //
 // Reuses CRON_SECRET for auth, same as the Telegram routes.
 
@@ -33,6 +40,17 @@ export async function GET(request: Request) {
   }
 
   const code = url.searchParams.get("code");
+  const force = url.searchParams.get("force") === "1";
+  if (!code && !force) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error:
+          "Refusing to write a test Lead into the production dataset. Pass &code=<TESTCODE> from Events Manager > Test Events, or &force=1 to send a real production event on purpose.",
+      },
+      { status: 400 }
+    );
+  }
   if (code) process.env.META_TEST_EVENT_CODE = code;
 
   const sent = await sendMetaEvent({
@@ -54,6 +72,6 @@ export async function GET(request: Request) {
     testEventCode: code || process.env.META_TEST_EVENT_CODE || null,
     hint: code
       ? "Check Events Manager > your dataset > Test Events."
-      : "Sent as a production event. Pass &code=<TESTCODE> to use Test Events.",
+      : "Sent as a REAL production event (force=1). It will show in live reporting.",
   });
 }
