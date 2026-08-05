@@ -18,6 +18,7 @@
 //     Test Events tab instead of production reporting
 
 import { createHash } from "crypto";
+import { serverTrackingBlockedReason } from "./env";
 
 const GRAPH_VERSION = "v23.0";
 
@@ -131,6 +132,13 @@ export async function sendMetaEvent(input: MetaEventInput): Promise<boolean> {
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const accessToken = process.env.META_CAPI_ACCESS_TOKEN;
   if (!pixelId || !accessToken) return false;
+
+  // Never write dev or preview events into the shared production dataset.
+  const blocked = serverTrackingBlockedReason();
+  if (blocked) {
+    console.log(`Meta CAPI: ${input.eventName} suppressed (${blocked})`);
+    return false;
+  }
 
   const event: Record<string, unknown> = {
     event_name: input.eventName,

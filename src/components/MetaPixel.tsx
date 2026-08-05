@@ -10,10 +10,18 @@
 // funnel landers) so nothing depends on script-vs-hydration ordering. The
 // effect only covers App Router navigations after the first render, when
 // the fbq queue stub is guaranteed to exist.
+//
+// The snippet self-guards on hostname (see src/lib/meta/env.ts): the dataset
+// is shared with Capped Out Media, and localhost dev sessions were writing
+// into it. The check has to be runtime, not build time, because one build
+// serves both preview URLs and production. When the host isn't allowed, fbq
+// is never defined and every track() call below no-ops on its own.
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
+
+import { PRODUCTION_HOSTS } from "@/lib/meta/env";
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
@@ -42,10 +50,13 @@ export default function MetaPixel() {
 
   return (
     <Script id="meta-pixel" strategy="afterInteractive">
-      {`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      {`(function(){
+if (${JSON.stringify(PRODUCTION_HOSTS)}.indexOf(window.location.hostname.toLowerCase()) === -1) return;
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '${PIXEL_ID}');
 fbq('track', 'PageView');
-if (window.location.pathname.indexOf('/f/') === 0 || window.location.pathname === '/apply-now') { fbq('track', 'ViewContent', { content_name: window.location.pathname }); }`}
+if (window.location.pathname.indexOf('/f/') === 0 || window.location.pathname === '/apply-now') { fbq('track', 'ViewContent', { content_name: window.location.pathname }); }
+})();`}
     </Script>
   );
 }
