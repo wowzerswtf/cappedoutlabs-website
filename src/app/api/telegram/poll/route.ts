@@ -29,7 +29,7 @@ import {
 } from "@/lib/notify/ghl";
 import { formatBooking, formatBookingChange, formatLead } from "@/lib/notify/format";
 import { sendMetaEvent } from "@/lib/meta/capi";
-import { formatWhen, sendSms, smsTemplates } from "@/lib/notify/sms";
+import { formatWhen, sendSms, smsTemplates, timezoneForContact } from "@/lib/notify/sms";
 import { ghlBookingUrl } from "@/lib/calendar";
 
 export const dynamic = "force-dynamic";
@@ -270,7 +270,7 @@ export async function GET(request: Request) {
               ctx.contact,
               smsTemplates.bookingConfirm(
                 ctx.contact.firstName,
-                formatWhen(startMs, ctx.contact.timezone),
+                formatWhen(startMs, timezoneForContact(ctx.contact)),
                 ctx.assignedName
               )
             );
@@ -365,7 +365,7 @@ export async function GET(request: Request) {
         `rem24-${a.id}`,
         smsSent,
         ctx.contact,
-        smsTemplates.reminder24h(first, formatWhen(startMs, ctx.contact?.timezone)),
+        smsTemplates.reminder24h(first, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null)),
         { respectQuietHours: true }
       );
     } else if (wantsRem1) {
@@ -373,7 +373,7 @@ export async function GET(request: Request) {
         `rem1-${a.id}`,
         smsSent,
         ctx.contact,
-        smsTemplates.reminder1h(first, formatWhen(startMs, ctx.contact?.timezone))
+        smsTemplates.reminder1h(first, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null))
       );
     } else if (wantsRecovery) {
       sent = await trySms(

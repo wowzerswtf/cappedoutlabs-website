@@ -23,7 +23,7 @@ import {
   saveJsonValue,
   type GhlContact,
 } from "@/lib/notify/ghl";
-import { sendSms, smsTemplates, canText, withinQuietHours } from "@/lib/notify/sms";
+import { sendSms, smsTemplates, canText, withinQuietHours, timezoneForContact } from "@/lib/notify/sms";
 import { ghlBookingUrl } from "@/lib/calendar";
 
 export const dynamic = "force-dynamic";
@@ -135,7 +135,7 @@ export async function GET(request: Request) {
 
   const results: { id: string; name: string; ok: boolean; detail?: string }[] = [];
   for (const { contact, message } of candidates) {
-    if (withinQuietHours(contact.timezone)) {
+    if (withinQuietHours(timezoneForContact(contact))) {
       results.push({ id: contact.id, name: contact.firstName ?? "", ok: false, detail: "quiet hours, retry later" });
       continue;
     }

@@ -38,6 +38,49 @@ export function canText(contact: GhlContact | null): { ok: boolean; reason?: str
   return { ok: true };
 }
 
+// US/CA area code -> IANA timezone. GHL's contact.timezone is IP-guessed and
+// frequently garbage (a Florida lead tagged US/Alaska, a Philadelphia lead
+// tagged Etc/GMT+12 — in-app browser proxies), so for quiet hours we trust
+// the phone number's own locale, which is also the TCPA-relevant one.
+// Codes spanning two zones use the more-populous side.
+const TZ = {
+  ET: "America/New_York",
+  CT: "America/Chicago",
+  MT: "America/Denver",
+  MST: "America/Phoenix",
+  PT: "America/Los_Angeles",
+  AK: "America/Anchorage",
+  HI: "Pacific/Honolulu",
+  AT: "America/Halifax",
+  NT: "America/St_Johns",
+} as const;
+const AREA_TZ: Record<string, string> = {};
+const zone = (tz: string, codes: string) =>
+  codes.split(" ").forEach((c) => (AREA_TZ[c] = tz));
+zone(TZ.ET, "201 202 203 207 212 215 216 220 223 227 229 234 239 240 248 267 269 272 276 301 302 304 305 313 315 317 321 326 330 332 336 339 341 347 351 352 363 380 386 401 404 407 410 412 413 419 434 440 443 445 448 470 475 478 484 502 508 513 516 517 518 561 567 570 571 585 586 606 607 609 610 614 616 617 631 646 656 667 678 680 689 703 704 706 716 717 718 724 727 732 734 740 743 754 757 762 770 771 772 786 803 804 810 813 814 828 835 838 839 843 845 848 850 854 856 857 859 860 862 863 864 878 904 906 908 910 912 914 917 919 929 930 934 937 938 941 947 954 959 973 978 980 984 986");
+zone(TZ.CT, "205 210 214 217 218 219 224 225 228 231 251 254 256 260 262 270 281 305 308 309 312 314 316 318 319 320 331 334 337 361 364 402 405 409 414 417 430 432 469 479 501 504 507 512 515 531 534 539 563 573 574 580 601 605 608 612 615 618 620 629 630 636 641 651 660 662 682 708 712 713 715 726 731 737 763 769 773 779 785 806 815 816 817 830 832 847 870 872 901 903 913 915 918 920 925 931 936 940 945 952 956 972 979 985");
+zone(TZ.MT, "303 307 385 406 435 505 575 719 720 801 970 983");
+zone(TZ.MST, "480 520 602 623 928");
+zone(TZ.PT, "206 209 213 253 279 310 323 341 350 360 408 415 424 425 442 458 503 509 510 530 541 559 562 564 619 626 628 650 657 661 669 702 707 714 725 747 760 775 805 818 820 831 858 909 916 949 951 971");
+zone(TZ.AK, "907");
+zone(TZ.HI, "808");
+zone(TZ.AT, "902 782 506 428 709");
+
+export function timezoneForContact(contact: {
+  phone?: string | null;
+  timezone?: string | null;
+}): string {
+  const digits = (contact.phone ?? "").replace(/\D/g, "");
+  const area =
+    digits.length === 11 && digits.startsWith("1")
+      ? digits.slice(1, 4)
+      : digits.length === 10
+        ? digits.slice(0, 3)
+        : null;
+  if (area && AREA_TZ[area]) return AREA_TZ[area];
+  return contact.timezone || "America/Denver";
+}
+
 // TCPA quiet hours: no marketing texts before 8am or after 9pm in the
 // recipient's timezone. Falls back to the business timezone when the
 // contact record has none.
@@ -116,7 +159,7 @@ export async function sendSms(
 ): Promise<SmsResult> {
   const guard = canText(contact);
   if (!guard.ok) return { ok: false, skipped: guard.reason };
-  if (opts.respectQuietHours && withinQuietHours(contact!.timezone)) {
+  if (opts.respectQuietHours && withinQuietHours(timezoneForContact(contact!))) {
     return { ok: false, skipped: "quiet hours" };
   }
   if (!(await hasSmsNumber())) {
