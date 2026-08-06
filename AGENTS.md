@@ -84,6 +84,13 @@ code because GHL workflows cannot be created via API.
   `&send=1` to fire. Each contact can only ever receive it once.
 - Templates carry brand name + STOP language on first-touch messages (A2P
   carrier rules). No em dashes, no slop — the linter covers these files.
+- **Lead ownership + signed texts:** every contact created by `/api/apply` or
+  `/api/apply/partial` gets a round-robin owner (`assignedTo`) from the roster
+  in `src/lib/notify/closers.ts` (deterministic email hash — same lead, same
+  closer). Every text opens with the closer's first name, resolved
+  appointment-assignee > lead owner > `DEFAULT_CLOSER_NAME` env > Santos.
+  Manual reassignment in GHL sticks; intake never overwrites an existing
+  owner. Team changes = edit the CLOSERS list.
 
 ## Meta (Facebook) conversion tracking
 
