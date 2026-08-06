@@ -43,6 +43,17 @@ and appointment status change — no GHL login needed.
   disqualified leads are never silent (the poll only announces brand-new
   contacts). A brand-new applicant may therefore ping twice: instantly from
   the API, and again from the next poll cycle — intentional redundancy.
+- **Delivery retry (2026-08-06):** `sendTelegram` fired once with no retry, so
+  a transient Telegram fault silently cost a lead alert. 4 pings were lost that
+  way between 08-04 and 08-06 (contacts landed in GHL, notification never
+  arrived). It now retries 3 times with exponential backoff capped at 4s, so a
+  retry storm cannot push a caller past Vercel's 60s function timeout. Only
+  transient faults retry: fetch rejections, 5xx, and 429 (honouring Telegram's
+  `retry_after` hint). Any other 4xx returns immediately, since a bad token or
+  chat id will never succeed. Chats send concurrently so backoff on one does
+  not delay the others. **If lead alerts ever go quiet again, check the GHL
+  contact list first** - the contact landing in GHL with no ping means the
+  notifier failed, not the funnel.
 - **Libs:** `src/lib/notify/{telegram,ghl,format}.ts`.
 - **Env:** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `CRON_SECRET` (all three
   Vercel envs + `.env.local`), plus the existing `GHL_API_KEY` /
