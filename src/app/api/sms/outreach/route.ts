@@ -19,10 +19,9 @@ import {
   fetchCalendarEvents,
   fetchCalendars,
   fetchNewestContacts,
-  loadState,
-  saveState,
+  loadJsonValue,
+  saveJsonValue,
   type GhlContact,
-  type NotifyState,
 } from "@/lib/notify/ghl";
 import { sendSms, smsTemplates, canText, withinQuietHours } from "@/lib/notify/sms";
 import { ghlBookingUrl } from "@/lib/calendar";
@@ -32,6 +31,15 @@ export const maxDuration = 60;
 
 const LEAD_TAGS = ["labs-applicant", "labs-nurture", "partial-applicant"];
 const TEST_PATTERN = /test|asdf/i;
+
+// Own custom value, NOT tg_notify_state: the poll cron rewrites that blob
+// every 5 minutes from its own earlier read, so keys written there mid-cycle
+// can be silently clobbered — which for this endpoint would mean texting a
+// lead twice. Single writer per custom value.
+const OUTREACH_STATE_NAME = "sms_outreach_state";
+interface OutreachState {
+  sent: Record<string, number>; // contactId -> sentAt ms
+}
 
 function authorized(request: Request): boolean {
   const secret = process.env.CRON_SECRET;
@@ -66,12 +74,12 @@ export async function GET(request: Request) {
     (url.searchParams.get("skip") ?? "").split(",").map((s) => s.trim()).filter(Boolean)
   );
 
-  const [contacts, booked, { state, stateId }] = await Promise.all([
+  const [contacts, booked, { value: state, id: stateId }] = await Promise.all([
     fetchNewestContacts(100),
     contactsWithUpcomingAppts(),
-    loadState(),
+    loadJsonValue<OutreachState>(OUTREACH_STATE_NAME),
   ]);
-  const smsSent: Record<string, number> = { ...(state?.sms ?? {}) };
+  const sent: Record<string, number> = { ...(state?.sent ?? {}) };
 
   const candidates: { contact: GhlContact; message: string }[] = [];
   const excluded: { id: string; name: string; reason: string }[] = [];
@@ -89,7 +97,7 @@ export async function GET(request: Request) {
           ? "skipped by request"
           : booked.has(c.id)
             ? "has upcoming appointment"
-            : smsSent[`outreach-${c.id}`]
+            : sent[c.id]
               ? "already texted"
               : null;
     if (reason) {
@@ -132,7 +140,7 @@ export async function GET(request: Request) {
       continue;
     }
     const res = await sendSms(contact, message);
-    if (res.ok) smsSent[`outreach-${contact.id}`] = Date.now();
+    if (res.ok) sent[contact.id] = Date.now();
     results.push({
       id: contact.id,
       name: contact.firstName ?? "",
@@ -141,9 +149,7 @@ export async function GET(request: Request) {
     });
   }
 
-  // Persist dedupe keys on the shared notifier state.
-  const next: NotifyState = { ...(state ?? {}), sms: smsSent };
-  await saveState(next, stateId);
+  await saveJsonValue(OUTREACH_STATE_NAME, { sent } satisfies OutreachState, stateId);
 
   return NextResponse.json({ ok: true, mode: "send", results, excluded });
 }

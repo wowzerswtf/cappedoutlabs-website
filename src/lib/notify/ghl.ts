@@ -197,6 +197,40 @@ export async function fetchUserName(userId: string): Promise<string | null> {
   }
 }
 
+// --- Generic JSON custom values ---
+// The poll route is the ONLY writer of `tg_notify_state`. Anything else that
+// needs persistence (e.g. the outreach blast) gets its own custom value so a
+// concurrent poll save can never clobber it (both do read-modify-write with
+// no locking).
+
+export async function loadJsonValue<T>(
+  name: string
+): Promise<{ value: T | null; id: string | null }> {
+  const data = await ghlRequest<{
+    customValues: { id: string; name: string; value: string }[];
+  }>("GET", `/locations/${locationId()}/customValues`);
+  const cv = data.customValues.find((v) => v.name === name);
+  if (!cv) return { value: null, id: null };
+  try {
+    return { value: JSON.parse(cv.value) as T, id: cv.id };
+  } catch {
+    return { value: null, id: cv.id };
+  }
+}
+
+export async function saveJsonValue(
+  name: string,
+  value: unknown,
+  id: string | null
+): Promise<void> {
+  const body = { name, value: JSON.stringify(value) };
+  if (id) {
+    await ghlRequest("PUT", `/locations/${locationId()}/customValues/${id}`, body);
+  } else {
+    await ghlRequest("POST", `/locations/${locationId()}/customValues`, body);
+  }
+}
+
 // --- Conversations (inbound SMS/reply detection) ---
 
 export async function fetchConversations(limit = 50): Promise<GhlConversation[]> {
