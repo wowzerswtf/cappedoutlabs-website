@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
+import { pickCloser } from "@/lib/notify/closers";
 
 const GHL_API_KEY = process.env.GHL_API_KEY;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
@@ -74,6 +75,7 @@ export async function POST(request: Request) {
       tags: consent
         ? ["partial-applicant", "tcpa-consent"]
         : ["partial-applicant"],
+      assignedTo: pickCloser(email).userId,
       source: "cappedoutlabs.com",
     });
 

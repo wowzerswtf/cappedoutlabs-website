@@ -5,6 +5,7 @@ import { ghlBookingUrl } from "@/lib/calendar";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import { closerName, sendSms, smsTemplates } from "@/lib/notify/sms";
+import { pickCloser } from "@/lib/notify/closers";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -175,7 +176,9 @@ async function addApplicationNote(contactId: string, payload: ApplicationPayload
 }
 
 // ── GHL: find existing contact by email ──────────────────────────
-async function findContactByEmail(email: string): Promise<string | null> {
+async function findContactByEmail(
+  email: string
+): Promise<{ id: string; assignedTo: string | null } | null> {
   const res = await ghlRequest("POST", "/contacts/search", {
     locationId: GHL_LOCATION_ID,
     query: email,
@@ -185,7 +188,7 @@ async function findContactByEmail(email: string): Promise<string | null> {
   const match = contacts.find(
     (c: { email?: string }) => c.email?.toLowerCase() === email.toLowerCase()
   );
-  return match?.id || null;
+  return match?.id ? { id: match.id, assignedTo: match.assignedTo ?? null } : null;
 }
 
 // ── GHL: create or update contact + add to pipeline ─────────────
@@ -212,11 +215,17 @@ async function createGhlContact(
     : ["labs-applicant"];
   const tags = payload.consent ? [...baseTags, "tcpa-consent"] : baseTags;
 
+  // Round-robin lead owner: assigned at creation, and patched onto existing
+  // contacts that have no owner yet. Never overwrites a manual assignment.
+  const closer = pickCloser(payload.email);
+
   // Check if contact already exists (from partial lead capture). GHL's
   // contact search index lags a few seconds behind writes, so a contact
   // created by /api/apply/partial moments earlier can be invisible here;
   // the duplicate-400 fallback below covers that race.
-  let contactId: string | null = await findContactByEmail(payload.email);
+  const existing = await findContactByEmail(payload.email);
+  let contactId: string | null = existing?.id ?? null;
+  const needsOwner = existing ? !existing.assignedTo : true;
   let created = false;
 
   if (!contactId) {
@@ -230,6 +239,7 @@ async function createGhlContact(
       tags,
       source: payload.source || "cappedoutlabs.com",
       customFields,
+      assignedTo: closer.userId,
     });
 
     if (contactRes.ok) {
@@ -257,7 +267,8 @@ async function createGhlContact(
   }
 
   if (!created) {
-    // Update existing contact with full application data
+    // Update existing contact with full application data. Owner only set
+    // when the contact has none — a rep's manual reassignment sticks.
     const updateRes = await ghlRequest("PUT", `/contacts/${contactId}`, {
       firstName: payload.firstName,
       lastName: payload.lastName,
@@ -265,6 +276,7 @@ async function createGhlContact(
       tags,
       source: payload.source || "cappedoutlabs.com",
       customFields,
+      ...(needsOwner ? { assignedTo: closer.userId } : {}),
     });
 
     if (!updateRes.ok) {
@@ -394,6 +406,7 @@ export async function POST(request: Request) {
   // was captured in this same request; a repeat contact who opted out earlier
   // is blocked server-side by GHL's DND. Best-effort, never blocks the lead.
   if (ghlResult.status === "fulfilled" && payload.consent && payload.phone) {
+    const signer = closerName(pickCloser(payload.email).name);
     const smsResult = await sendSms(
       {
         id: ghlResult.value.contactId,
@@ -402,10 +415,10 @@ export async function POST(request: Request) {
         tags: ["tcpa-consent"],
       },
       payload.disqualified
-        ? smsTemplates.appliedNurture(payload.firstName, closerName(null))
+        ? smsTemplates.appliedNurture(payload.firstName, signer)
         : smsTemplates.appliedQualified(
             payload.firstName,
-            closerName(null),
+            signer,
             ghlBookingUrl({
               firstName: payload.firstName,
               lastName: payload.lastName,
