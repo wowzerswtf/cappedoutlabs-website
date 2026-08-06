@@ -215,45 +215,60 @@ export function formatWhen(startMs: number, timezone?: string | null): string {
   }).format(new Date(startMs));
 }
 
+// --- Closer name resolution ---
+// Every text is signed by a real person (Waynard 2026-08-06). Callers resolve
+// the name in priority order: appointment assignee -> lead owner (GHL
+// assignedTo) -> DEFAULT_CLOSER_NAME env -> Santos (the discovery calendar
+// owner). closerName() reduces a full name to a first name for the opener.
+
+const DEFAULT_CLOSER = process.env.DEFAULT_CLOSER_NAME || "Santos";
+
+export function closerName(fullName?: string | null): string {
+  const first = (fullName ?? "").trim().split(/\s+/)[0];
+  return first || DEFAULT_CLOSER;
+}
+
 // --- Templates ---
 // First-touch texts carry the brand name and STOP language (carrier rules for
 // A2P traffic). Mid-thread texts skip the boilerplate and read like a person.
 
 export const smsTemplates = {
-  appliedQualified: (first: string, bookingUrl: string) =>
-    `Hey ${first}, Capped Out Labs here. Your application is in and you qualify. ` +
-    `Next step is a 30 minute discovery call. Book a time: ${bookingUrl}\n` +
+  appliedQualified: (first: string, closer: string, bookingUrl: string) =>
+    `Hey ${first}, ${closer} with Capped Out Labs here. Your application is in ` +
+    `and you qualify. Next step is a 30 minute discovery call. Book a time: ${bookingUrl}\n` +
     `Prefer to text? Just reply here. Reply STOP to opt out.`,
 
-  appliedNurture: (first: string) =>
-    `Hey ${first}, Capped Out Labs here. We got your application. ` +
+  appliedNurture: (first: string, closer: string) =>
+    `Hey ${first}, ${closer} with Capped Out Labs here. We got your application. ` +
     `Sounds like budget timing is not there yet, and that is fine. ` +
     `Reply with what you are working on and we will point you the right way. ` +
     `Reply STOP to opt out.`,
 
-  partialAbandon: (first: string, applyUrl: string) =>
-    `Hey ${first}, Capped Out Labs. Your application is saved but not finished. ` +
-    `It takes about two minutes to wrap up: ${applyUrl}\n` +
+  partialAbandon: (first: string, closer: string, applyUrl: string) =>
+    `Hey ${first}, ${closer} with Capped Out Labs here. Your application is saved ` +
+    `but not finished. It takes about two minutes to wrap up: ${applyUrl}\n` +
     `Reply STOP to opt out.`,
 
-  bookingConfirm: (first: string, when: string, rep?: string | null) =>
-    `You're booked, ${first}. ${when}${rep ? ` with ${rep}` : ""} at Capped Out Labs. ` +
+  bookingConfirm: (first: string, when: string, rep: string) =>
+    `You're booked, ${first}. ${when} with ${rep} at Capped Out Labs. ` +
     `The meeting link is in your email. Need a different time? Just reply here.`,
 
-  reminder24h: (first: string, when: string) =>
-    `${first}, quick reminder from Capped Out Labs: your discovery call is ${when}. ` +
-    `The meeting link is in your email. Need to move it? Reply here.`,
+  reminder24h: (first: string, closer: string, when: string) =>
+    `${first}, ${closer} with Capped Out Labs here. Quick reminder: your ` +
+    `discovery call is ${when}. The meeting link is in your email. Need to move it? Reply here.`,
 
-  reminder1h: (first: string, when: string) =>
-    `${first}, your Capped Out Labs call starts soon: ${when}. ` +
+  reminder1h: (first: string, closer: string, when: string) =>
+    `${first}, ${closer} here from Capped Out Labs. Your call starts soon: ${when}. ` +
     `The meeting link is in your email. See you there.`,
 
-  noShowRecovery: (first: string, bookingUrl: string) =>
-    `Hey ${first}, following up on your Capped Out Labs call. If we missed each ` +
-    `other, grab a new time here: ${bookingUrl}\nOr just reply and we will sort it out.`,
+  noShowRecovery: (first: string, closer: string, bookingUrl: string) =>
+    `Hey ${first}, ${closer} with Capped Out Labs here. Following up on your call. ` +
+    `If we missed each other, grab a new time here: ${bookingUrl}\n` +
+    `Or just reply and we will sort it out.`,
 
-  backlogOutreach: (first: string, bookingUrl: string) =>
-    `Hey ${first}, Capped Out Labs. You applied for a discovery call and we have not ` +
-    `been able to reach you by phone. Texting might be easier. Book a time here: ${bookingUrl}\n` +
+  backlogOutreach: (first: string, closer: string, bookingUrl: string) =>
+    `Hey ${first}, ${closer} with Capped Out Labs here. You applied for a discovery ` +
+    `call and we have not been able to reach you by phone. Texting might be easier. ` +
+    `Book a time here: ${bookingUrl}\n` +
     `Or reply with any questions. Reply STOP to opt out.`,
 };

@@ -19,11 +19,12 @@ import {
   fetchCalendarEvents,
   fetchCalendars,
   fetchNewestContacts,
+  fetchUserName,
   loadJsonValue,
   saveJsonValue,
   type GhlContact,
 } from "@/lib/notify/ghl";
-import { sendSms, smsTemplates, canText, withinQuietHours, timezoneForContact } from "@/lib/notify/sms";
+import { closerName, sendSms, smsTemplates, canText, withinQuietHours, timezoneForContact } from "@/lib/notify/sms";
 import { ghlBookingUrl } from "@/lib/calendar";
 
 export const dynamic = "force-dynamic";
@@ -83,6 +84,15 @@ export async function GET(request: Request) {
 
   const candidates: { contact: GhlContact; message: string }[] = [];
   const excluded: { id: string; name: string; reason: string }[] = [];
+  const userNames = new Map<string, string | null>();
+
+  const closerFor = async (c: GhlContact): Promise<string> => {
+    if (!c.assignedTo) return closerName(null);
+    if (!userNames.has(c.assignedTo)) {
+      userNames.set(c.assignedTo, await fetchUserName(c.assignedTo));
+    }
+    return closerName(userNames.get(c.assignedTo) ?? null);
+  };
 
   for (const c of contacts) {
     const name = [c.firstName, c.lastName].filter(Boolean).join(" ") || c.contactName || c.id;
@@ -108,6 +118,7 @@ export async function GET(request: Request) {
       contact: c,
       message: smsTemplates.backlogOutreach(
         c.firstName || "there",
+        await closerFor(c),
         ghlBookingUrl({
           firstName: c.firstName ?? undefined,
           lastName: c.lastName ?? undefined,

@@ -29,7 +29,7 @@ import {
 } from "@/lib/notify/ghl";
 import { formatBooking, formatBookingChange, formatLead } from "@/lib/notify/format";
 import { sendMetaEvent } from "@/lib/meta/capi";
-import { formatWhen, sendSms, smsTemplates, timezoneForContact } from "@/lib/notify/sms";
+import { closerName, formatWhen, sendSms, smsTemplates, timezoneForContact } from "@/lib/notify/sms";
 import { ghlBookingUrl } from "@/lib/calendar";
 
 export const dynamic = "force-dynamic";
@@ -108,6 +108,23 @@ async function bookingContext(a: GhlAppointment, cache: BookingCtxCache) {
     contact,
     assignedName,
   };
+}
+
+// Resolve the closer who signs a text: appointment assignee, then the lead's
+// owner in GHL, then the default closer.
+async function resolveCloser(
+  assignedName: string | null,
+  contact: GhlContact | null,
+  cache: BookingCtxCache
+): Promise<string> {
+  if (assignedName) return closerName(assignedName);
+  if (contact?.assignedTo) {
+    if (!cache.users.has(contact.assignedTo)) {
+      cache.users.set(contact.assignedTo, await fetchUserName(contact.assignedTo));
+    }
+    return closerName(cache.users.get(contact.assignedTo) ?? null);
+  }
+  return closerName(null);
 }
 
 // Send one SMS at most once per state key. Marks the key only on success so
@@ -271,7 +288,7 @@ export async function GET(request: Request) {
               smsTemplates.bookingConfirm(
                 ctx.contact.firstName,
                 formatWhen(startMs, timezoneForContact(ctx.contact)),
-                ctx.assignedName
+                ctx.assignedName ?? (await resolveCloser(null, ctx.contact, cache))
               )
             );
             if (sent) summary.sms++;
@@ -358,6 +375,7 @@ export async function GET(request: Request) {
     const ctx = await bookingContext(a, cache);
     const first = ctx.contact?.firstName;
     if (!first) continue;
+    const closer = await resolveCloser(ctx.assignedName, ctx.contact, cache);
 
     let sent = false;
     if (wantsRem24) {
@@ -365,7 +383,7 @@ export async function GET(request: Request) {
         `rem24-${a.id}`,
         smsSent,
         ctx.contact,
-        smsTemplates.reminder24h(first, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null)),
+        smsTemplates.reminder24h(first, closer, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null)),
         { respectQuietHours: true }
       );
     } else if (wantsRem1) {
@@ -373,7 +391,7 @@ export async function GET(request: Request) {
         `rem1-${a.id}`,
         smsSent,
         ctx.contact,
-        smsTemplates.reminder1h(first, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null))
+        smsTemplates.reminder1h(first, closer, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null))
       );
     } else if (wantsRecovery) {
       sent = await trySms(
@@ -382,6 +400,7 @@ export async function GET(request: Request) {
         ctx.contact,
         smsTemplates.noShowRecovery(
           first,
+          closer,
           ghlBookingUrl({
             firstName: ctx.contact?.firstName ?? undefined,
             lastName: ctx.contact?.lastName ?? undefined,
@@ -409,7 +428,7 @@ export async function GET(request: Request) {
       `partial-${c.id}`,
       smsSent,
       c,
-      smsTemplates.partialAbandon(c.firstName, APPLY_URL),
+      smsTemplates.partialAbandon(c.firstName, await resolveCloser(null, c, cache), APPLY_URL),
       { respectQuietHours: true }
     );
     if (sent) summary.sms++;

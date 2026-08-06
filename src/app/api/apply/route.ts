@@ -4,7 +4,7 @@ import { ApplicationConfirmation } from "@/emails/ApplicationConfirmation";
 import { ghlBookingUrl } from "@/lib/calendar";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
-import { sendSms, smsTemplates } from "@/lib/notify/sms";
+import { closerName, sendSms, smsTemplates } from "@/lib/notify/sms";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -402,9 +402,10 @@ export async function POST(request: Request) {
         tags: ["tcpa-consent"],
       },
       payload.disqualified
-        ? smsTemplates.appliedNurture(payload.firstName)
+        ? smsTemplates.appliedNurture(payload.firstName, closerName(null))
         : smsTemplates.appliedQualified(
             payload.firstName,
+            closerName(null),
             ghlBookingUrl({
               firstName: payload.firstName,
               lastName: payload.lastName,

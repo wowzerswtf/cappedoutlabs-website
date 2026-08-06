@@ -21,6 +21,8 @@ export interface GhlContact {
   dateAdded?: string;
   timezone?: string | null;
   dnd?: boolean;
+  // Lead owner (GHL user id) — signs the outbound texts when set.
+  assignedTo?: string | null;
   customFields?: { id: string; value: unknown }[];
 }
 
