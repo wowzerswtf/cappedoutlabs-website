@@ -49,7 +49,9 @@ const REM1_WINDOW: [number, number] = [15 * 60 * 1000, 1 * HOUR];
 const NOSHOW_WINDOW: [number, number] = [30 * 60 * 1000, 48 * HOUR]; // time since start
 const PARTIAL_WINDOW: [number, number] = [15 * 60 * 1000, 24 * HOUR]; // since capture
 const SMS_KEY_TTL_MS = 60 * 24 * HOUR;
-const APPLY_URL = "https://www.cappedoutlabs.com/apply-now";
+// Apex, not www: this URL goes out in SMS, so it should land in one hop with
+// no redirect and no chance of a hostname the certificate doesn't cover.
+const APPLY_URL = "https://cappedoutlabs.com/apply-now";
 
 function authorized(request: Request): boolean {
   const secret = process.env.CRON_SECRET;
