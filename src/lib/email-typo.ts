@@ -2,7 +2,7 @@
 //
 // Applicants fat-finger their own email constantly, and a single character
 // costs the whole lead: ynosinte20@gmaill.com bounced on 2026-08-04 and that
-// lead was unreachable by email from then on. These are always typos — nobody
+// lead was unreachable by email from then on. These are always typos. Nobody
 // owns gmaill.com and hands it out.
 //
 // The bar for rewriting somebody's contact record is high, so this only fires
@@ -16,7 +16,7 @@
 /** Real domains that must never be rewritten, including near-collisions. */
 const PROTECTED = new Set([
   // Genuine mail providers that sit close to popular ones.
-  "man.com", // real (mail.com family) — 1 edit from msn.com
+  "man.com", // real (mail.com family), 1 edit from msn.com
   "mail.com",
   "msn.com",
   "mac.com",
@@ -83,7 +83,7 @@ const FUZZY_TARGETS = [
 ];
 
 /**
- * Curated misspellings. Covers the ones distance-1 can't reach safely —
+ * Curated misspellings. Covers the ones distance-1 can't reach safely:
  * doubled letters, transpositions, and mangled TLDs on short domains.
  */
 const KNOWN: Record<string, string> = {
@@ -112,7 +112,7 @@ const KNOWN: Record<string, string> = {
   "yhoo.com": "yahoo.com", "yahho.com": "yahoo.com", "uahoo.com": "yahoo.com",
   "tahoo.com": "yahoo.com", "yahoi.com": "yahoo.com", "yajoo.com": "yahoo.com",
   "yahoo.comm": "yahoo.com", "ahoo.com": "yahoo.com", "yagoo.com": "yahoo.com",
-  // aol — short, so every variant is spelled out rather than fuzzed
+  // aol is short, so every variant is spelled out rather than fuzzed
   "aol.co": "aol.com", "aol.con": "aol.com", "aol.cm": "aol.com",
   "aol.om": "aol.com", "aoll.com": "aol.com", "ail.com": "aol.com",
   "aol.comm": "aol.com", "aoi.com": "aol.com", "aol.vom": "aol.com",
@@ -188,7 +188,7 @@ export function correctEmailDomain(email: string | null | undefined): EmailCorre
   let match: string | null = null;
   for (const target of FUZZY_TARGETS) {
     if (editDistance(domain, target, 1) <= 1) {
-      // Two plausible targets means it isn't obvious — leave it alone.
+      // Two plausible targets means it isn't obvious, so leave it alone.
       if (match) return null;
       match = target;
     }

@@ -355,7 +355,7 @@ export async function POST(request: Request) {
 
   // Catch a fat-fingered free-mail domain at the door. Correcting here means
   // the confirmation email, the GHL contact, and every downstream nurture all
-  // use the fixed address — waiting for the dialer sync to repair it would
+  // use the fixed address. Waiting for the dialer sync to repair it would
   // still bounce the one email that carries the booking link.
   const emailFix = correctEmailDomain(payload.email);
   if (emailFix) {
