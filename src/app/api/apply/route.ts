@@ -6,6 +6,7 @@ import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import { closerName, sendSms, smsTemplates } from "@/lib/notify/sms";
 import { pickCloser } from "@/lib/notify/closers";
+import { correctEmailDomain } from "@/lib/email-typo";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -350,6 +351,16 @@ export async function POST(request: Request) {
       { error: "Email and first name are required" },
       { status: 400 }
     );
+  }
+
+  // Catch a fat-fingered free-mail domain at the door. Correcting here means
+  // the confirmation email, the GHL contact, and every downstream nurture all
+  // use the fixed address — waiting for the dialer sync to repair it would
+  // still bounce the one email that carries the booking link.
+  const emailFix = correctEmailDomain(payload.email);
+  if (emailFix) {
+    console.log(`Corrected applicant email: ${emailFix.original} -> ${emailFix.corrected}`);
+    payload.email = emailFix.corrected;
   }
 
   // Capture request metadata for the consent record

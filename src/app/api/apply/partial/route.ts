@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import { pickCloser } from "@/lib/notify/closers";
+import { correctEmailDomain } from "@/lib/email-typo";
 
 const GHL_API_KEY = process.env.GHL_API_KEY;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
@@ -27,13 +28,21 @@ export async function POST(request: Request) {
     const {
       firstName,
       lastName,
-      email,
+      email: rawEmail,
       phone,
       consent,
       consentLanguage,
       consentVersion,
       consentTimestamp,
     } = await request.json();
+
+    // Fix the domain before the contact is created, so a typo never reaches
+    // GHL in the first place and the dialer has nothing to repair later.
+    const partialFix = correctEmailDomain(rawEmail);
+    if (partialFix) {
+      console.log(`Corrected partial email: ${partialFix.original} -> ${partialFix.corrected}`);
+    }
+    const email = partialFix ? partialFix.corrected : rawEmail;
 
     if (!email || !firstName) {
       return NextResponse.json(
