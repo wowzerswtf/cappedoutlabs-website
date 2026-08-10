@@ -79,13 +79,32 @@ code because GHL workflows cannot be created via API.
   until the LC Phone number + A2P registration are live. No code change
   needed at go-live.
 - **Instant texts:** `/api/apply` sends the qualified booking-link text or the
-  no-budget nurture text the moment an application lands (quiet-hours exempt:
-  the lead is mid-funnel on their phone).
+  no-budget nurture text the moment an application lands, and
+  `/api/apply/partial` sends the abandoned-application nudge the moment step 1
+  lands. Both are quiet-hours exempt: the lead is mid-funnel on their phone,
+  so the text is an immediate reply to their own inquiry, not cold outreach.
+  The partial send runs inside `after()` so the form never waits on GHL.
+- **Why the partial nudge is instant (2026-08-09):** it used to come only from
+  the poll, gated at 15 minutes after capture. Phillip Newberry was captured at
+  8:48pm Central, which made him eligible at 9:03pm, three minutes past the 9pm
+  quiet-hours cutoff, so his text sat until the next morning. **If a partial
+  lead ever goes untexted again, check `dateAdded` against the recipient's
+  local clock first** - a capture inside the last 15 minutes of the day is the
+  known shape of this failure.
 - **Poll-driven texts** (piggyback on the 5-min Telegram poll cron, dedupe
   keys in `tg_notify_state.sms`): booking confirmation, 24h reminder, 1h
   reminder, no-show / never-dispositioned recovery (fires when an appointment
-  is marked `noshow` OR still `confirmed` 30min-48h past start), and an
-  abandoned-partial nudge 15min-24h after step-1 capture.
+  is marked `noshow` OR still `confirmed` 30min-48h past start), and the
+  abandoned-partial nudge as a 15min-24h **backstop** for whatever the instant
+  path could not complete (SMS_PAUSED, transient GHL fault, no location number
+  yet, or a contact captured before the instant path shipped). The backstop
+  still respects quiet hours, since by then the lead has walked away.
+- **Partial nudge dedupe:** both senders check and write the contact tag
+  `sms-partial-nudged` (`PARTIAL_NUDGE_TAG`), written only after a send
+  actually succeeds - so a failure retries while the 24h window is open, and a
+  success can never be doubled. It lives on the contact rather than in
+  `tg_notify_state` so it survives a state re-baseline and so the two writers
+  cannot clobber each other's read-modify-write of one shared custom value.
 - **Inbound replies -> Telegram:** the poll watches the conversations feed and
   DMs Waynard the moment any lead replies (SMS or email), with the message
   body quoted.

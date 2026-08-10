@@ -42,3 +42,37 @@ establish trust relationship"), while leadconnectorhq.com verifies fine.
 Something local is intercepting or the chain trips these stacks; browsers are
 fine. For deploy verification probes use `curl -skL` and note www 307s to the
 apex domain.
+
+## 2026-08-09 - A partial lead went untexted because the nudge delay pushed it past quiet hours
+
+**What happened:** Phillip Newberry submitted step 1 of the application at
+8:48:34pm Central (area code 870, Arkansas) and got no text. Nothing was
+broken: partial applicants only ever got the abandoned-application nudge from
+the 5-minute poll, and that nudge is gated to fire 15 minutes after capture.
+15 minutes put him at 9:03pm, three minutes past the 9pm TCPA quiet-hours
+cutoff, so the send was correctly suppressed and would have waited until 8am
+the next morning.
+
+**Why it looked like a failure:** every other partial in the location had a
+`partial-*` key in `tg_notify_state.sms`, the location phone number was live,
+and the poll had picked him up (`lastLeadTs` matched his capture to the
+millisecond). The engine was working exactly as written. The defect was the
+15-minute delay, not the plumbing.
+
+**Fix:** `/api/apply/partial` now sends the nudge instantly at intake, inside
+`after()` so the form does not wait on GHL, and quiet-hours exempt for the same
+reason `/api/apply` is - the lead typed the number in seconds ago. The poll
+loop stays as the quiet-hours-respecting backstop. Both dedupe on the contact
+tag `sms-partial-nudged`, written only after a send succeeds.
+
+**Rules going forward:**
+- A delay before an automated send is not free. Any gap between capture and
+  send can straddle a quiet-hours boundary, and the leads it silently costs are
+  the ones who filled the form out at night.
+- Put one-shot dedupe markers on the GHL contact, not in the shared
+  `tg_notify_state` blob, whenever two independent writers can send the same
+  message. The blob is a read-modify-write that the 5-minute cron can clobber.
+- Only mark a message as sent after the send actually succeeds, so a blocked
+  or failed attempt retries while its window is still open.
+- Leads type their full name into the first-name box. `leadFirstName()` trims
+  to the first token so a text never opens "Hey Phillip Newberry,".
