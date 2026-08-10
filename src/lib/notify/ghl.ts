@@ -135,6 +135,32 @@ export async function saveState(state: NotifyState, stateId: string | null): Pro
   }
 }
 
+// --- Tags ---
+
+// Durable dedupe marker for one-shot texts. A contact tag beats a key in the
+// tg_notify_state blob for this job: it survives a state reset, the sales team
+// can see it in GHL, and two writers (the instant intake path and the poll)
+// can never clobber each other the way a read-modify-write of one shared
+// custom value can. Never throws: a failed marker must not fail the send.
+// Retried once: when this marker is lost the lead gets the same text twice, so
+// it is worth one more round trip before giving up.
+export async function addContactTag(contactId: string, tag: string): Promise<boolean> {
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      await ghlRequest("POST", `/contacts/${contactId}/tags`, { tags: [tag] });
+      return true;
+    } catch (err) {
+      console.error(
+        `GHL add tag "${tag}" to ${contactId} failed (attempt ${attempt}/2):`,
+        err
+      );
+      if (attempt === 2) return false;
+      await new Promise((r) => setTimeout(r, 500));
+    }
+  }
+  return false;
+}
+
 // --- Leads ---
 
 export async function fetchNewestContacts(limit = 50): Promise<GhlContact[]> {

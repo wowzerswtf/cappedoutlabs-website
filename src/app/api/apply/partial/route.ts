@@ -1,8 +1,21 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import { pickCloser } from "@/lib/notify/closers";
+import { addContactTag } from "@/lib/notify/ghl";
+import {
+  APPLY_URL,
+  PARTIAL_NUDGE_TAG,
+  closerName,
+  leadFirstName,
+  sendSms,
+  smsTemplates,
+} from "@/lib/notify/sms";
 import { correctEmailDomain } from "@/lib/email-typo";
+
+// The instant SMS nudge runs in after(), which counts toward the function's
+// budget. Give it headroom so a slow GHL call can never truncate the send.
+export const maxDuration = 30;
 
 const GHL_API_KEY = process.env.GHL_API_KEY;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
@@ -114,6 +127,44 @@ export async function POST(request: Request) {
         .filter(Boolean)
         .join("\n")
     ).catch((err) => console.error("Partial Telegram failed:", err));
+
+    // Instant abandoned-application nudge.
+    //
+    // This used to wait for the 5-minute poll to notice the lead was 15
+    // minutes old, which meant a capture at 8:48pm local missed the 9pm TCPA
+    // quiet-hours cutoff by three minutes and sat until the next morning
+    // (Phillip Newberry, 2026-08-09). Quiet hours are deliberately NOT applied
+    // here for the same reason /api/apply is exempt: the lead typed this
+    // number into the form seconds ago and is holding the phone, so this is an
+    // immediate reply to their own inquiry, not cold outreach.
+    //
+    // after() runs this once the response is already on its way, so step 1 of
+    // the form never waits on GHL. The poll nudge stays as the backstop and
+    // both paths dedupe on PARTIAL_NUDGE_TAG, which is only written after a
+    // send actually succeeds, so a failure here still retries at 15 min.
+    if (contactId && consent && phone) {
+      const first = leadFirstName(firstName);
+      if (first) {
+        after(async () => {
+          const res = await sendSms(
+            { id: contactId, firstName: first, phone, tags: ["tcpa-consent"] },
+            smsTemplates.partialAbandon(
+              first,
+              closerName(pickCloser(email).name),
+              APPLY_URL
+            )
+          ).catch((err) => ({ ok: false, error: String(err) }) as const);
+          if (res.ok) {
+            await addContactTag(contactId, PARTIAL_NUDGE_TAG);
+          } else {
+            console.log(
+              `Partial nudge not sent (${"skipped" in res ? res.skipped : res.error}) ` +
+                `contact=${contactId}; poll will retry inside the 24h window`
+            );
+          }
+        });
+      }
+    }
 
     // Record consent proof (best-effort, non-fatal)
     if (contactId && consent) {

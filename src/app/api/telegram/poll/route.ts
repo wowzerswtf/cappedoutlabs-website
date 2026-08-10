@@ -14,6 +14,7 @@
 import { NextResponse } from "next/server";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import {
+  addContactTag,
   fetchCalendarEvents,
   fetchCalendars,
   fetchContact,
@@ -29,7 +30,16 @@ import {
 } from "@/lib/notify/ghl";
 import { formatBooking, formatBookingChange, formatLead } from "@/lib/notify/format";
 import { sendMetaEvent } from "@/lib/meta/capi";
-import { closerName, formatWhen, sendSms, smsTemplates, timezoneForContact } from "@/lib/notify/sms";
+import {
+  APPLY_URL,
+  PARTIAL_NUDGE_TAG,
+  closerName,
+  formatWhen,
+  leadFirstName,
+  sendSms,
+  smsTemplates,
+  timezoneForContact,
+} from "@/lib/notify/sms";
 import { ghlBookingUrl } from "@/lib/calendar";
 
 export const dynamic = "force-dynamic";
@@ -49,9 +59,6 @@ const REM1_WINDOW: [number, number] = [15 * 60 * 1000, 1 * HOUR];
 const NOSHOW_WINDOW: [number, number] = [30 * 60 * 1000, 48 * HOUR]; // time since start
 const PARTIAL_WINDOW: [number, number] = [15 * 60 * 1000, 24 * HOUR]; // since capture
 const SMS_KEY_TTL_MS = 60 * 24 * HOUR;
-// Apex, not www: this URL goes out in SMS, so it should land in one hop with
-// no redirect and no chance of a hostname the certificate doesn't cover.
-const APPLY_URL = "https://cappedoutlabs.com/apply-now";
 
 function authorized(request: Request): boolean {
   const secret = process.env.CRON_SECRET;
@@ -416,24 +423,33 @@ export async function GET(request: Request) {
     if (sent) summary.sms++;
   }
 
-  // --- SMS: abandoned partial applications ---
-  // Contact captured at survey step 1 but never finished; nudge once between
-  // 15 minutes and 24 hours after capture.
+  // --- SMS: abandoned partial applications (backstop) ---
+  // /api/apply/partial now texts these leads the moment step 1 lands, so this
+  // loop is the safety net for the sends that path could not complete:
+  // SMS_PAUSED, a transient GHL fault, a missing phone number on the location,
+  // or a contact captured before the instant path existed. Quiet hours still
+  // apply here: by the time this fires the lead has walked away, so it is no
+  // longer an immediate reply to their own inquiry.
   for (const c of contacts) {
     const tags = c.tags ?? [];
     if (!tags.includes("partial-applicant")) continue;
     if (tags.includes("labs-applicant") || tags.includes("labs-nurture")) continue;
+    if (tags.includes(PARTIAL_NUDGE_TAG)) continue; // already texted at intake
     const age = now - new Date(c.dateAdded ?? 0).getTime();
     if (age < PARTIAL_WINDOW[0] || age > PARTIAL_WINDOW[1]) continue;
-    if (!c.firstName) continue;
+    const first = leadFirstName(c.firstName);
+    if (!first) continue;
     const sent = await trySms(
       `partial-${c.id}`,
       smsSent,
       c,
-      smsTemplates.partialAbandon(c.firstName, await resolveCloser(null, c, cache), APPLY_URL),
+      smsTemplates.partialAbandon(first, await resolveCloser(null, c, cache), APPLY_URL),
       { respectQuietHours: true }
     );
-    if (sent) summary.sms++;
+    if (sent) {
+      await addContactTag(c.id, PARTIAL_NUDGE_TAG);
+      summary.sms++;
+    }
   }
 
   // --- Inbound replies -> Telegram ---

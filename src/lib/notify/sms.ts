@@ -10,13 +10,23 @@
 // - only contacts tagged `tcpa-consent` with a phone number get texts
 // - contacts with DND enabled are skipped (GHL also enforces server-side)
 // - poll-driven texts respect TCPA quiet hours (8am-9pm recipient-local);
-//   instant application replies are exempt because the lead is mid-funnel
-//   on their phone at that moment
+//   instant intake replies are exempt because the lead is mid-funnel on
+//   their phone at that moment
 // - `SMS_PAUSED=1` in the environment is a global kill switch
 
 import type { GhlContact } from "@/lib/notify/ghl";
 
 const GHL_BASE = "https://services.leadconnectorhq.com";
+
+// Where an unfinished application resumes. Shared by the instant intake nudge
+// and the poll backstop so the two paths can never drift to different links.
+// Apex, not www: this URL goes out in SMS, so it should land in one hop with
+// no redirect and no chance of a hostname the certificate doesn't cover.
+export const APPLY_URL = "https://cappedoutlabs.com/apply-now";
+
+// Written to the contact once the abandoned-application nudge has actually
+// gone out. Both senders check it, so a lead gets this text at most once.
+export const PARTIAL_NUDGE_TAG = "sms-partial-nudged";
 
 export interface SmsResult {
   ok: boolean;
@@ -226,6 +236,14 @@ const DEFAULT_CLOSER = process.env.DEFAULT_CLOSER_NAME || "Santos";
 export function closerName(fullName?: string | null): string {
   const first = (fullName ?? "").trim().split(/\s+/)[0];
   return first || DEFAULT_CLOSER;
+}
+
+// Leads routinely type their whole name into the first-name box, which makes a
+// text open "Hey Phillip Newberry, Santos with Capped Out Labs here". Reduce to
+// the first token, same as closerName does for reps. Returns "" when there is
+// nothing usable, and callers skip the send rather than text a stranger "Hey ,".
+export function leadFirstName(name?: string | null): string {
+  return (name ?? "").trim().split(/\s+/)[0] ?? "";
 }
 
 // --- Templates ---
