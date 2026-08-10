@@ -5,7 +5,7 @@ import { ghlBookingUrl } from "@/lib/calendar";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import { closerName, sendSms, smsTemplates } from "@/lib/notify/sms";
-import { pickCloser } from "@/lib/notify/closers";
+import { closerByUserId, intakeCloser } from "@/lib/notify/closers";
 import { correctEmailDomain } from "@/lib/email-typo";
 
 let _resend: Resend | null = null;
@@ -216,9 +216,9 @@ async function createGhlContact(
     : ["labs-applicant"];
   const tags = payload.consent ? [...baseTags, "tcpa-consent"] : baseTags;
 
-  // Round-robin lead owner: assigned at creation, and patched onto existing
+  // Intake lead owner: assigned at creation, and patched onto existing
   // contacts that have no owner yet. Never overwrites a manual assignment.
-  const closer = pickCloser(payload.email);
+  const closer = intakeCloser();
 
   // Check if contact already exists (from partial lead capture). GHL's
   // contact search index lags a few seconds behind writes, so a contact
@@ -227,6 +227,10 @@ async function createGhlContact(
   const existing = await findContactByEmail(payload.email);
   let contactId: string | null = existing?.id ?? null;
   const needsOwner = existing ? !existing.assignedTo : true;
+  // Who ends up owning this contact — the manual owner on a repeat applicant,
+  // otherwise the intake closer. The follow-up text is signed with this, so a
+  // reassigned lead never gets a text from someone who isn't working it.
+  const ownerUserId = needsOwner ? closer.userId : (existing?.assignedTo as string);
   let created = false;
 
   if (!contactId) {
@@ -321,7 +325,7 @@ async function createGhlContact(
           ? `GHL opportunity refreshed (repeat applicant): ${existingId}`
           : `GHL opportunity refresh failed: ${updRes.status}`
       );
-      return { contactId, opportunityId: existingId as string };
+      return { contactId, opportunityId: existingId as string, ownerUserId };
     }
     console.error("GHL opportunity creation failed:", oppRes.status, oppRes.data);
     // Contact was created — don't throw, just log the opportunity failure
@@ -329,7 +333,7 @@ async function createGhlContact(
     console.log("GHL opportunity created:", oppRes.data?.opportunity?.id);
   }
 
-  return { contactId, opportunityId: oppRes.data?.opportunity?.id };
+  return { contactId, opportunityId: oppRes.data?.opportunity?.id, ownerUserId };
 }
 
 // ── POST handler ─────────────────────────────────────────────────
@@ -417,7 +421,9 @@ export async function POST(request: Request) {
   // was captured in this same request; a repeat contact who opted out earlier
   // is blocked server-side by GHL's DND. Best-effort, never blocks the lead.
   if (ghlResult.status === "fulfilled" && payload.consent && payload.phone) {
-    const signer = closerName(pickCloser(payload.email).name);
+    const owner =
+      closerByUserId(ghlResult.value.ownerUserId) ?? intakeCloser();
+    const signer = closerName(owner.name);
     const smsResult = await sendSms(
       {
         id: ghlResult.value.contactId,

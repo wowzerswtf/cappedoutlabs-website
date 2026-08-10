@@ -115,12 +115,19 @@ code because GHL workflows cannot be created via API.
 - Templates carry brand name + STOP language on first-touch messages (A2P
   carrier rules). No em dashes, no slop — the linter covers these files.
 - **Lead ownership + signed texts:** every contact created by `/api/apply` or
-  `/api/apply/partial` gets a round-robin owner (`assignedTo`) from the roster
-  in `src/lib/notify/closers.ts` (deterministic email hash — same lead, same
-  closer). Every text opens with the closer's first name, resolved
-  appointment-assignee > lead owner > `DEFAULT_CLOSER_NAME` env > Santos.
-  Manual reassignment in GHL sticks; intake never overwrites an existing
-  owner. Team changes = edit the CLOSERS list.
+  `/api/apply/partial` gets an owner (`assignedTo`) at creation from
+  `intakeCloser()` in `src/lib/notify/closers.ts`. As of 2026-08-10 that is
+  Beau for every new lead and every partial — he dials the whole inbound book,
+  so intake no longer rotates (`INTAKE_CLOSER_USER_ID` overrides without a
+  deploy; the old email-hash rotation is kept in a comment there). **Calendar
+  bookings still rotate** — that is GHL calendar config, untouched by this, and
+  the appointment assignee still wins when a text gets signed. Signing order:
+  appointment assignee > lead owner > `DEFAULT_CLOSER_NAME` env > Beau. A
+  repeat applicant whose contact was manually reassigned keeps that owner and
+  gets a text signed by them (`/api/apply` returns `ownerUserId` for exactly
+  this). Team changes = edit the CLOSERS list; moving the existing book too
+  needs `dialer/scripts/assign-all-leads.mjs`, since intake only touches new
+  leads.
 
 ## Meta (Facebook) conversion tracking
 

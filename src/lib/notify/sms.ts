@@ -228,10 +228,12 @@ export function formatWhen(startMs: number, timezone?: string | null): string {
 // --- Closer name resolution ---
 // Every text is signed by a real person (Waynard 2026-08-06). Callers resolve
 // the name in priority order: appointment assignee -> lead owner (GHL
-// assignedTo) -> DEFAULT_CLOSER_NAME env -> Santos (the discovery calendar
-// owner). closerName() reduces a full name to a first name for the opener.
+// assignedTo) -> DEFAULT_CLOSER_NAME env -> Beau (who dials the whole inbound
+// book as of 2026-08-10). closerName() reduces a full name to a first name for
+// the opener. Booked leads still sign with whoever the calendar rotated the
+// appointment to, since the assignee wins ahead of this fallback.
 
-const DEFAULT_CLOSER = process.env.DEFAULT_CLOSER_NAME || "Santos";
+const DEFAULT_CLOSER = process.env.DEFAULT_CLOSER_NAME || "Beau";
 
 export function closerName(fullName?: string | null): string {
   const first = (fullName ?? "").trim().split(/\s+/)[0];

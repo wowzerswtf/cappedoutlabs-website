@@ -1,7 +1,7 @@
 import { NextResponse, after } from "next/server";
 import { sendMetaEvent, userDataFromRequest } from "@/lib/meta/capi";
 import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
-import { pickCloser } from "@/lib/notify/closers";
+import { intakeCloser } from "@/lib/notify/closers";
 import { addContactTag } from "@/lib/notify/ghl";
 import {
   APPLY_URL,
@@ -97,7 +97,7 @@ export async function POST(request: Request) {
       tags: consent
         ? ["partial-applicant", "tcpa-consent"]
         : ["partial-applicant"],
-      assignedTo: pickCloser(email).userId,
+      assignedTo: intakeCloser().userId,
       source: "cappedoutlabs.com",
     });
 
@@ -150,7 +150,7 @@ export async function POST(request: Request) {
             { id: contactId, firstName: first, phone, tags: ["tcpa-consent"] },
             smsTemplates.partialAbandon(
               first,
-              closerName(pickCloser(email).name),
+              closerName(intakeCloser().name),
               APPLY_URL
             )
           ).catch((err) => ({ ok: false, error: String(err) }) as const);
