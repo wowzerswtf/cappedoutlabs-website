@@ -34,6 +34,27 @@ const CUSTOM_FIELDS: Record<string, string> = {
   referralSource: "F2qNIvitpzmLFslWXNQ7",   // labs_referral_source
 };
 
+// Ad attribution fields, parsed server-side from the submitted pageUrl. GHL's
+// own attributionSource never populates for API-created contacts, so per-ad
+// attribution (utm_content = ad key, e.g. "ms-c") has to travel this way.
+const UTM_FIELDS: Record<string, string> = {
+  utm_source: "rrfa6NuojbQBkTXxK40Y",     // labs_utm_source
+  utm_campaign: "SYY8Ew0GIRtnNFKKjLH2",   // labs_utm_campaign
+  utm_content: "mjQXMtI4YE78LWJlo2E3",    // labs_utm_content
+};
+
+function utmCustomFields(pageUrl?: string) {
+  if (!pageUrl) return [];
+  try {
+    const params = new URL(pageUrl).searchParams;
+    return Object.entries(UTM_FIELDS)
+      .map(([param, id]) => ({ id, field_value: params.get(param) ?? "" }))
+      .filter((f) => f.field_value);
+  } catch {
+    return []; // malformed pageUrl — attribution is best-effort, never fatal
+  }
+}
+
 interface ApplicationPayload {
   firstName: string;
   lastName: string;
@@ -202,12 +223,15 @@ async function createGhlContact(
     throw new Error("GHL_API_KEY and GHL_LOCATION_ID are required");
   }
 
-  const customFields = Object.entries(CUSTOM_FIELDS)
-    .filter(([key]) => payload[key as keyof ApplicationPayload])
-    .map(([key, id]) => ({
-      id,
-      field_value: payload[key as keyof ApplicationPayload],
-    }));
+  const customFields = [
+    ...Object.entries(CUSTOM_FIELDS)
+      .filter(([key]) => payload[key as keyof ApplicationPayload])
+      .map(([key, id]) => ({
+        id,
+        field_value: payload[key as keyof ApplicationPayload],
+      })),
+    ...utmCustomFields(payload.pageUrl),
+  ];
 
   // Qualified leads are applicants; disqualified leads are nurture-only and
   // must NOT carry the applicant tag (keeps the CRM's "qualified" view clean).
