@@ -194,6 +194,11 @@ in mind:
   Playwright and assert `typeof window.fbq`. On cappedoutlabs.com it must be
   `"function"` with requests to `connect.facebook.net`; on `127.0.0.1` or
   `localhost` it must be `"undefined"` with zero facebook requests.
+- **Per-ad attribution into GHL (2026-08-19):** `/api/apply` parses
+  utm_source/campaign/content from the submitted `pageUrl` into contact custom
+  fields `labs_utm_source/campaign/content` (GHL's own attributionSource never
+  populates for API-created contacts). `utm_content` carries the ad key
+  (hs-a ... gen-v2); `scripts/ads_checkin.py` in the parent repo reads it.
 - **Ad set optimization:** point lead campaigns at `Lead`, booking campaigns
   at `Schedule`. `LeadDisqualified`/`PartialLead` exist for audience building
   and diagnostics, not optimization.
