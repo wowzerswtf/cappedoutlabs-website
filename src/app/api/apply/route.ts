@@ -70,9 +70,6 @@ interface ApplicationPayload {
   referralSource: string;
   submittedAt: string;
   source: string;
-  // Lead failed a funnel qualifier (revenue/budget). Still captured for
-  // nurture, but kept out of the sales pipeline and not tagged as an applicant.
-  disqualified?: boolean;
   // TCPA / communications consent record
   consent?: boolean;
   consentLanguage?: string;
@@ -97,16 +94,13 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
   return getResend().emails.send({
     from: `${fromName} <${fromEmail}>`,
     to: payload.email,
-    subject: payload.disqualified
-      ? `We got your application, ${payload.firstName}`
-      : `You're a fit, ${payload.firstName}. Book your call.`,
+    subject: `You're a fit, ${payload.firstName}. Book your call.`,
     react: ApplicationConfirmation({
       firstName: payload.firstName,
       lastName: payload.lastName,
       businessName: payload.businessName,
       tierInterest: payload.tierInterest,
       annualRevenue: payload.annualRevenue,
-      disqualified: payload.disqualified,
       bookingUrl: ghlBookingUrl({
         firstName: payload.firstName,
         lastName: payload.lastName,
@@ -119,14 +113,11 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
 
 // ── Telegram: instant ping for EVERY application ─────────────────
 // Fires directly from the submit path so no lead is ever silent — the
-// 5-minute poll only announces brand-new contacts, which missed repeat
-// emails and made disqualified leads invisible.
+// 5-minute poll only announces brand-new contacts, which missed repeat emails.
+// Revenue and bottleneck ride along so the closer can triage from the ping.
 async function sendApplicationTelegram(payload: ApplicationPayload) {
-  const status = payload.disqualified
-    ? "🟡 <b>New application — NO BUDGET YET (nurture)</b>"
-    : "🟢 <b>New application — QUALIFIED</b>";
   const lines = [
-    status,
+    "🟢 <b>New application — booking now</b>",
     `👤 ${escapeHtml(`${payload.firstName} ${payload.lastName}`.trim())}${payload.businessName ? ` — ${escapeHtml(payload.businessName)}` : ""}`,
     payload.annualRevenue ? `💰 Revenue: ${escapeHtml(payload.annualRevenue)}` : "",
     payload.bottleneck ? `🧱 Bottleneck: ${escapeHtml(payload.bottleneck)}` : "",
@@ -186,10 +177,7 @@ async function addConsentNote(
 // Custom fields only cover a few answers; this keeps the full survey on record.
 async function addApplicationNote(contactId: string, payload: ApplicationPayload) {
   if (!payload.message) return;
-  const header = payload.disqualified
-    ? "VSL APPLICATION (NURTURE — did not meet qualifier)"
-    : "VSL APPLICATION";
-  const body = [header, "", payload.message].join("\n");
+  const body = ["VSL APPLICATION", "", payload.message].join("\n");
 
   const res = await ghlRequest("POST", `/contacts/${contactId}/notes`, { body });
   if (!res.ok) {
@@ -233,11 +221,9 @@ async function createGhlContact(
     ...utmCustomFields(payload.pageUrl),
   ];
 
-  // Qualified leads are applicants; disqualified leads are nurture-only and
-  // must NOT carry the applicant tag (keeps the CRM's "qualified" view clean).
-  const baseTags = payload.disqualified
-    ? ["labs-nurture", "labs-disqualified"]
-    : ["labs-applicant"];
+  // Every completed application is an applicant. Nothing in this funnel
+  // disqualifies anymore, so no lead is routed to a nurture-only tag.
+  const baseTags = ["labs-applicant"];
   const tags = payload.consent ? [...baseTags, "tcpa-consent"] : baseTags;
 
   // Intake lead owner: assigned at creation, and patched onto existing
@@ -322,10 +308,8 @@ async function createGhlContact(
 
   // Step 2: Create opportunity in pipeline at "Applied" stage. EVERY
   // application gets one (Waynard 2026-08-02: every lead must be visible in
-  // GHL); disqualified ones are labeled so sales can triage at a glance.
-  const oppName = payload.disqualified
-    ? `${payload.firstName} ${payload.lastName} — ${payload.businessName} [NURTURE: no budget yet]`
-    : `${payload.firstName} ${payload.lastName} — ${payload.businessName}`;
+  // GHL) and every one carries the same plain name — no status suffix.
+  const oppName = `${payload.firstName} ${payload.lastName} — ${payload.businessName}`;
   const oppRes = await ghlRequest("POST", "/opportunities/", {
     pipelineId: PIPELINE_ID,
     pipelineStageId: APPLIED_STAGE_ID,
@@ -400,8 +384,7 @@ export async function POST(request: Request) {
 
   // Meta conversion: every completed application fires Lead — the survey no
   // longer gates the win (Waynard 2026-08-02: count all applicants).
-  // Disqualified ones ALSO fire LeadDisqualified so the nurture audience
-  // stays buildable. Best-effort - never blocks the lead.
+  // Best-effort - never blocks the lead.
   const userData = {
     ...userDataFromRequest(request),
     email: payload.email,
@@ -416,22 +399,12 @@ export async function POST(request: Request) {
     userData,
     customData: { source: payload.source || "cappedoutlabs.com" },
   });
-  const metaDqEvent = payload.disqualified
-    ? sendMetaEvent({
-        eventName: "LeadDisqualified",
-        eventId: payload.metaEventId ? `${payload.metaEventId}-dq` : undefined,
-        eventSourceUrl: payload.pageUrl,
-        userData,
-        customData: { source: payload.source || "cappedoutlabs.com" },
-      })
-    : Promise.resolve(null);
 
   // Fire everything simultaneously
-  const [resendResult, ghlResult, , , telegramResult] = await Promise.allSettled([
+  const [resendResult, ghlResult, , telegramResult] = await Promise.allSettled([
     sendConfirmationEmail(payload),
     createGhlContact(payload, ip, userAgent),
     metaEvent,
-    metaDqEvent,
     sendApplicationTelegram(payload),
   ]);
   console.log(
@@ -455,18 +428,16 @@ export async function POST(request: Request) {
         phone: payload.phone,
         tags: ["tcpa-consent"],
       },
-      payload.disqualified
-        ? smsTemplates.appliedNurture(payload.firstName, signer)
-        : smsTemplates.appliedQualified(
-            payload.firstName,
-            signer,
-            ghlBookingUrl({
-              firstName: payload.firstName,
-              lastName: payload.lastName,
-              email: payload.email,
-              phone: payload.phone,
-            })
-          )
+      smsTemplates.appliedQualified(
+        payload.firstName,
+        signer,
+        ghlBookingUrl({
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          email: payload.email,
+          phone: payload.phone,
+        })
+      )
     ).catch((err) => ({ ok: false, error: String(err) }));
     console.log("Apply SMS:", JSON.stringify(smsResult));
   }

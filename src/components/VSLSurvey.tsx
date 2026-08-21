@@ -65,7 +65,7 @@ const SURVEY_SLIDES: SurveySlide[] = [
     options: [
       { id: "yes", label: "Yes, budget is approved and ready" },
       { id: "likely", label: "Likely, but I need to see the plan first" },
-      { id: "no", label: "No, not right now", disqualify: true },
+      { id: "no", label: "No, not right now" },
     ],
   },
   {
@@ -93,7 +93,6 @@ const SURVEY_SLIDES: SurveySlide[] = [
 type SurveyOption = {
   id: string;
   label: string;
-  disqualify?: boolean;
 };
 
 type SurveySlide = {
@@ -104,6 +103,9 @@ type SurveySlide = {
   showOtherField?: string;
 };
 
+// The survey scores nothing. Every completed application reaches the calendar
+// (Waynard 2026-08-21) — the answers are triage context for the closer, not a
+// gate. Nothing here should ever branch on them again.
 const TOTAL_SLIDES = SURVEY_SLIDES.length + 1; // contact step + slides
 
 const slideMotion = {
@@ -139,7 +141,7 @@ export function VSLSurvey({
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [otherText, setOtherText] = useState("");
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [disqualified, setDisqualified] = useState(false);
+
 
   // Contact form
   const [fullName, setFullName] = useState("");
@@ -157,7 +159,6 @@ export function VSLSurvey({
     setAnswers({});
     setOtherText("");
     setSelectedOption(null);
-    setDisqualified(false);
     setFullName("");
     setCompanyName("");
     setEmail("");
@@ -179,19 +180,6 @@ export function VSLSurvey({
     const nextAnswers = { ...answers, [slideId]: option.id };
     setAnswers(nextAnswers);
 
-    // Disqualifying answer: contact info was already captured at step 0, so
-    // submit immediately flagged for nurture (not the sales pipeline). They
-    // see the resources screen instead of the calendar, but the lead is in
-    // GHL either way.
-    if (option.disqualify) {
-      setTimeout(() => {
-        setDisqualified(true);
-        setSelectedOption(null);
-        submitApplication(nextAnswers, true);
-      }, 350);
-      return;
-    }
-
     // Check if "other" field needed
     const slide = SURVEY_SLIDES[step - 1];
     if (slide?.showOtherField === option.id) {
@@ -204,7 +192,7 @@ export function VSLSurvey({
     if (step === SURVEY_SLIDES.length) {
       setTimeout(() => {
         setSelectedOption(null);
-        submitApplication(nextAnswers, false);
+        submitApplication(nextAnswers);
       }, 350);
       return;
     }
@@ -265,10 +253,7 @@ export function VSLSurvey({
     setStep(1);
   }
 
-  async function submitApplication(
-    finalAnswers: Record<string, string>,
-    isDisqualified: boolean
-  ) {
+  async function submitApplication(finalAnswers: Record<string, string>) {
     setLoading(true);
     setError("");
 
@@ -307,8 +292,6 @@ export function VSLSurvey({
           revenue: finalAnswers["revenue"] || "",
           // Full Q&A — written as a contact note so nothing is ever lost
           message: `${referralSource} Application\n\nBusiness Type: ${labelFor("business-type") || "N/A"}\nRevenue: ${labelFor("revenue") || "N/A"}\nBiggest Bottleneck: ${labelFor("biggest-bottleneck") || "N/A"}\nAI Experience: ${labelFor("ai-experience") || "N/A"}\nBudget: ${labelFor("budget") || "N/A"}\nTimeline: ${labelFor("timeline") || "N/A"}\nUnderstands Model: ${labelFor("understand-model") || "N/A"}`,
-          // Disqualified leads are captured for nurture, not the sales pipeline
-          disqualified: isDisqualified,
           consent: agreedTerms,
           consentLanguage: CONSENT_TEXT,
           consentVersion: CONSENT_VERSION,
@@ -394,43 +377,8 @@ export function VSLSurvey({
             </div>
           )}
 
-          {/* ── Nurture Screen (submitted but not a current fit) ── */}
-          {submitted && disqualified && (
-            <div className="text-center py-8 space-y-4">
-              <div className="w-14 h-14 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
-                <Check className="w-7 h-7 text-[#2563EB]" />
-              </div>
-              <h3 className="text-2xl font-bold text-navy">
-                Got it — you&apos;re on our radar
-              </h3>
-              <p className="text-text-secondary max-w-md mx-auto">
-                Our done-for-you deployment model is built for businesses that
-                are a bit further along, so we&apos;re not going to book a call
-                today. But we&apos;ll keep you in the loop as you grow, and
-                we&apos;ll send over the AI plays that move the needle most at
-                your stage.
-              </p>
-              <p className="text-text-secondary max-w-md mx-auto">
-                In the meantime, dig into our free resources at{" "}
-                <a
-                  href="/resources"
-                  className="text-[#2563EB] hover:underline font-medium"
-                >
-                  cappedoutlabs.com/resources
-                </a>
-                . Plenty there you can put to work this week.
-              </p>
-              <button
-                onClick={handleClose}
-                className="mt-4 px-6 py-3 bg-navy text-white rounded-lg font-semibold hover:bg-navy/90 transition-colors"
-              >
-                Close
-              </button>
-            </div>
-          )}
-
-          {/* ── Submitted / Thank You Screen (qualified) ── */}
-          {submitted && !disqualified && (
+          {/* ── Submitted / Thank You Screen ── */}
+          {submitted && (
             <div className="py-2 space-y-5">
               <div className="text-center space-y-2">
                 <div className="w-14 h-14 mx-auto rounded-full bg-green-100 flex items-center justify-center">

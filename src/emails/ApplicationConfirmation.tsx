@@ -17,8 +17,6 @@ interface ApplicationConfirmationProps {
   businessName: string;
   tierInterest: string;
   annualRevenue: string;
-  // Nurture-only lead: no call, no booking CTA
-  disqualified?: boolean;
   // Prefilled GHL booking link so they can grab a slot from the email
   bookingUrl?: string;
 }
@@ -29,66 +27,8 @@ export function ApplicationConfirmation({
   businessName = "",
   tierInterest = "",
   annualRevenue = "",
-  disqualified = false,
   bookingUrl = "https://cappedoutlabs.com/book",
 }: ApplicationConfirmationProps) {
-  if (disqualified) {
-    return (
-      <Html>
-        <Head />
-        <Preview>We got your application, {firstName}. You&apos;re on our radar.</Preview>
-        <Body style={main}>
-          <Section style={header}>
-            <Text style={headerText}>Capped Out Labs</Text>
-          </Section>
-
-          <Container style={container}>
-            <Heading style={h1}>We got your application, {firstName}.</Heading>
-
-            <Text style={paragraph}>Hi {firstName},</Text>
-            <Text style={paragraph}>
-              Straight answer: our done-for-you deployment model is built for
-              businesses a bit further along, so we won&apos;t book a call today.
-            </Text>
-            <Text style={paragraph}>
-              You&apos;re on our radar though. As you grow, we&apos;ll send over
-              the AI plays that move the needle most at your stage, pulled from
-              what&apos;s working in our client builds right now.
-            </Text>
-
-            <Hr style={hr} />
-
-            <Text style={paragraph}>
-              In the meantime, dig into the free resources. Plenty there you can
-              put to work this week.
-            </Text>
-
-            <Section style={{ textAlign: "center" as const, margin: "28px 0" }}>
-              <Link href="https://cappedoutlabs.com/resources" style={ctaButton}>
-                Browse the Free Resources
-              </Link>
-            </Section>
-
-            <Hr style={hr} />
-
-            <Text style={paragraph}>Talk soon,</Text>
-            <Text style={signoff}>
-              Waynard
-              <br />
-              Capped Out Labs
-              <br />
-              <Link href="https://cappedoutlabs.com" style={link}>
-                cappedoutlabs.com
-              </Link>
-            </Text>
-          </Container>
-
-          <EmailFooter />
-        </Body>
-      </Html>
-    );
-  }
-
   return (
     <Html>
       <Head />

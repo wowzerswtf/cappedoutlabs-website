@@ -258,12 +258,6 @@ export const smsTemplates = {
     `and you qualify. Next step is a 30 minute discovery call. Book a time: ${bookingUrl}\n` +
     `Prefer to text? Just reply here. Reply STOP to opt out.`,
 
-  appliedNurture: (first: string, closer: string) =>
-    `Hey ${first}, ${closer} with Capped Out Labs here. We got your application. ` +
-    `Sounds like budget timing is not there yet, and that is fine. ` +
-    `Reply with what you are working on and we will point you the right way. ` +
-    `Reply STOP to opt out.`,
-
   partialAbandon: (first: string, closer: string, applyUrl: string) =>
     `Hey ${first}, ${closer} with Capped Out Labs here. Your application is saved ` +
     `but not finished. It takes about two minutes to wrap up: ${applyUrl}\n` +
