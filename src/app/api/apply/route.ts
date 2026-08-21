@@ -117,7 +117,7 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
 // Revenue and bottleneck ride along so the closer can triage from the ping.
 async function sendApplicationTelegram(payload: ApplicationPayload) {
   const lines = [
-    "🟢 <b>New application — booking now</b>",
+    "🟢 <b>New application (booking now)</b>",
     `👤 ${escapeHtml(`${payload.firstName} ${payload.lastName}`.trim())}${payload.businessName ? ` — ${escapeHtml(payload.businessName)}` : ""}`,
     payload.annualRevenue ? `💰 Revenue: ${escapeHtml(payload.annualRevenue)}` : "",
     payload.bottleneck ? `🧱 Bottleneck: ${escapeHtml(payload.bottleneck)}` : "",
@@ -308,7 +308,7 @@ async function createGhlContact(
 
   // Step 2: Create opportunity in pipeline at "Applied" stage. EVERY
   // application gets one (Waynard 2026-08-02: every lead must be visible in
-  // GHL) and every one carries the same plain name — no status suffix.
+  // GHL) and every one carries the same plain name, no status suffix.
   const oppName = `${payload.firstName} ${payload.lastName} — ${payload.businessName}`;
   const oppRes = await ghlRequest("POST", "/opportunities/", {
     pipelineId: PIPELINE_ID,

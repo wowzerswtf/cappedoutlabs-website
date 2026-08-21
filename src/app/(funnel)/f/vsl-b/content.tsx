@@ -21,7 +21,7 @@ import {
 // 2.  Decrease form fields — 2 fields in gate, survey is clickable cards
 // 3.  Exit-intent popup — fires on mouse leave + scroll abandon
 // 4.  Sticky CTA on mobile — fixed bottom bar always visible
-// 5.  Self-qualification quiz — survey modal, every finisher books
+// 5.  Self-qualification quiz: survey modal, every finisher books
 // 6.  Upfront progress — progress bar starts at 20%
 // 7.  Social proof at friction — testimonials next to CTA
 // 8.  Don't make forms look like forms — large clickable card options

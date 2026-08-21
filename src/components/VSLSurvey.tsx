@@ -104,7 +104,7 @@ type SurveySlide = {
 };
 
 // The survey scores nothing. Every completed application reaches the calendar
-// (Waynard 2026-08-21) — the answers are triage context for the closer, not a
+// (Waynard 2026-08-21). The answers are triage context for the closer, not a
 // gate. Nothing here should ever branch on them again.
 const TOTAL_SLIDES = SURVEY_SLIDES.length + 1; // contact step + slides
 
