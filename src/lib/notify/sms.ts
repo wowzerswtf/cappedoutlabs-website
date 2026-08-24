@@ -14,7 +14,7 @@
 //   their phone at that moment
 // - `SMS_PAUSED=1` in the environment is a global kill switch
 
-import type { GhlContact } from "@/lib/notify/ghl";
+import type { GhlAppointment, GhlContact } from "@/lib/notify/ghl";
 
 const GHL_BASE = "https://services.leadconnectorhq.com";
 
@@ -213,6 +213,17 @@ export async function sendSms(
 
 // --- Formatting helpers ---
 
+// The joinable meeting URL for an appointment, when there is one. GHL puts
+// the per-appointment Google Meet link in `address`; the same field holds a
+// street address for in-person calendars, so only a real URL counts. The
+// 8/24 no-show audit found leads at call time with no link in hand ("the
+// meeting link is in your email" while the email sat unopened), so every
+// meeting text now carries the link itself whenever we have it.
+export function meetingLink(appt?: Pick<GhlAppointment, "address"> | null): string | null {
+  const addr = (appt?.address ?? "").trim();
+  return /^https?:\/\/\S+$/i.test(addr) ? addr : null;
+}
+
 export function formatWhen(startMs: number, timezone?: string | null): string {
   return new Intl.DateTimeFormat("en-US", {
     weekday: "short",
@@ -263,17 +274,24 @@ export const smsTemplates = {
     `but not finished. It takes about two minutes to wrap up: ${applyUrl}\n` +
     `Reply STOP to opt out.`,
 
-  bookingConfirm: (first: string, when: string, rep: string) =>
+  bookingConfirm: (first: string, when: string, rep: string, link?: string | null) =>
     `You're booked, ${first}. ${when} with ${rep} at Capped Out Labs. ` +
-    `The meeting link is in your email. Need a different time? Just reply here.`,
+    (link
+      ? `Join here: ${link}\nNeed a different time? Just reply here.`
+      : `The meeting link is in your email. Need a different time? Just reply here.`),
 
-  reminder24h: (first: string, closer: string, when: string) =>
+  reminder24h: (first: string, closer: string, when: string, link?: string | null) =>
     `${first}, ${closer} with Capped Out Labs here. Quick reminder: your ` +
-    `discovery call is ${when}. The meeting link is in your email. Need to move it? Reply here.`,
+    `discovery call is ${when}. ` +
+    (link
+      ? `Join here: ${link}\nNeed to move it? Reply here.`
+      : `The meeting link is in your email. Need to move it? Reply here.`),
 
-  reminder1h: (first: string, closer: string, when: string) =>
+  reminder1h: (first: string, closer: string, when: string, link?: string | null) =>
     `${first}, ${closer} here from Capped Out Labs. Your call starts soon: ${when}. ` +
-    `The meeting link is in your email. See you there.`,
+    (link
+      ? `Join here: ${link}\nSee you there.`
+      : `The meeting link is in your email. See you there.`),
 
   noShowRecovery: (first: string, closer: string, bookingUrl: string) =>
     `Hey ${first}, ${closer} with Capped Out Labs here. Following up on your call. ` +

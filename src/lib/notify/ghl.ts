@@ -49,6 +49,12 @@ export interface GhlAppointment {
   endTime?: string | number;
   assignedUserId?: string;
   dateAdded?: string;
+  // Meeting location. For google_conference calendars GHL stamps the
+  // per-appointment Google Meet URL here.
+  address?: string;
+  // How the appointment was created: "booking_widget" means the lead booked
+  // it themselves and checked the widget's required consent box.
+  createdBy?: { source?: string | null; userId?: string | null };
 }
 
 export interface NotifyState {

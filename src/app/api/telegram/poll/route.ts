@@ -36,6 +36,7 @@ import {
   closerName,
   formatWhen,
   leadFirstName,
+  meetingLink,
   sendSms,
   smsTemplates,
   timezoneForContact,
@@ -134,6 +135,30 @@ async function resolveCloser(
     return closerName(cache.users.get(contact.assignedTo) ?? null);
   }
   return closerName(null);
+}
+
+// Leads who book directly on the calendar widget never pass through
+// /api/apply, so their contacts carry no tags and the tcpa-consent guard in
+// sendSms skips every text for them (the 8/24 no-show audit: email-only
+// reminders, unopened, lead never shows). The widget's required consent
+// checkbox collects the same written consent the application form does, so
+// stamp the tags the engine expects. Gated on the appointment being
+// widget-created: a closer manually booking someone in GHL is not consent.
+// The cached contact's tags are updated in place so texts can go out in the
+// same poll cycle instead of waiting for the next one.
+const WIDGET_CONSENT_TAGS = ["tcpa-consent", "labs-applicant"];
+async function ensureWidgetConsent(
+  a: GhlAppointment,
+  contact: GhlContact | null
+): Promise<void> {
+  if (!contact?.phone) return;
+  if ((a.createdBy?.source ?? "") !== "booking_widget") return;
+  const tags = contact.tags ?? [];
+  for (const tag of WIDGET_CONSENT_TAGS) {
+    if (tags.includes(tag)) continue;
+    if (await addContactTag(contact.id, tag)) tags.push(tag);
+  }
+  contact.tags = tags;
 }
 
 // Send one SMS at most once per state key. Marks the key only on success so
@@ -290,6 +315,7 @@ export async function GET(request: Request) {
           // Booking confirmation text. Transactional (they just booked), so
           // quiet hours don't apply.
           if (ctx.contact?.firstName && startMs > Date.now()) {
+            await ensureWidgetConsent(a, ctx.contact);
             const sent = await trySms(
               `confirm-${a.id}`,
               smsSent,
@@ -297,7 +323,8 @@ export async function GET(request: Request) {
               smsTemplates.bookingConfirm(
                 ctx.contact.firstName,
                 formatWhen(startMs, timezoneForContact(ctx.contact)),
-                ctx.assignedName ?? (await resolveCloser(null, ctx.contact, cache))
+                ctx.assignedName ?? (await resolveCloser(null, ctx.contact, cache)),
+                meetingLink(a)
               )
             );
             if (sent) summary.sms++;
@@ -384,7 +411,9 @@ export async function GET(request: Request) {
     const ctx = await bookingContext(a, cache);
     const first = ctx.contact?.firstName;
     if (!first) continue;
+    await ensureWidgetConsent(a, ctx.contact);
     const closer = await resolveCloser(ctx.assignedName, ctx.contact, cache);
+    const link = meetingLink(a);
 
     let sent = false;
     if (wantsRem24) {
@@ -392,7 +421,7 @@ export async function GET(request: Request) {
         `rem24-${a.id}`,
         smsSent,
         ctx.contact,
-        smsTemplates.reminder24h(first, closer, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null)),
+        smsTemplates.reminder24h(first, closer, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null), link),
         { respectQuietHours: true }
       );
     } else if (wantsRem1) {
@@ -400,7 +429,7 @@ export async function GET(request: Request) {
         `rem1-${a.id}`,
         smsSent,
         ctx.contact,
-        smsTemplates.reminder1h(first, closer, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null))
+        smsTemplates.reminder1h(first, closer, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null), link)
       );
     } else if (wantsRecovery) {
       sent = await trySms(
