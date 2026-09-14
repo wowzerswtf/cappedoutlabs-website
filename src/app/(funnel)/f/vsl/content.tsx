@@ -31,8 +31,9 @@ export function VSLFunnelContent() {
             We deploy machines that print revenue.
           </h1>
           <p className="text-center text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
-            We&apos;ll install AI revenue infrastructure that closes deals and
-            cuts your acquisition costs, so you can scale or exit on your terms.
+            We install AI infrastructure into how your business runs, so
+            revenue goes up and costs come down, wherever that lives in your
+            operation.
           </p>
 
           {/* VSL Video — centered, prominent */}
