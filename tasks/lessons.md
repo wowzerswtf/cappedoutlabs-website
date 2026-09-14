@@ -76,3 +76,24 @@ tag `sms-partial-nudged`, written only after a send succeeds.
   or failed attempt retries while its window is still open.
 - Leads type their full name into the first-name box. `leadFirstName()` trims
   to the first token so a text never opens "Hey Phillip Newberry,".
+
+## Checking the Vimeo VSL: run the browser headed, never headless
+
+Vimeo serves player.vimeo.com through Cloudflare bot management. Headless
+Chrome gets a 401 and an error frame reading "We couldn't verify the security
+of your connection. Access to this content has been restricted." That looks
+exactly like a broken or privacy-locked video and it is not one. The same
+video in a headed browser plays at readyState 4.
+
+Curl is no better. It returns a mix of 200 and 401 for the same URL and
+referer from one minute to the next, so a single curl says nothing.
+
+To actually check whether the VSL plays, launch Chrome with headless:false,
+load the real page, wait about ten seconds, then read readyState, duration
+and paused off the video element inside the player frame. Confirm the video
+itself is reachable by loading a known public Vimeo id in the same session as
+a control before blaming the embed.
+
+Video 1180565378 privacy reads view: anybody, embed: public. Verified playing
+on both / and /f/vsl on 2026-09-14. If a viewer reports a blank player, it is
+their ad blocker, VPN or DNS, not the site.
