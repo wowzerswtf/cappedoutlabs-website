@@ -93,8 +93,8 @@ code because GHL workflows cannot be created via API.
   known shape of this failure.
 - **Poll-driven texts** (piggyback on the 5-min Telegram poll cron, dedupe
   keys in `tg_notify_state.sms`): booking confirmation, 24h reminder, 1h
-  reminder, no-show / never-dispositioned recovery (fires when an appointment
-  is marked `noshow` OR still `confirmed` 30min-48h past start), and the
+  reminder, no-show recovery (fires ONLY when an appointment is marked
+  `noshow`, within 48h of start; see "Call outcomes" below), and the
   abandoned-partial nudge as a 15min-24h **backstop** for whatever the instant
   path could not complete (SMS_PAUSED, transient GHL fault, no location number
   yet, or a contact captured before the instant path shipped). The backstop
@@ -105,6 +105,23 @@ code because GHL workflows cannot be created via API.
   success can never be doubled. It lives on the contact rather than in
   `tg_notify_state` so it survives a state re-baseline and so the two writers
   cannot clobber each other's read-modify-write of one shared custom value.
+- **Call outcomes (2026-09-24):** an appointment still `confirmed` 30min-48h
+  after its start no longer texts the lead. It posts "Did X show?" to Telegram
+  once, with a signed link to `/api/appt/disposition` (page asks Showed /
+  No-show, writes on POST only so link previews can't mark anything). Showed
+  sets the GHL appointment `showed` and moves the deal to Discovery Held
+  (never backwards). No-show sets `noshow`, and the next poll sends the rebook
+  text; it also fires the GHL "Labs - Discovery No-Show" workflow. Why: nobody
+  marks appointments in GHL (17 of 17 past calls were still `confirmed`), so
+  the old "confirmed past start = probable no-show" rule texted "if we missed
+  each other, grab a new time" to every lead whose call happened, including
+  Patrick Hall (Elan Flowers) right after a good call with a proposal pending.
+  Decision logic is pure in `src/lib/notify/post-call.ts`, tested by `npm test`.
+- **Per-contact off switch:** tag a GHL contact `automation-off` and every
+  automated text stops (site engine via `canText()`, plus the dialer's
+  welcome text). Use it for anyone the team is now working by hand: live
+  deals, signed clients, a lead who asked for a person. Remove the tag to
+  hand them back.
 - **Inbound replies -> Telegram:** the poll watches the conversations feed and
   DMs Waynard the moment any lead replies (SMS or email), with the message
   body quoted.

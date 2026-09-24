@@ -13,6 +13,7 @@
 //   instant intake replies are exempt because the lead is mid-funnel on
 //   their phone at that moment
 // - `SMS_PAUSED=1` in the environment is a global kill switch
+// - contacts tagged `automation-off` get nothing automated, ever
 
 import type { GhlAppointment, GhlContact } from "@/lib/notify/ghl";
 
@@ -28,6 +29,12 @@ export const APPLY_URL = "https://cappedoutlabs.com/apply-now";
 // gone out. Both senders check it, so a lead gets this text at most once.
 export const PARTIAL_NUDGE_TAG = "sms-partial-nudged";
 
+// Per-contact off switch. Add this tag in GHL to anyone the team is now
+// working by hand (a live deal, a signed client, a lead who asked for a person)
+// and every automated text stops: reminders, rebook, nudges, backlog blasts.
+// Remove it to hand the contact back to the engine.
+export const AUTOMATION_OFF_TAG = "automation-off";
+
 export interface SmsResult {
   ok: boolean;
   skipped?: string;
@@ -42,6 +49,9 @@ export function canText(contact: GhlContact | null): { ok: boolean; reason?: str
   if (!contact) return { ok: false, reason: "no contact" };
   if (!contact.phone) return { ok: false, reason: "no phone" };
   if (contact.dnd) return { ok: false, reason: "dnd" };
+  if ((contact.tags ?? []).includes(AUTOMATION_OFF_TAG)) {
+    return { ok: false, reason: AUTOMATION_OFF_TAG };
+  }
   if (!(contact.tags ?? []).includes("tcpa-consent")) {
     return { ok: false, reason: "no tcpa consent" };
   }

@@ -219,6 +219,70 @@ export async function fetchCalendarEvents(
   return data.events ?? [];
 }
 
+export async function fetchAppointment(id: string): Promise<GhlAppointment | null> {
+  try {
+    const data = await ghlRequest<{ appointment?: GhlAppointment; event?: GhlAppointment }>(
+      "GET",
+      `/calendars/events/appointments/${id}`,
+      undefined,
+      VERSION_CALENDAR
+    );
+    return data.appointment ?? data.event ?? null;
+  } catch {
+    return null;
+  }
+}
+
+// "showed" | "noshow" | "confirmed" | "cancelled" | "invalid". Marking a
+// no-show also fires the published "Labs — Discovery No-Show" GHL workflow.
+export async function setAppointmentStatus(id: string, status: string): Promise<void> {
+  await ghlRequest(
+    "PUT",
+    `/calendars/events/appointments/${id}`,
+    { appointmentStatus: status },
+    VERSION_CALENDAR
+  );
+}
+
+// --- Opportunities ---
+
+interface GhlOpportunity {
+  id: string;
+  pipelineId: string;
+  pipelineStageId: string;
+  status?: string;
+}
+
+// Moves the contact's open opportunity to the stage named `nextStage(current)`
+// in its own pipeline. Stages are matched by name, not id, so the code carries
+// no GHL ids. Returns the stage it landed on, or null when there was nothing
+// to move.
+export async function advanceOpportunityStage(
+  contactId: string,
+  nextStage: (currentStageName: string | null) => string | null
+): Promise<string | null> {
+  const loc = locationId();
+  const [opps, pipes] = await Promise.all([
+    ghlRequest<{ opportunities: GhlOpportunity[] }>(
+      "GET",
+      `/opportunities/search?location_id=${loc}&contact_id=${contactId}`
+    ),
+    ghlRequest<{ pipelines: { id: string; stages: { id: string; name: string }[] }[] }>(
+      "GET",
+      `/opportunities/pipelines?locationId=${loc}`
+    ),
+  ]);
+  const opp = (opps.opportunities ?? []).find((o) => (o.status ?? "open") === "open");
+  if (!opp) return null;
+  const stages = pipes.pipelines.find((p) => p.id === opp.pipelineId)?.stages ?? [];
+  const current = stages.find((s) => s.id === opp.pipelineStageId)?.name ?? null;
+  const targetName = nextStage(current);
+  const target = stages.find((s) => s.name === targetName);
+  if (!target || target.id === opp.pipelineStageId) return null;
+  await ghlRequest("PUT", `/opportunities/${opp.id}`, { pipelineStageId: target.id });
+  return target.name;
+}
+
 export async function fetchUserName(userId: string): Promise<string | null> {
   try {
     const data = await ghlRequest<{ name?: string; firstName?: string; lastName?: string }>(

@@ -97,3 +97,14 @@ a control before blaming the embed.
 Video 1180565378 privacy reads view: anybody, embed: public. Verified playing
 on both / and /f/vsl on 2026-09-14. If a viewer reports a blank player, it is
 their ad blocker, VPN or DNS, not the site.
+
+## Never infer "no-show" from a status nobody sets (2026-09-24)
+
+The SMS engine treated any appointment still `confirmed` 30 min past start as a
+probable no-show and texted "if we missed each other, grab a new time". No one
+ever marks GHL appointments (17 of 17 past calls were still `confirmed`), so
+every lead whose call happened got it, including Patrick Hall at Elan Flowers
+right after a good call with a proposal on the way. Rule: automation that
+talks to a lead must key off a positive human signal, never the absence of
+one. When the signal isn't being recorded, make recording it one tap (the
+Telegram outcome link) instead of guessing.

@@ -42,6 +42,8 @@ import {
   timezoneForContact,
 } from "@/lib/notify/sms";
 import { ghlBookingUrl } from "@/lib/calendar";
+import { HOUR, appointmentAction } from "@/lib/notify/post-call";
+import { dispositionUrl } from "@/lib/notify/disposition-link";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -51,13 +53,7 @@ const APPT_PAST_MS = 30 * 24 * 60 * 60 * 1000; // look 30d back
 const APPT_FUTURE_MS = 180 * 24 * 60 * 60 * 1000; // look 180d ahead
 const SEEN_LEAD_CAP = 200;
 
-// SMS automation windows. Windows are ranges (not instants) so a send blocked
-// by quiet hours or a transient failure retries on later cycles until the
-// window closes; the state key prevents doubles once one send succeeds.
-const HOUR = 60 * 60 * 1000;
-const REM24_WINDOW: [number, number] = [20 * HOUR, 24 * HOUR]; // time until start
-const REM1_WINDOW: [number, number] = [15 * 60 * 1000, 1 * HOUR];
-const NOSHOW_WINDOW: [number, number] = [30 * 60 * 1000, 48 * HOUR]; // time since start
+// Appointment reminder / no-show / disposition windows live in post-call.ts.
 const PARTIAL_WINDOW: [number, number] = [15 * 60 * 1000, 24 * HOUR]; // since capture
 const SMS_KEY_TTL_MS = 60 * 24 * HOUR;
 
@@ -314,14 +310,15 @@ export async function GET(request: Request) {
           });
           // Booking confirmation text. Transactional (they just booked), so
           // quiet hours don't apply.
-          if (ctx.contact?.firstName && startMs > Date.now()) {
+          const first = leadFirstName(ctx.contact?.firstName);
+          if (ctx.contact && first && startMs > Date.now()) {
             await ensureWidgetConsent(a, ctx.contact);
             const sent = await trySms(
               `confirm-${a.id}`,
               smsSent,
               ctx.contact,
               smsTemplates.bookingConfirm(
-                ctx.contact.firstName,
+                first,
                 formatWhen(startMs, timezoneForContact(ctx.contact)),
                 ctx.assignedName ?? (await resolveCloser(null, ctx.contact, cache)),
                 meetingLink(a)
@@ -384,54 +381,66 @@ export async function GET(request: Request) {
     }
   }
 
-  // --- SMS: appointment reminders + no-show recovery ---
+  // --- Appointment follow-up: reminders, no-show recovery, outcome ask ---
+  // A lead only gets the "if we missed each other" text after a human marks
+  // the call no-show. Calls still "confirmed" after they end ping the team
+  // with a one-tap outcome link instead (see post-call.ts for why).
   for (const a of events) {
     const status = apptStatus(a);
-    if (status === "cancelled") continue;
     const startMs = apptStartMs(a);
-    if (!startMs) continue;
-    const untilStart = startMs - now;
-    const sinceStart = now - startMs;
-
-    const wantsRem24 =
-      status === "confirmed" && untilStart > REM24_WINDOW[0] && untilStart <= REM24_WINDOW[1];
-    const wantsRem1 =
-      status === "confirmed" && untilStart > REM1_WINDOW[0] && untilStart <= REM1_WINDOW[1];
-    // Explicit no-shows get recovery right away; appointments still sitting
-    // at "confirmed" after their start time were never dispositioned, so the
-    // softer "if we missed each other" text covers both cases safely.
-    const wantsRecovery =
-      (status === "noshow" && sinceStart > 0 && sinceStart <= NOSHOW_WINDOW[1]) ||
-      (status === "confirmed" &&
-        sinceStart > NOSHOW_WINDOW[0] &&
-        sinceStart <= NOSHOW_WINDOW[1]);
-
-    if (!wantsRem24 && !wantsRem1 && !wantsRecovery) continue;
+    const action = appointmentAction(status, startMs, now);
+    if (!action) continue;
+    if (action === "askDisposition" && smsSent[`dispo-${a.id}`]) continue;
 
     const ctx = await bookingContext(a, cache);
-    const first = ctx.contact?.firstName;
+    const first = leadFirstName(ctx.contact?.firstName);
+
+    if (action === "askDisposition") {
+      const name =
+        [ctx.contact?.firstName, ctx.contact?.lastName]
+          .map((s) => (s ?? "").trim())
+          .filter(Boolean)
+          .join(" ") || a.title || "Unknown lead";
+      try {
+        await sendTelegram(
+          [
+            `📋 <b>Did ${escapeHtml(name)} show?</b>`,
+            `🗓 ${escapeHtml(formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null))}` +
+              (ctx.assignedName ? ` with ${escapeHtml(ctx.assignedName)}` : ""),
+            `<a href="${dispositionUrl(a.id)}">Mark the outcome</a> (one tap). ` +
+              "Nothing is texted to the lead until someone marks it no-show.",
+          ].join("\n")
+        );
+        smsSent[`dispo-${a.id}`] = Date.now();
+      } catch (err) {
+        summary.errors.push(`dispo ${a.id}: ${String(err)}`);
+      }
+      continue;
+    }
+
     if (!first) continue;
     await ensureWidgetConsent(a, ctx.contact);
     const closer = await resolveCloser(ctx.assignedName, ctx.contact, cache);
     const link = meetingLink(a);
+    const when = formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null);
 
     let sent = false;
-    if (wantsRem24) {
+    if (action === "reminder24h") {
       sent = await trySms(
         `rem24-${a.id}`,
         smsSent,
         ctx.contact,
-        smsTemplates.reminder24h(first, closer, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null), link),
+        smsTemplates.reminder24h(first, closer, when, link),
         { respectQuietHours: true }
       );
-    } else if (wantsRem1) {
+    } else if (action === "reminder1h") {
       sent = await trySms(
         `rem1-${a.id}`,
         smsSent,
         ctx.contact,
-        smsTemplates.reminder1h(first, closer, formatWhen(startMs, ctx.contact ? timezoneForContact(ctx.contact) : null), link)
+        smsTemplates.reminder1h(first, closer, when, link)
       );
-    } else if (wantsRecovery) {
+    } else if (action === "noShowRecovery") {
       sent = await trySms(
         `noshow-${a.id}`,
         smsSent,
@@ -440,8 +449,8 @@ export async function GET(request: Request) {
           first,
           closer,
           ghlBookingUrl({
-            firstName: ctx.contact?.firstName ?? undefined,
-            lastName: ctx.contact?.lastName ?? undefined,
+            firstName: first,
+            lastName: ctx.contact?.lastName?.trim() || undefined,
             email: ctx.contact?.email ?? undefined,
             phone: ctx.contact?.phone ?? undefined,
           })
