@@ -13,7 +13,8 @@ one ever marks appointments (17/17 past Discovery Calls still `confirmed`).
 - [x] `automation-off` tag guard in canText() + dialer welcome text query
 - [x] first-name trim on booking/reminder texts ("Patrick ," bug)
 - [x] tests (node --test, 7 pass), tsc clean, eslint clean, slop lint clean
-- [ ] commit + push site, deploy dialer, verify live (page renders, POST works)
+- [x] site 5874a28 live, dialer bd9aab5 deployed; outcome page 200 + 375px clean
+      (48px buttons), forged sig 403, POST showed saved, poll cycle ok, 0 errors
 
 # Widget-booking consent tags + Meet links in reminder texts (2026-08-24)
 
