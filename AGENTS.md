@@ -22,6 +22,31 @@ pre-commit hook enforces this so slop can't ship by accident.
 When copy does trip the guard, fix the wording — run the `humanizer` skill if you
 want a full rewrite rather than a one-line fix.
 
+## Funnels (`/f/*`)
+
+Every funnel lander is `noindex`, lives under `src/app/(funnel)/f/<slug>/`,
+and opens the shared `VSLSurvey` modal for intake. The survey takes its slides,
+headings and attribution as props (`src/lib/survey.ts` holds the slide model,
+the default slides, and the pure answer-to-GHL mapping, tested by `npm test`).
+A funnel that needs its own questions adds a slug to
+`src/lib/funnels/registry.ts` (whitelist: the slug becomes the GHL tag
+`funnel-<slug>` on every applicant and shows in the Telegram ping and the
+Meta `Lead` custom_data), keeps its slides and copy in
+`src/lib/funnels/<slug>.ts`, and passes them to `VSLSurvey`.
+
+- **`/f/vsl`, `/f/vsl-b`, `/apply-now`:** the original "AI consultants sell
+  decks" pitch, default slides, no funnel tag.
+- **`/f/own` (2026-10-20):** "Stop renting your software." Pitch: we use AI to
+  build the client's own version of the tools they rent, in weeks, for a
+  fraction of old custom pricing; they own code, data and hosting. The hook is
+  the rent calculator (`src/components/RentCalculator.tsx`, math in
+  `src/lib/rent-math.ts`, assumptions sourced there and in the doc). The
+  calculator summary rides into the GHL contact note so the builder sees the
+  lead's numbers. The hero shows the written VSL until `OWN_VSL_VIMEO_ID` in
+  `src/lib/funnels/own.ts` is set, then swaps to the Vimeo player. Full notes,
+  worked example, ad hooks and verification in
+  `docs/own-your-software-funnel.md`.
+
 ## Telegram lead/booking notifier
 
 Waynard gets a Telegram DM (chat `124726061`, via the shared pm-bot token

@@ -19,6 +19,9 @@ interface ApplicationConfirmationProps {
   annualRevenue: string;
   // Prefilled GHL booking link so they can grab a slot from the email
   bookingUrl?: string;
+  // Funnel slug (see src/lib/funnels/registry.ts). "own" swaps the call
+  // description and the VSL link for the stop-renting-software pitch.
+  funnel?: string;
 }
 
 export function ApplicationConfirmation({
@@ -28,7 +31,9 @@ export function ApplicationConfirmation({
   tierInterest = "",
   annualRevenue = "",
   bookingUrl = "https://cappedoutlabs.com/book",
+  funnel,
 }: ApplicationConfirmationProps) {
+  const own = funnel === "own";
   return (
     <Html>
       <Head />
@@ -73,11 +78,14 @@ export function ApplicationConfirmation({
                   </td>
                   <td style={stepContent}>
                     <Text style={stepTitle}>
-                      We review your application before the call
+                      {own
+                        ? "We look at what you're renting before the call"
+                        : "We review your application before the call"}
                     </Text>
                     <Text style={stepDetail}>
-                      We show up already knowing your business. 30 minutes. No
-                      pitch decks. We map your bottleneck to a 90-day build plan.
+                      {own
+                        ? "You get 30 minutes with a builder who already knows your tools. We tell you what we'd build first, and what it costs."
+                        : "We show up already knowing your business. 30 minutes. No pitch decks. We map your bottleneck to a 90-day build plan."}
                     </Text>
                   </td>
                 </tr>
@@ -108,13 +116,17 @@ export function ApplicationConfirmation({
           <Hr style={hr} />
 
           <Text style={paragraph}>
-            Before the call, watch the VSL if you haven&apos;t already. It
-            explains how we work and what the systems look like in production.
+            {own
+              ? "Before the call, run your own numbers through the rent calculator if you haven't. Bring the result; it's where the conversation starts."
+              : "Before the call, watch the VSL if you haven't already. It explains how we work and what the systems look like in production."}
           </Text>
 
           <Section style={{ textAlign: "center" as const, margin: "28px 0" }}>
-            <Link href="https://cappedoutlabs.com/#vsl" style={secondaryButton}>
-              Watch: How We Build AI Systems
+            <Link
+              href={own ? "https://cappedoutlabs.com/f/own#math" : "https://cappedoutlabs.com/#vsl"}
+              style={secondaryButton}
+            >
+              {own ? "Run the numbers on your software rent" : "Watch: How We Build AI Systems"}
             </Link>
           </Section>
 

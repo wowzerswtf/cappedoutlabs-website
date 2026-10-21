@@ -7,106 +7,24 @@ import { ConsentCheckbox } from "@/components/ConsentCheckbox";
 import { CalendarEmbed } from "@/components/CalendarEmbed";
 import { CONSENT_TEXT, CONSENT_VERSION } from "@/lib/consent";
 import { metaTrack, newMetaEventId } from "@/lib/meta/client";
-
-// ── Survey Configuration ─────────────────────────────────────────
-const SURVEY_SLIDES: SurveySlide[] = [
-  {
-    id: "business-type",
-    question: "Which best describes you?",
-    type: "radio",
-    options: [
-      { id: "operator", label: "I own/operate a business doing $500K+/yr" },
-      { id: "investor", label: "I'm an investor looking to deploy AI into a portfolio company" },
-      { id: "executive", label: "I'm a C-suite executive exploring AI transformation" },
-      { id: "other", label: "Other" },
-    ],
-    showOtherField: "other",
-  },
-  {
-    id: "revenue",
-    question: "What's your current annual revenue?",
-    type: "radio",
-    options: [
-      { id: "under-500k", label: "Under $500K" },
-      { id: "500k-1m", label: "$500K – $1M" },
-      { id: "1m-5m", label: "$1M – $5M" },
-      { id: "5m-10m", label: "$5M – $10M" },
-      { id: "10m-50m", label: "$10M – $50M" },
-      { id: "50m-plus", label: "$50M+" },
-    ],
-  },
-  {
-    id: "biggest-bottleneck",
-    question: "What's the biggest bottleneck in your business right now?",
-    type: "radio",
-    options: [
-      { id: "sales", label: "Sales: leads aren't converting, or show rate is low" },
-      { id: "ops", label: "Operations: too many manual processes to scale" },
-      { id: "hiring", label: "Hiring: can't find or afford the right people" },
-      { id: "costs", label: "Customer acquisition costs are too high" },
-      { id: "systems", label: "No systems: running on tribal knowledge and hustle" },
-    ],
-  },
-  {
-    id: "ai-experience",
-    question: "Have you tried implementing AI or automation before?",
-    type: "radio",
-    options: [
-      { id: "yes-failed", label: "Yes, but it didn't stick or deliver ROI" },
-      { id: "yes-basic", label: "Yes, using basic tools (ChatGPT, Zapier, etc.)" },
-      { id: "yes-advanced", label: "Yes, we run custom AI/ML systems in production" },
-      { id: "no", label: "No, haven't started yet" },
-    ],
-  },
-  {
-    id: "budget",
-    question: "Do you have $15K–$100K+ allocated for AI infrastructure in the next 90 days?",
-    type: "radio",
-    options: [
-      { id: "yes", label: "Yes, budget is approved and ready" },
-      { id: "likely", label: "Likely, but I need to see the plan first" },
-      { id: "no", label: "No, not right now" },
-    ],
-  },
-  {
-    id: "timeline",
-    question: "How soon do you want to move?",
-    type: "radio",
-    options: [
-      { id: "asap", label: "Immediately, ready to start this month" },
-      { id: "30-days", label: "Within 30 days" },
-      { id: "90-days", label: "Within 90 days" },
-      { id: "exploring", label: "Just exploring for now" },
-    ],
-  },
-  {
-    id: "understand-model",
-    question: "Do you understand that we're a done-for-you AI deployment firm, not a consulting shop or agency?",
-    type: "radio",
-    options: [
-      { id: "yes", label: "Yes, I want production systems deployed into my business" },
-      { id: "tell-me-more", label: "Tell me more on the call" },
-    ],
-  },
-];
-
-type SurveyOption = {
-  id: string;
-  label: string;
-};
-
-type SurveySlide = {
-  id: string;
-  question: string;
-  type: "radio" | "checkbox";
-  options: SurveyOption[];
-  showOtherField?: string;
-};
+import {
+  DEFAULT_SURVEY_SLIDES,
+  MULTI_SEPARATOR,
+  applicationFields,
+  buildSurveyNote,
+  otherKey,
+  type SurveyOption,
+  type SurveySlide,
+} from "@/lib/survey";
 
 // The survey scores nothing. Every completed application reaches the calendar
 // (Waynard 2026-08-21). The answers are triage context for the closer, not a
 // gate. Nothing here should ever branch on them again.
-const TOTAL_SLIDES = SURVEY_SLIDES.length + 1; // contact step + slides
+//
+// Slides, headings and attribution are props so each funnel can ask its own
+// questions while sharing one intake path: contact step -> partial capture ->
+// slides -> /api/apply -> GHL calendar. Defaults reproduce the original VSL
+// application exactly, so /f/vsl, /f/vsl-b and /apply-now are unchanged.
 
 const slideMotion = {
   enter: (dir: number) => ({ x: dir > 0 ? 50 : -50, opacity: 0 }),
@@ -122,26 +40,58 @@ const slideMotion = {
   }),
 };
 
-// ── Main Component ───────────────────────────────────────────────
-export function VSLSurvey({
-  open,
-  onClose,
-  source = "vsl-funnel",
-  referralSource = "VSL Funnel",
-}: {
+export interface VSLSurveyProps {
   open: boolean;
   onClose: () => void;
   /** Attribution tag sent to /api/apply and Meta (e.g. "apply-now") */
   source?: string;
   /** Human-readable label written to GHL (e.g. "Apply Now Page") */
   referralSource?: string;
-}) {
-  const [step, setStep] = useState(0); // 0 = contact capture, 1..7 = survey slides
+  /** Questions after the contact step. Defaults to the original application. */
+  slides?: SurveySlide[];
+  /** Modal heading and the line under it. */
+  title?: string;
+  intro?: string;
+  /** Written to the GHL labs_tier_interest field. */
+  tierInterest?: string;
+  /** Funnel slug from src/lib/funnels/registry.ts; becomes a GHL tag. */
+  funnel?: string;
+  /** Appended to the contact note (e.g. the rent calculator summary). */
+  noteExtra?: string;
+  /** Thank-you screen copy above the calendar. */
+  doneTitle?: string;
+  doneBody?: string;
+  /** Label on the contact-step button. */
+  startLabel?: string;
+  /** Suffix for the calendar iframe id; must be unique per page. */
+  calendarId?: string;
+}
+
+// ── Main Component ───────────────────────────────────────────────
+export function VSLSurvey({
+  open,
+  onClose,
+  source = "vsl-funnel",
+  referralSource = "VSL Funnel",
+  slides = DEFAULT_SURVEY_SLIDES,
+  title = "Capped Out Labs — Application",
+  intro = "We work with operators who want production AI systems deployed into their business, not strategy decks.",
+  tierInterest,
+  funnel,
+  noteExtra,
+  doneTitle = "You're a fit. Book your call.",
+  doneBody = "Pick a time below for your AI Infrastructure Discovery Call. We'll map your bottleneck to a 90-day build plan.",
+  startLabel = "Start My Application",
+  calendarId = "vsl",
+}: VSLSurveyProps) {
+  const totalSlides = slides.length + 1; // contact step + slides
+
+  const [step, setStep] = useState(0); // 0 = contact capture, 1..n = survey slides
   const [direction, setDirection] = useState(1);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [otherText, setOtherText] = useState("");
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
+  const [multi, setMulti] = useState<string[]>([]);
 
   // Contact form
   const [fullName, setFullName] = useState("");
@@ -159,6 +109,7 @@ export function VSLSurvey({
     setAnswers({});
     setOtherText("");
     setSelectedOption(null);
+    setMulti([]);
     setFullName("");
     setCompanyName("");
     setEmail("");
@@ -175,47 +126,71 @@ export function VSLSurvey({
     setTimeout(reset, 300);
   }
 
-  function handleOptionSelect(slideId: string, option: SurveyOption) {
-    setSelectedOption(option.id);
-    const nextAnswers = { ...answers, [slideId]: option.id };
-    setAnswers(nextAnswers);
-
-    // Check if "other" field needed
-    const slide = SURVEY_SLIDES[step - 1];
-    if (slide?.showOtherField === option.id) {
-      // Don't auto-advance — let them type
-      setSelectedOption(null);
-      return;
-    }
-
+  function advance(nextAnswers: Record<string, string>) {
     // Final slide answered: submit the whole application right away
-    if (step === SURVEY_SLIDES.length) {
+    if (step === slides.length) {
       setTimeout(() => {
         setSelectedOption(null);
         submitApplication(nextAnswers);
       }, 350);
       return;
     }
-
     // Auto-advance after brief highlight
     setTimeout(() => {
       setSelectedOption(null);
+      setMulti([]);
+      setOtherText("");
       setDirection(1);
       setStep((s) => s + 1);
     }, 350);
   }
 
-  function advanceFromOther() {
+  function handleOptionSelect(slide: SurveySlide, option: SurveyOption) {
+    if (slide.type === "checkbox") {
+      setMulti((prev) =>
+        prev.includes(option.id) ? prev.filter((id) => id !== option.id) : [...prev, option.id]
+      );
+      return;
+    }
+
+    setSelectedOption(option.id);
+    const nextAnswers = { ...answers, [slide.id]: option.id };
+    setAnswers(nextAnswers);
+
+    // "Other" needs a typed answer before moving on
+    if (slide.showOtherField === option.id) {
+      setSelectedOption(null);
+      return;
+    }
+    advance(nextAnswers);
+  }
+
+  function continueFromCheckbox(slide: SurveySlide) {
+    if (multi.length === 0) return;
+    const needsOther = slide.showOtherField && multi.includes(slide.showOtherField);
+    if (needsOther && !otherText.trim()) return;
+    const nextAnswers: Record<string, string> = {
+      ...answers,
+      [slide.id]: multi.join(MULTI_SEPARATOR),
+    };
+    if (needsOther) nextAnswers[otherKey(slide.id)] = otherText.trim();
+    setAnswers(nextAnswers);
+    advance(nextAnswers);
+  }
+
+  function advanceFromOther(slide: SurveySlide) {
     if (!otherText.trim()) return;
-    setAnswers((prev) => ({ ...prev, "business-type-other": otherText.trim() }));
-    setDirection(1);
-    setStep((s) => s + 1);
+    const nextAnswers = { ...answers, [otherKey(slide.id)]: otherText.trim() };
+    setAnswers(nextAnswers);
+    advance(nextAnswers);
   }
 
   function goBack() {
     setError("");
     setDirection(-1);
     setSelectedOption(null);
+    setMulti([]);
+    setOtherText("");
     setStep((s) => Math.max(s - 1, 0));
   }
 
@@ -257,17 +232,6 @@ export function VSLSurvey({
     setLoading(true);
     setError("");
 
-    // Resolve a stored answer (option id) back to its human-readable label so
-    // GHL shows "$1M – $5M", not "1m-5m".
-    const labelFor = (slideId: string) => {
-      const slide = SURVEY_SLIDES.find((s) => s.id === slideId);
-      const opt = slide?.options.find((o) => o.id === finalAnswers[slideId]);
-      if (slideId === "business-type" && opt?.id === "other") {
-        return finalAnswers["business-type-other"] || opt?.label || "";
-      }
-      return opt?.label || "";
-    };
-
     // Shared browser/server event ID so Meta counts this Lead once
     const metaEventId = newMetaEventId();
 
@@ -282,16 +246,23 @@ export function VSLSurvey({
           lastName: fullName.split(" ").slice(1).join(" ") || "",
           email: email.trim(),
           phone: phone.trim(),
-          // Map survey answers onto the GHL custom-field keys the API expects
           businessName: companyName.trim(),
-          annualRevenue: labelFor("revenue"),
-          bottleneck: labelFor("biggest-bottleneck"),
-          aiHistory: labelFor("ai-experience"),
+          // Survey answers mapped onto the GHL custom-field keys the API
+          // expects (annualRevenue / bottleneck / aiHistory), as labels so
+          // GHL shows "$1M – $5M", not "1m-5m".
+          ...applicationFields(slides, finalAnswers),
           referralSource,
+          tierInterest,
+          funnel,
           // Keep raw revenue too (back-compat with anything reading `revenue`)
           revenue: finalAnswers["revenue"] || "",
-          // Full Q&A — written as a contact note so nothing is ever lost
-          message: `${referralSource} Application\n\nBusiness Type: ${labelFor("business-type") || "N/A"}\nRevenue: ${labelFor("revenue") || "N/A"}\nBiggest Bottleneck: ${labelFor("biggest-bottleneck") || "N/A"}\nAI Experience: ${labelFor("ai-experience") || "N/A"}\nBudget: ${labelFor("budget") || "N/A"}\nTimeline: ${labelFor("timeline") || "N/A"}\nUnderstands Model: ${labelFor("understand-model") || "N/A"}`,
+          // Full Q&A, written as a contact note so nothing is ever lost
+          message: buildSurveyNote(
+            slides,
+            finalAnswers,
+            `${referralSource} Application`,
+            noteExtra
+          ),
           consent: agreedTerms,
           consentLanguage: CONSENT_TEXT,
           consentVersion: CONSENT_VERSION,
@@ -319,9 +290,13 @@ export function VSLSurvey({
     }
   }
 
-  const progress = (step + 1) / (TOTAL_SLIDES + 1);
-  const currentSlide =
-    step >= 1 && step <= SURVEY_SLIDES.length ? SURVEY_SLIDES[step - 1] : null;
+  const progress = (step + 1) / (totalSlides + 1);
+  const currentSlide = step >= 1 && step <= slides.length ? slides[step - 1] : null;
+  const otherOpen =
+    !!currentSlide?.showOtherField &&
+    (currentSlide.type === "checkbox"
+      ? multi.includes(currentSlide.showOtherField)
+      : answers[currentSlide.id] === currentSlide.showOtherField);
 
   if (!open) return null;
 
@@ -341,6 +316,7 @@ export function VSLSurvey({
         {/* Close button */}
         <button
           onClick={handleClose}
+          aria-label="Close"
           className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 transition-colors"
         >
           <X className="w-4 h-4" />
@@ -350,13 +326,8 @@ export function VSLSurvey({
           {/* Header */}
           {!submitted && (
             <>
-              <h2 className="text-xl sm:text-2xl font-bold text-navy pr-8">
-                Capped Out Labs — Application
-              </h2>
-              <p className="text-sm text-text-secondary mt-1 mb-6">
-                We work with operators who want production AI systems deployed
-                into their business, not strategy decks.
-              </p>
+              <h2 className="text-xl sm:text-2xl font-bold text-navy pr-8">{title}</h2>
+              <p className="text-sm text-text-secondary mt-1 mb-6">{intro}</p>
             </>
           )}
 
@@ -372,7 +343,7 @@ export function VSLSurvey({
                 />
               </div>
               <p className="text-xs text-text-secondary mt-1.5">
-                Step {step + 1} of {TOTAL_SLIDES}
+                Step {step + 1} of {totalSlides}
               </p>
             </div>
           )}
@@ -384,16 +355,11 @@ export function VSLSurvey({
                 <div className="w-14 h-14 mx-auto rounded-full bg-green-100 flex items-center justify-center">
                   <Check className="w-7 h-7 text-green-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-navy">
-                  You&apos;re a fit. Book your call.
-                </h3>
-                <p className="text-sm text-text-secondary max-w-md mx-auto">
-                  Pick a time below for your AI Infrastructure Discovery Call.
-                  We&apos;ll map your bottleneck to a 90-day build plan.
-                </p>
+                <h3 className="text-2xl font-bold text-navy">{doneTitle}</h3>
+                <p className="text-sm text-text-secondary max-w-md mx-auto">{doneBody}</p>
               </div>
               <CalendarEmbed
-                id="vsl"
+                id={calendarId}
                 firstName={fullName.trim().split(" ")[0]}
                 lastName={fullName.trim().split(" ").slice(1).join(" ")}
                 email={email.trim()}
@@ -417,22 +383,27 @@ export function VSLSurvey({
                   {/* Survey question slides */}
                   {currentSlide && !loading && (
                     <div className="space-y-4">
-                      <h3 className="text-lg font-bold text-navy">
-                        {currentSlide.question}
-                      </h3>
+                      <div>
+                        <h3 className="text-lg font-bold text-navy">{currentSlide.question}</h3>
+                        {currentSlide.hint && (
+                          <p className="text-sm text-text-secondary mt-1">{currentSlide.hint}</p>
+                        )}
+                      </div>
 
                       <div className="space-y-2.5">
                         {currentSlide.options.map((option) => {
                           const isSelected =
-                            selectedOption === option.id ||
-                            answers[currentSlide.id] === option.id;
+                            currentSlide.type === "checkbox"
+                              ? multi.includes(option.id)
+                              : selectedOption === option.id ||
+                                answers[currentSlide.id] === option.id;
                           return (
                             <button
                               key={option.id}
                               type="button"
-                              onClick={() =>
-                                handleOptionSelect(currentSlide.id, option)
-                              }
+                              role={currentSlide.type === "checkbox" ? "checkbox" : "radio"}
+                              aria-checked={isSelected}
+                              onClick={() => handleOptionSelect(currentSlide, option)}
                               className={`w-full text-left rounded-lg border-2 p-3.5 transition-all duration-200 ${
                                 isSelected
                                   ? "border-[#2563EB] bg-blue-50"
@@ -441,15 +412,15 @@ export function VSLSurvey({
                             >
                               <div className="flex items-center gap-3">
                                 <div
-                                  className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+                                  className={`flex-shrink-0 w-5 h-5 border-2 flex items-center justify-center transition-all ${
+                                    currentSlide.type === "checkbox" ? "rounded-md" : "rounded-full"
+                                  } ${
                                     isSelected
                                       ? "border-[#2563EB] bg-[#2563EB]"
                                       : "border-gray-300"
                                   }`}
                                 >
-                                  {isSelected && (
-                                    <Check className="h-3 w-3 text-white" />
-                                  )}
+                                  {isSelected && <Check className="h-3 w-3 text-white" />}
                                 </div>
                                 <span className="text-sm font-medium text-gray-800">
                                   {option.label}
@@ -461,26 +432,43 @@ export function VSLSurvey({
                       </div>
 
                       {/* "Other" text field */}
-                      {currentSlide.showOtherField &&
-                        answers[currentSlide.id] === currentSlide.showOtherField && (
-                          <div className="mt-3 space-y-3">
-                            <input
-                              type="text"
-                              placeholder="Please describe..."
-                              value={otherText}
-                              onChange={(e) => setOtherText(e.target.value)}
-                              autoFocus
-                              className="w-full h-11 px-4 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 focus:border-[#2563EB]"
-                            />
+                      {otherOpen && (
+                        <div className="mt-3 space-y-3">
+                          <input
+                            type="text"
+                            placeholder="Please describe..."
+                            value={otherText}
+                            onChange={(e) => setOtherText(e.target.value)}
+                            autoFocus
+                            className="w-full h-11 px-4 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 focus:border-[#2563EB]"
+                          />
+                          {currentSlide.type === "radio" && (
                             <button
-                              onClick={advanceFromOther}
+                              type="button"
+                              onClick={() => advanceFromOther(currentSlide)}
                               disabled={!otherText.trim()}
                               className="px-6 py-2.5 bg-[#1a3a5c] text-white rounded-lg text-sm font-semibold disabled:opacity-40 hover:bg-[#142d49] transition-colors"
                             >
                               Continue
                             </button>
-                          </div>
-                        )}
+                          )}
+                        </div>
+                      )}
+
+                      {/* Checkbox slides need an explicit Continue */}
+                      {currentSlide.type === "checkbox" && (
+                        <button
+                          type="button"
+                          onClick={() => continueFromCheckbox(currentSlide)}
+                          disabled={
+                            multi.length === 0 ||
+                            (otherOpen && !otherText.trim())
+                          }
+                          className="w-full py-3.5 bg-[#1a3a5c] hover:bg-[#142d49] border-2 border-[#2563EB] text-white rounded-lg text-base font-bold uppercase tracking-wide shadow-lg transition-all duration-200 disabled:opacity-40"
+                        >
+                          Continue
+                        </button>
+                      )}
 
                       {error && (
                         <div
@@ -507,7 +495,7 @@ export function VSLSurvey({
                     </div>
                   )}
 
-                  {/* ── Contact Form (final slide) ── */}
+                  {/* ── Contact Form (first slide) ── */}
                   {step === 0 && !loading && (
                     <form onSubmit={handleContactContinue} className="space-y-4">
                       <h3 className="text-lg font-bold text-navy">
@@ -520,10 +508,11 @@ export function VSLSurvey({
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-xs font-medium text-gray-600 mb-1">
+                          <label htmlFor={`${calendarId}-name`} className="block text-xs font-medium text-gray-600 mb-1">
                             Full Name *
                           </label>
                           <input
+                            id={`${calendarId}-name`}
                             type="text"
                             required
                             value={fullName}
@@ -537,10 +526,11 @@ export function VSLSurvey({
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-gray-600 mb-1">
+                          <label htmlFor={`${calendarId}-company`} className="block text-xs font-medium text-gray-600 mb-1">
                             Company Name
                           </label>
                           <input
+                            id={`${calendarId}-company`}
                             type="text"
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
@@ -551,10 +541,11 @@ export function VSLSurvey({
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-600 mb-1">
+                        <label htmlFor={`${calendarId}-email`} className="block text-xs font-medium text-gray-600 mb-1">
                           Email *
                         </label>
                         <input
+                          id={`${calendarId}-email`}
                           type="email"
                           required
                           value={email}
@@ -568,10 +559,11 @@ export function VSLSurvey({
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-600 mb-1">
+                        <label htmlFor={`${calendarId}-phone`} className="block text-xs font-medium text-gray-600 mb-1">
                           Phone *
                         </label>
                         <input
+                          id={`${calendarId}-phone`}
                           type="tel"
                           required
                           value={phone}
@@ -585,7 +577,7 @@ export function VSLSurvey({
                       </div>
 
                       <ConsentCheckbox
-                        id="vsl-consent"
+                        id={`${calendarId}-consent`}
                         checked={agreedTerms}
                         onChange={(v) => {
                           setAgreedTerms(v);
@@ -605,7 +597,7 @@ export function VSLSurvey({
                         disabled={loading}
                         className="w-full py-4 bg-[#1a3a5c] hover:bg-[#142d49] border-2 border-[#2563EB] text-white rounded-lg text-base font-bold uppercase tracking-wide shadow-lg transition-all duration-200 disabled:opacity-60"
                       >
-                        Start My Application
+                        {startLabel}
                       </button>
                     </form>
                   )}

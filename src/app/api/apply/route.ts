@@ -7,6 +7,7 @@ import { sendTelegram, escapeHtml } from "@/lib/notify/telegram";
 import { closerName, sendSms, smsTemplates } from "@/lib/notify/sms";
 import { closerByUserId, intakeCloser } from "@/lib/notify/closers";
 import { correctEmailDomain } from "@/lib/email-typo";
+import { funnelDef } from "@/lib/funnels/registry";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -84,6 +85,9 @@ interface ApplicationPayload {
   metaEventId?: string;
   // Page the form was submitted from (event_source_url for CAPI)
   pageUrl?: string;
+  // Funnel slug (src/lib/funnels/registry.ts). Whitelisted there; unknown
+  // values are ignored so a public form can never mint arbitrary GHL tags.
+  funnel?: string;
 }
 
 // ── Resend confirmation email ────────────────────────────────────
@@ -101,6 +105,7 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
       businessName: payload.businessName,
       tierInterest: payload.tierInterest,
       annualRevenue: payload.annualRevenue,
+      funnel: funnelDef(payload.funnel) ? payload.funnel : undefined,
       bookingUrl: ghlBookingUrl({
         firstName: payload.firstName,
         lastName: payload.lastName,
@@ -116,9 +121,11 @@ async function sendConfirmationEmail(payload: ApplicationPayload) {
 // 5-minute poll only announces brand-new contacts, which missed repeat emails.
 // Revenue and bottleneck ride along so the closer can triage from the ping.
 async function sendApplicationTelegram(payload: ApplicationPayload) {
+  const funnel = funnelDef(payload.funnel);
   const lines = [
     "🟢 <b>New application (booking now)</b>",
     `👤 ${escapeHtml(`${payload.firstName} ${payload.lastName}`.trim())}${payload.businessName ? ` — ${escapeHtml(payload.businessName)}` : ""}`,
+    funnel ? `🧭 Funnel: ${escapeHtml(funnel.label)}` : "",
     payload.annualRevenue ? `💰 Revenue: ${escapeHtml(payload.annualRevenue)}` : "",
     payload.bottleneck ? `🧱 Bottleneck: ${escapeHtml(payload.bottleneck)}` : "",
     `📧 ${escapeHtml(payload.email)}`,
@@ -224,7 +231,11 @@ async function createGhlContact(
   // Every completed application is an applicant. Nothing in this funnel
   // disqualifies anymore, so no lead is routed to a nurture-only tag.
   const baseTags = ["labs-applicant"];
-  const tags = payload.consent ? [...baseTags, "tcpa-consent"] : baseTags;
+  if (payload.consent) baseTags.push("tcpa-consent");
+  // Funnel tag so the closer and GHL workflows know which pitch landed them.
+  const funnelTag = funnelDef(payload.funnel)?.tag;
+  if (funnelTag) baseTags.push(funnelTag);
+  const tags = baseTags;
 
   // Intake lead owner: assigned at creation, and patched onto existing
   // contacts that have no owner yet. Never overwrites a manual assignment.
@@ -397,7 +408,10 @@ export async function POST(request: Request) {
     eventId: payload.metaEventId,
     eventSourceUrl: payload.pageUrl,
     userData,
-    customData: { source: payload.source || "cappedoutlabs.com" },
+    customData: {
+      source: payload.source || "cappedoutlabs.com",
+      ...(funnelDef(payload.funnel) ? { funnel: payload.funnel as string } : {}),
+    },
   });
 
   // Fire everything simultaneously

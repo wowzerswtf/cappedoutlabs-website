@@ -1,3 +1,33 @@
+# "Stop renting your software" funnel at /f/own (2026-10-20)
+
+Context: the "AI consultants sell decks" ads stopped converting. New pitch:
+Labs uses AI to build the client's own version of the software they rent, in
+weeks, for a fraction of old custom pricing. Own your software, own your
+business. Needs a VSL, a lander with the math, and GHL intake.
+
+- [x] VSL script (~750 words, beat-by-beat with on-screen cues) in
+      `src/lib/funnels/own.ts`; rendered as a written letter on the page until
+      `OWN_VSL_VIMEO_ID` is set
+- [x] Rent calculator: pure math in `src/lib/rent-math.ts` (12% Vertice hike
+      rate, 20% upkeep, Clutch $132K/13mo for scale), UI in
+      `src/components/RentCalculator.tsx`, summary echoed in the final CTA,
+      sticky bar, exit popup, and the GHL contact note
+- [x] Lander `/f/own`: hero, calculator, rent vs old custom vs Labs table,
+      what we build, proof, how it goes, fit / wrong call, FAQ, final CTA,
+      FB disclaimer footer, sticky CTA, exit intent
+- [x] `VSLSurvey` takes slides/title/attribution/funnel props; checkbox slides;
+      defaults reproduce the legacy application byte for byte (pinned by test)
+- [x] `/api/apply`: whitelisted `funnel` slug -> GHL tag `funnel-own`, Telegram
+      Funnel line, Meta custom_data.funnel, email variant
+- [x] Tests: `tests/rent-math.test.mts`, `tests/survey.test.mts` (worked
+      example pinned so the spoken script can't drift from the math)
+- [x] Docs: `docs/own-your-software-funnel.md`, AGENTS.md Funnels section
+- [x] Copy through the humanizer skill + `npm run lint:slop` clean
+- [ ] Record the VSL from the script, upload to Vimeo, set `OWN_VSL_VIMEO_ID`
+- [ ] Production smoke test: submit, confirm `funnel-own` tag + calculator
+      block in the GHL note + Telegram Funnel line
+- [ ] Point ads at `/f/own?utm_source=fb&utm_campaign=own&utm_content=<key>`
+
 # Stop "we missed you" texts after calls that happened (2026-09-24)
 
 Context: Patrick Hall (Elan Flowers) got "If we missed each other, grab a new
