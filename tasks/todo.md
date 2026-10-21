@@ -27,8 +27,8 @@ business. Needs a VSL, a lander with the math, and GHL intake.
 - [x] Voice: presets (Brooks, Jake, Benji, Leo, Dylan, Evan, Miles, Callan, Cody) and a
       `VSL 7 Young.mp4` clone all rejected; now a Seed Audio clone of the live Labs VSL
       narrator (Vimeo 1180565378), one take per paragraph, split at sentence pauses
-- [ ] Waynard: approve the live-VSL voice clone
-- [ ] Upload `tools/vsl-render/out/own/vsl.mp4` to Vimeo, set `OWN_VSL_VIMEO_ID`
+- [x] Waynard approved the live-VSL voice clone ("Finally sounds good")
+- [x] Uploaded to Vimeo as 1237888260 (2026-10-21), `OWN_VSL_VIMEO_ID` set
 - [ ] Production smoke test: submit, confirm `funnel-own` tag + calculator
       block in the GHL note + Telegram Funnel line
 - [ ] Point ads at `/f/own?utm_source=fb&utm_campaign=own&utm_content=<key>`

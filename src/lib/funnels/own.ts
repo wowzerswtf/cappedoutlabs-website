@@ -11,7 +11,7 @@ import type { SurveySlide } from "@/lib/survey";
  *  the hero then shows the written letter below instead of a player, so the
  *  funnel can run on day one. Paste the id (digits only) once it's uploaded
  *  and redeploy; nothing else changes. */
-export const OWN_VSL_VIMEO_ID: string | null = null;
+export const OWN_VSL_VIMEO_ID: string | null = "1237888260";
 
 /** Attribution sent with every application from this funnel. */
 export const OWN_FUNNEL = {
