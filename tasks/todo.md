@@ -23,12 +23,11 @@ business. Needs a VSL, a lander with the math, and GHL intake.
       example pinned so the spoken script can't drift from the math)
 - [x] Docs: `docs/own-your-software-funnel.md`, AGENTS.md Funnels section
 - [x] Copy through the humanizer skill + `npm run lint:slop` clean
-- [x] Render the VSL from the script (`tools/vsl-render`, 53 cards, 5:10)
-- [x] Voice: presets (Brooks, Jake, Benji, Leo, Dylan, Evan, Miles, Callan, Cody) all
-      rejected as fake; now a Seed Audio clone of the `VSL 7 Young.mp4` narrator, one take
-      per paragraph, split at sentence pauses
-- [ ] Waynard: approve the cloned voice, or record the first two paragraphs for a clone of
-      his own voice (paragraph 3 says "I'm Waynard")
+- [x] Render the VSL from the script (`tools/vsl-render`, 53 cards, 4:50)
+- [x] Voice: presets (Brooks, Jake, Benji, Leo, Dylan, Evan, Miles, Callan, Cody) and a
+      `VSL 7 Young.mp4` clone all rejected; now a Seed Audio clone of the live Labs VSL
+      narrator (Vimeo 1180565378), one take per paragraph, split at sentence pauses
+- [ ] Waynard: approve the live-VSL voice clone
 - [ ] Upload `tools/vsl-render/out/own/vsl.mp4` to Vimeo, set `OWN_VSL_VIMEO_ID`
 - [ ] Production smoke test: submit, confirm `funnel-own` tag + calculator
       block in the GHL note + Telegram Funnel line

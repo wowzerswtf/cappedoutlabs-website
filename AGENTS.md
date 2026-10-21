@@ -51,8 +51,9 @@ Meta `Lead` custom_data), keeps its slides and copy in
   part of the Next build). Cards come from `src/lib/vsl-cards.ts`. The voice
   is one take per paragraph (per-card clips sound robotic), cut back into
   cards at sentence pauses by `split-paragraphs.mjs`, so text and voice stay
-  in sync. Preset TTS voices were all rejected as fake; the current voice is a
-  clone of the narrator from `VSL 7 Young.mp4`. README in the folder.
+  in sync. Preset TTS voices were all rejected as fake; the voice is a clone
+  of the narrator on the live Labs VSL (Vimeo 1180565378). README in the
+  folder.
 
 ## Telegram lead/booking notifier
 

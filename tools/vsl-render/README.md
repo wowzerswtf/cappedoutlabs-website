@@ -48,23 +48,31 @@ the repo root, then regenerate the takes for the paragraphs that changed
 
 ## Voice
 
-The 2026-10-21 render is a voice clone. Every ElevenLabs, MiniMax and Seed
-preset we tried (Brooks, Jake, Benji, Leo, Dylan, Evan, Miles, Callan, Cody)
-was rejected as sounding fake, so the reference is the real narrator of the
-2023 talking-head VSL `VSL 7 Young.mp4` (Waynard's Downloads; 2:56, clean
-track, no music bed). A 28s cut of it is uploaded to Higgsfield as audio media
-`7ca76bc1-eea6-4be1-a7a6-3f2e1cee2db8`; each paragraph is one `seed_audio`
+The 2026-10-21 render is a voice clone of the narrator on the live Labs VSL
+(Vimeo 1180565378, the video on cappedoutlabs.com and `/f/vsl`). Every
+ElevenLabs, MiniMax and Seed preset tried first (Brooks, Jake, Benji, Leo,
+Dylan, Evan, Miles, Callan, Cody) was rejected as sounding fake, and so was a
+clone of the narrator in the older `VSL 7 Young.mp4`. The live VSL's track is
+clean (no music bed), so a 31s cut of it (6.1s to 37.5s, mono 44.1k) is the
+reference, uploaded to Higgsfield as audio media
+`5880fb16-f9df-4016-9bf6-a03dc21637d3`; each paragraph is one `seed_audio`
 job with that id as `audio_references` (`format: mp3`, `sample_rate: 44100`),
-about 1 credit per take, 18 takes. The reference cut is not in git: recut it
-with ffmpeg from the source file (first 28s, mono 44.1k) and upload it again
-if the media id expires. Seed Audio rate-limits at about twelve concurrent
-jobs; submit the rest once the first batch finishes.
+about 1 credit per take, 18 takes. The reference cut is not in git. To recut
+it: `python -m yt_dlp --referer https://cappedoutlabs.com/ -f ba/b
+https://player.vimeo.com/video/1180565378` (plain curl gets a Cloudflare 401),
+then ffmpeg the window above, upload, confirm, and use the new media id.
+
+Seed Audio rate-limits at about twelve concurrent jobs; submit the rest once
+the first batch finishes. About one take in six comes back with a dead gap of
+two to ten seconds in the middle; check every take's longest internal pause
+(silencedetect, anything over about 1.3s) and regenerate those before
+splitting, or the split lands a card on the gap.
 
 Any engine that returns one take per paragraph works. To use Waynard's own
 voice instead, record the first two paragraphs on a phone, upload that as the
 audio reference and regenerate the 18 takes; nothing else changes. Note the
-script says "I'm Waynard with Capped Out Labs" in paragraph 3: with a cloned
-third-party voice that line should be changed or recorded by Waynard.
+script says "I'm Waynard with Capped Out Labs" in paragraph 3; the live VSL
+uses the same narrator for the same kind of line, so that is Waynard's call.
 
 Pacing check: the render prints each clip's length. `timeline.json` carries
 start, voice and hold time per card, `split.json` the cut points; a clip far
