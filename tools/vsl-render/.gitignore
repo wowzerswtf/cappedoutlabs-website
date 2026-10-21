@@ -1,0 +1,5 @@
+node_modules/
+out/*/audio/
+out/*/frames/
+out/*/segments/
+out/*/*.mp4

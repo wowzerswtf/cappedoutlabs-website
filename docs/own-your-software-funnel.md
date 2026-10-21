@@ -17,7 +17,9 @@ Built 2026-10-20 because the "AI consultants sell decks" ads stopped pulling.
 | Calculator math (tested) | `src/lib/rent-math.ts` |
 | Shared survey model + note builder (tested) | `src/lib/survey.ts` |
 | Funnel tag whitelist (tested) | `src/lib/funnels/registry.ts` |
-| Tests | `tests/rent-math.test.mts`, `tests/survey.test.mts` |
+| VSL card split (tested) | `src/lib/vsl-cards.ts` |
+| VSL video renderer | `tools/vsl-render/` |
+| Tests | `tests/rent-math.test.mts`, `tests/survey.test.mts`, `tests/vsl-cards.test.mts` |
 
 The page is `noindex` like every `/f/*` lander. It is reached only from ads.
 Send traffic to `https://cappedoutlabs.com/f/own?utm_source=fb&utm_campaign=own&utm_content=<ad-key>`;
@@ -89,8 +91,18 @@ beat, each with an on-screen `cue` for the editor and the spoken `paragraphs`.
 About 750 words, four and a half minutes at a normal pace. Read it straight;
 it was written for the ear and has been through the humanizer pass.
 
-Until the video exists, the hero shows the same paragraphs as a written letter
-with a "Keep reading" fold, so the funnel runs on day one.
+Until the video is on Vimeo, the hero shows the same paragraphs as a written
+letter with a "Keep reading" fold, so the funnel runs on day one.
+
+The video itself is rendered from the script by `tools/vsl-render` (see its
+README): white sentences on black with a voiceover, the same format as the
+live `/f/vsl` video. One card per spoken chunk, 53 cards, 6 minutes, 1080p.
+The 2026-10-20 render used the ElevenLabs "Brooks" preset through Higgsfield;
+swapping the voice means regenerating 53 short clips and re-running the
+render, about 50 credits and ten minutes. The card split is pure and tested
+(`src/lib/vsl-cards.ts`, `tests/vsl-cards.test.mts`), so a script edit that
+would overflow a card or orphan a number fails `npm test` before anyone
+records anything.
 
 To switch to video: upload to Vimeo (view: anybody, embed: public, like
 1180565378), paste the numeric id into `OWN_VSL_VIMEO_ID`, redeploy. The letter
@@ -166,7 +178,8 @@ Telegram card shows the Funnel line.
 
 ## Known gaps
 
-- No recorded video yet. The written letter is the VSL until
+- The rendered video (`tools/vsl-render/out/own/vsl.mp4`, not committed) is
+  waiting on a Vimeo upload. The written letter is the VSL until
   `OWN_VSL_VIMEO_ID` is set.
 - Labs' own build pricing is deliberately absent from the page. The calculator
   lets the visitor set the build as months of their rent and says the real

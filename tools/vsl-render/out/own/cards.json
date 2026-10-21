@@ -1,0 +1,323 @@
+{
+  "slug": "own",
+  "cards": [
+    {
+      "index": 1,
+      "beat": 0,
+      "cue": "Hook. Direct to camera. On screen: a running total that climbs from $0.",
+      "text": "How much have you paid in software subscriptions since you started your business?"
+    },
+    {
+      "index": 2,
+      "beat": 0,
+      "cue": "Hook. Direct to camera. On screen: a running total that climbs from $0.",
+      "text": "Add it up from the month you opened."
+    },
+    {
+      "index": 3,
+      "beat": 0,
+      "cue": "Hook. Direct to camera. On screen: a running total that climbs from $0.",
+      "text": "Most owners I ask have never done it, and when they do, the number lands somewhere between a nice truck and a down payment on a house."
+    },
+    {
+      "index": 4,
+      "beat": 0,
+      "cue": "Hook. Direct to camera. On screen: a running total that climbs from $0.",
+      "text": "Here's what you own at the end of it: nothing."
+    },
+    {
+      "index": 5,
+      "beat": 0,
+      "cue": "Hook. Direct to camera. On screen: a running total that climbs from $0.",
+      "text": "Cancel next month and it's gone, and the records, the workflows and the years of setup go with it."
+    },
+    {
+      "index": 6,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "I'm Waynard with Capped Out Labs."
+    },
+    {
+      "index": 7,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "We build software for businesses, and I want to show you why the deal you're getting on software is worse than it looks."
+    },
+    {
+      "index": 8,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "You pay for a CRM. A scheduler. A quoting tool."
+    },
+    {
+      "index": 9,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "Something for invoices, something for the team chat, something for the customer portal."
+    },
+    {
+      "index": 10,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "Each one is a few hundred a month, so none of them ever feels like a decision."
+    },
+    {
+      "index": 11,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "Add them up and most companies I talk to are paying somewhere between two and ten thousand dollars a month, every month, for as long as they're in business."
+    },
+    {
+      "index": 12,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "And the price doesn't hold still."
+    },
+    {
+      "index": 13,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "Vertice tracks what software vendors actually charge at renewal across thousands of contracts, and their index has been running at about twelve percent a year."
+    },
+    {
+      "index": 14,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "That's four times inflation."
+    },
+    {
+      "index": 15,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "On their numbers, the bill you pay today roughly doubles over the next six years, for the same tools doing the same job."
+    },
+    {
+      "index": 16,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "Meanwhile none of it fits how you work. You bend your process to fit the software."
+    },
+    {
+      "index": 17,
+      "beat": 1,
+      "cue": "The problem. On screen: logos blurred, prices stacking up.",
+      "text": "You pay for seats your team doesn't use and features you never turn on, and the one thing that would actually save you time is in the enterprise tier, or on the roadmap, or a flat no."
+    },
+    {
+      "index": 18,
+      "beat": 2,
+      "cue": "What changed. On screen: '13 months, $132K' crossed out.",
+      "text": "Until recently the alternative was worse."
+    },
+    {
+      "index": 19,
+      "beat": 2,
+      "cue": "What changed. On screen: '13 months, $132K' crossed out.",
+      "text": "Custom software meant an agency, a six figure quote and a year of meetings."
+    },
+    {
+      "index": 20,
+      "beat": 2,
+      "cue": "What changed. On screen: '13 months, $132K' crossed out.",
+      "text": "Clutch's 2026 pricing guide puts the average custom build at about a hundred and thirty thousand dollars over thirteen months."
+    },
+    {
+      "index": 21,
+      "beat": 2,
+      "cue": "What changed. On screen: '13 months, $132K' crossed out.",
+      "text": "For most owners that was never a real option, so you rented."
+    },
+    {
+      "index": 22,
+      "beat": 2,
+      "cue": "What changed. On screen: '13 months, $132K' crossed out.",
+      "text": "That's the part that changed. We build software with AI now."
+    },
+    {
+      "index": 23,
+      "beat": 2,
+      "cue": "What changed. On screen: '13 months, $132K' crossed out.",
+      "text": "I mean the application itself: the screens, the database, the integrations, written and tested by AI, with an engineer directing it and checking every piece."
+    },
+    {
+      "index": 24,
+      "beat": 2,
+      "cue": "What changed. On screen: '13 months, $132K' crossed out.",
+      "text": "What used to take a team a year takes us weeks. What used to cost six figures costs a fraction of that."
+    },
+    {
+      "index": 25,
+      "beat": 3,
+      "cue": "What you get. On screen: screens of a CRM, a scheduler, a portal, each stamped 'yours'.",
+      "text": "We look at the tools you're renting and we build your own version. Your CRM, built around your sales process."
+    },
+    {
+      "index": 26,
+      "beat": 3,
+      "cue": "What you get. On screen: screens of a CRM, a scheduler, a portal, each stamped 'yours'.",
+      "text": "Your scheduling and dispatch. Your quoting and invoicing, wired straight into your accounting."
+    },
+    {
+      "index": 27,
+      "beat": 3,
+      "cue": "What you get. On screen: screens of a CRM, a scheduler, a portal, each stamped 'yours'.",
+      "text": "A customer portal with your name on it. The reports you actually run the business on, in one place."
+    },
+    {
+      "index": 28,
+      "beat": 3,
+      "cue": "What you get. On screen: screens of a CRM, a scheduler, a portal, each stamped 'yours'.",
+      "text": "And when it's done, you own it. The code sits in a repository under your account."
+    },
+    {
+      "index": 29,
+      "beat": 3,
+      "cue": "What you get. On screen: screens of a CRM, a scheduler, a portal, each stamped 'yours'.",
+      "text": "The data sits in a database you control."
+    },
+    {
+      "index": 30,
+      "beat": 3,
+      "cue": "What you get. On screen: screens of a CRM, a scheduler, a portal, each stamped 'yours'.",
+      "text": "The hosting runs under your company's name and bills you directly, usually for less than one of the subscriptions it replaced."
+    },
+    {
+      "index": 31,
+      "beat": 3,
+      "cue": "What you get. On screen: screens of a CRM, a scheduler, a portal, each stamped 'yours'.",
+      "text": "If we got hit by a bus tomorrow, your software keeps running, and any competent developer can pick it up."
+    },
+    {
+      "index": 32,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "Take a real-sized example. Say you're paying three thousand a month across your tools."
+    },
+    {
+      "index": 33,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "Over the next five years, with twelve percent annual increases, that's about two hundred twenty-nine thousand dollars in rent."
+    },
+    {
+      "index": 34,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "Forty-nine thousand of that is price increases alone. At the end of the five years you own nothing."
+    },
+    {
+      "index": 35,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "Now say the build costs one year of that rent, thirty-six thousand."
+    },
+    {
+      "index": 36,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "Add hosting and upkeep at twenty percent a year, which is the high end of what the industry quotes."
+    },
+    {
+      "index": 37,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "Five years of owning it comes to about seventy-two thousand."
+    },
+    {
+      "index": 38,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "You keep roughly a hundred and fifty-seven thousand dollars, and you own the asset."
+    },
+    {
+      "index": 39,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "The build pays for itself in twelve months, and every month after that is yours."
+    },
+    {
+      "index": 40,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "There's a calculator on this page. Put your own numbers in."
+    },
+    {
+      "index": 41,
+      "beat": 4,
+      "cue": "The math. On screen: the calculator from the page, numbers filling in live.",
+      "text": "It takes ten seconds, and the number is usually uncomfortable."
+    },
+    {
+      "index": 42,
+      "beat": 5,
+      "cue": "Proof. On screen: the three results as cards.",
+      "text": "We've done this for a contracting company that was spending eighteen hours a week on estimates, invoices and QuickBooks."
+    },
+    {
+      "index": 43,
+      "beat": 5,
+      "cue": "Proof. On screen: the three results as cards.",
+      "text": "Their own system does it now, and they went from getting paid in twenty-one days to four."
+    },
+    {
+      "index": 44,
+      "beat": 5,
+      "cue": "Proof. On screen: the three results as cards.",
+      "text": "A law firm whose inquiries took forty-eight hours to route now answers them in minutes, which added four hundred twenty thousand dollars in billable work in ninety days."
+    },
+    {
+      "index": 45,
+      "beat": 5,
+      "cue": "Proof. On screen: the three results as cards.",
+      "text": "A staffing agency went from five placements a month to fourteen on software that matches candidates and writes the outreach for them."
+    },
+    {
+      "index": 46,
+      "beat": 6,
+      "cue": "Who it's for. Direct to camera.",
+      "text": "This is for owners doing at least five hundred thousand a year who pay real money for software and are tired of renting it."
+    },
+    {
+      "index": 47,
+      "beat": 6,
+      "cue": "Who it's for. Direct to camera.",
+      "text": "If you're pre-revenue, or you want someone to set up a chatbot, we're the wrong call."
+    },
+    {
+      "index": 48,
+      "beat": 7,
+      "cue": "The ask. On screen: arrow down to the form, then the calendar.",
+      "text": "The next step is the short form below this video. Tell us what you're paying for and what you'd want to own."
+    },
+    {
+      "index": 49,
+      "beat": 7,
+      "cue": "The ask. On screen: arrow down to the form, then the calendar.",
+      "text": "Then you'll pick a time for a thirty minute call with one of our builders."
+    },
+    {
+      "index": 50,
+      "beat": 7,
+      "cue": "The ask. On screen: arrow down to the form, then the calendar.",
+      "text": "On that call we map your tools, tell you what we'd build first, and give you a real number."
+    },
+    {
+      "index": 51,
+      "beat": 7,
+      "cue": "The ask. On screen: arrow down to the form, then the calendar.",
+      "text": "If it makes sense, we start. If it doesn't, you'll at least know what your software is costing you."
+    },
+    {
+      "index": 52,
+      "beat": 7,
+      "cue": "The ask. On screen: arrow down to the form, then the calendar.",
+      "text": "Stop renting your software. Own it. Own your business."
+    },
+    {
+      "index": 53,
+      "beat": 7,
+      "cue": "The ask. On screen: arrow down to the form, then the calendar.",
+      "text": "Fill out the form and let's talk."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "vsl-render",
+  "version": "1.0.0",
+  "description": "Text-on-black VSL renderer for the Labs funnels (Chrome + ffmpeg).",
+  "scripts": {
+    "cards": "node cards.mjs own > out/own/cards.json",
+    "fetch": "node fetch-audio.mjs out/own",
+    "render": "node render.mjs out/own"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0"
+  },
+  "private": true
+}

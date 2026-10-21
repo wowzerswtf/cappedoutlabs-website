@@ -46,6 +46,11 @@ Meta `Lead` custom_data), keeps its slides and copy in
   `src/lib/funnels/own.ts` is set, then swaps to the Vimeo player. Full notes,
   worked example, ad hooks and verification in
   `docs/own-your-software-funnel.md`.
+- **VSL videos** are text-on-black with a voiceover, rendered by
+  `tools/vsl-render` (own package: Chrome screenshots + ffmpeg-static, never
+  part of the Next build). Cards come from `src/lib/vsl-cards.ts`, one voice
+  clip per card, so the text and the voice can never drift. README in the
+  folder.
 
 ## Telegram lead/booking notifier
 

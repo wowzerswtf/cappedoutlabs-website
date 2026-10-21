@@ -23,7 +23,8 @@ business. Needs a VSL, a lander with the math, and GHL intake.
       example pinned so the spoken script can't drift from the math)
 - [x] Docs: `docs/own-your-software-funnel.md`, AGENTS.md Funnels section
 - [x] Copy through the humanizer skill + `npm run lint:slop` clean
-- [ ] Record the VSL from the script, upload to Vimeo, set `OWN_VSL_VIMEO_ID`
+- [x] Render the VSL from the script (`tools/vsl-render`, 53 cards, 6:00, ElevenLabs Brooks via Higgsfield)
+- [ ] Upload `tools/vsl-render/out/own/vsl.mp4` to Vimeo, set `OWN_VSL_VIMEO_ID`
 - [ ] Production smoke test: submit, confirm `funnel-own` tag + calculator
       block in the GHL note + Telegram Funnel line
 - [ ] Point ads at `/f/own?utm_source=fb&utm_campaign=own&utm_content=<key>`
