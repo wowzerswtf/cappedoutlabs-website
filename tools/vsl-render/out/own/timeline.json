@@ -1,380 +1,380 @@
 {
-  "total": 309.52,
+  "total": 289.95,
   "cards": [
     {
       "index": 1,
       "start": 0,
-      "voice": 3.87,
-      "hold": 4.17,
+      "voice": 3.68,
+      "hold": 3.98,
       "text": "How much have you paid in software subscriptions since you started your business?"
     },
     {
       "index": 2,
-      "start": 4.166122,
-      "voice": 2.25,
-      "hold": 2.55,
+      "start": 3.983265,
+      "voice": 2.56,
+      "hold": 2.86,
       "text": "Add it up from the month you opened."
     },
     {
       "index": 3,
-      "start": 6.7126529999999995,
-      "voice": 8.05,
-      "hold": 8.35,
+      "start": 6.843265,
+      "voice": 8.12,
+      "hold": 8.42,
       "text": "Most owners I ask have never done it, and when they do, the number lands somewhere between a nice truck and a down payment on a house."
     },
     {
       "index": 4,
-      "start": 15.058367,
-      "voice": 3,
-      "hold": 3.3,
+      "start": 15.267347000000001,
+      "voice": 2.17,
+      "hold": 2.47,
       "text": "Here's what you own at the end of it: nothing."
     },
     {
       "index": 5,
-      "start": 18.362449,
-      "voice": 5.07,
-      "hold": 5.37,
+      "start": 17.73551,
+      "voice": 6.48,
+      "hold": 6.78,
       "text": "Cancel next month and it's gone, and the records, the workflows and the years of setup go with it."
     },
     {
       "index": 6,
-      "start": 23.730204,
-      "voice": 2.3,
-      "hold": 2.6,
+      "start": 24.513877,
+      "voice": 1.67,
+      "hold": 1.97,
       "text": "I'm Waynard with Capped Out Labs."
     },
     {
       "index": 7,
-      "start": 26.32898,
-      "voice": 6.16,
-      "hold": 6.46,
+      "start": 26.485714,
+      "voice": 6.19,
+      "hold": 6.49,
       "text": "We build software for businesses, and I want to show you why the deal you're getting on software is worse than it looks."
     },
     {
       "index": 8,
-      "start": 32.793878,
-      "voice": 3.24,
-      "hold": 3.54,
+      "start": 32.976734,
+      "voice": 2.59,
+      "hold": 2.89,
       "text": "You pay for a CRM. A scheduler. A quoting tool."
     },
     {
       "index": 9,
-      "start": 36.333062,
-      "voice": 4.94,
-      "hold": 5.24,
+      "start": 35.862856,
+      "voice": 6.37,
+      "hold": 6.67,
       "text": "Something for invoices, something for the team chat, something for the customer portal."
     },
     {
       "index": 10,
-      "start": 41.570205,
-      "voice": 4.44,
-      "hold": 4.74,
+      "start": 42.536734,
+      "voice": 4.31,
+      "hold": 4.61,
       "text": "Each one is a few hundred a month, so none of them ever feels like a decision."
     },
     {
       "index": 11,
-      "start": 46.311021000000004,
-      "voice": 10.63,
-      "hold": 10.93,
+      "start": 47.146938000000006,
+      "voice": 8.28,
+      "hold": 8.58,
       "text": "Add them up and most companies I talk to are paying somewhere between two and ten thousand dollars a month, every month, for as long as they're in business."
     },
     {
       "index": 12,
-      "start": 57.242858000000005,
-      "voice": 2.27,
-      "hold": 2.57,
+      "start": 55.727754000000004,
+      "voice": 1.44,
+      "hold": 1.74,
       "text": "And the price doesn't hold still."
     },
     {
       "index": 13,
-      "start": 59.81551100000001,
-      "voice": 8.93,
-      "hold": 9.23,
+      "start": 57.46448900000001,
+      "voice": 9.72,
+      "hold": 10.02,
       "text": "Vertice tracks what software vendors actually charge at renewal across thousands of contracts, and their index has been running at about twelve percent a year."
     },
     {
       "index": 14,
-      "start": 69.049389,
-      "voice": 2.12,
-      "hold": 2.42,
+      "start": 67.48204000000001,
+      "voice": 1.31,
+      "hold": 1.61,
       "text": "That's four times inflation."
     },
     {
       "index": 15,
-      "start": 71.46530700000001,
-      "voice": 7,
-      "hold": 7.3,
+      "start": 69.08816200000001,
+      "voice": 6.09,
+      "hold": 6.39,
       "text": "On their numbers, the bill you pay today roughly doubles over the next six years, for the same tools doing the same job."
     },
     {
       "index": 16,
-      "start": 78.76612300000001,
-      "voice": 4.91,
-      "hold": 5.21,
+      "start": 75.47469300000002,
+      "voice": 4.88,
+      "hold": 5.18,
       "text": "Meanwhile none of it fits how you work. You bend your process to fit the software."
     },
     {
       "index": 17,
-      "start": 83.97714300000001,
-      "voice": 10.68,
-      "hold": 10.98,
+      "start": 80.65959100000002,
+      "voice": 11.42,
+      "hold": 11.72,
       "text": "You pay for seats your team doesn't use and features you never turn on, and the one thing that would actually save you time is in the enterprise tier, or on the roadmap, or a flat no."
     },
     {
       "index": 18,
-      "start": 94.96122500000001,
-      "voice": 2.51,
-      "hold": 2.81,
+      "start": 92.37510100000002,
+      "voice": 2.3,
+      "hold": 2.6,
       "text": "Until recently the alternative was worse."
     },
     {
       "index": 19,
-      "start": 97.76898000000001,
-      "voice": 5.07,
-      "hold": 5.37,
+      "start": 94.97387700000002,
+      "voice": 4.78,
+      "hold": 5.08,
       "text": "Custom software meant an agency, a six figure quote and a year of meetings."
     },
     {
       "index": 20,
-      "start": 103.13673500000002,
-      "voice": 7.78,
-      "hold": 8.08,
+      "start": 100.05428500000002,
+      "voice": 6.87,
+      "hold": 7.17,
       "text": "Clutch's 2026 pricing guide puts the average custom build at about a hundred and thirty thousand dollars over thirteen months."
     },
     {
       "index": 21,
-      "start": 111.22122500000002,
-      "voice": 4.08,
-      "hold": 4.38,
+      "start": 107.22448900000002,
+      "voice": 3.94,
+      "hold": 4.24,
       "text": "For most owners that was never a real option, so you rented."
     },
     {
       "index": 22,
-      "start": 115.59632700000002,
-      "voice": 3.34,
-      "hold": 3.64,
+      "start": 111.46897900000002,
+      "voice": 3.66,
+      "hold": 3.96,
       "text": "That's the part that changed. We build software with AI now."
     },
     {
       "index": 23,
-      "start": 119.24000000000001,
-      "voice": 8.49,
-      "hold": 8.79,
+      "start": 115.42612200000002,
+      "voice": 9.33,
+      "hold": 9.63,
       "text": "I mean the application itself: the screens, the database, the integrations, written and tested by AI, with an engineer directing it and checking every piece."
     },
     {
       "index": 24,
-      "start": 128.029796,
-      "voice": 6.19,
-      "hold": 6.49,
+      "start": 125.05183600000002,
+      "voice": 6.24,
+      "hold": 6.54,
       "text": "What used to take a team a year takes us weeks. What used to cost six figures costs a fraction of that."
     },
     {
       "index": 25,
-      "start": 134.520816,
-      "voice": 7.47,
-      "hold": 7.77,
+      "start": 131.59510100000003,
+      "voice": 6.77,
+      "hold": 7.07,
       "text": "We look at the tools you're renting and we build your own version. Your CRM, built around your sales process."
     },
     {
       "index": 26,
-      "start": 142.291836,
-      "voice": 6.74,
-      "hold": 7.04,
+      "start": 138.660815,
+      "voice": 5.54,
+      "hold": 5.84,
       "text": "Your scheduling and dispatch. Your quoting and invoicing, wired straight into your accounting."
     },
     {
       "index": 27,
-      "start": 149.331428,
-      "voice": 7.16,
-      "hold": 7.46,
+      "start": 144.49877400000003,
+      "voice": 6.32,
+      "hold": 6.62,
       "text": "A customer portal with your name on it. The reports you actually run the business on, in one place."
     },
     {
       "index": 28,
-      "start": 156.78897899999998,
-      "voice": 5.64,
-      "hold": 5.94,
+      "start": 151.12040700000003,
+      "voice": 5.28,
+      "hold": 5.58,
       "text": "And when it's done, you own it. The code sits in a repository under your account."
     },
     {
       "index": 29,
-      "start": 162.731428,
-      "voice": 2.85,
-      "hold": 3.15,
+      "start": 156.69714200000004,
+      "voice": 2.4,
+      "hold": 2.7,
       "text": "The data sits in a database you control."
     },
     {
       "index": 30,
-      "start": 165.878775,
-      "voice": 6.97,
-      "hold": 7.27,
+      "start": 159.40040700000003,
+      "voice": 6.3,
+      "hold": 6.6,
       "text": "The hosting runs under your company's name and bills you directly, usually for less than one of the subscriptions it replaced."
     },
     {
       "index": 31,
-      "start": 173.153469,
-      "voice": 6.45,
-      "hold": 6.75,
+      "start": 165.99591700000002,
+      "voice": 5.9,
+      "hold": 6.2,
       "text": "If we got hit by a bus tomorrow, your software keeps running, and any competent developer can pick it up."
     },
     {
       "index": 32,
-      "start": 179.905714,
-      "voice": 5.02,
-      "hold": 5.32,
+      "start": 172.19959000000003,
+      "voice": 5.46,
+      "hold": 5.76,
       "text": "Take a real-sized example. Say you're paying three thousand a month across your tools."
     },
     {
       "index": 33,
-      "start": 185.22122399999998,
-      "voice": 6.58,
-      "hold": 6.88,
+      "start": 177.95918200000003,
+      "voice": 7.47,
+      "hold": 7.77,
       "text": "Over the next five years, with twelve percent annual increases, that's about two hundred twenty-nine thousand dollars in rent."
     },
     {
       "index": 34,
-      "start": 192.10408099999998,
-      "voice": 6.45,
-      "hold": 6.75,
+      "start": 185.73020200000002,
+      "voice": 5.62,
+      "hold": 5.92,
       "text": "Forty-nine thousand of that is price increases alone. At the end of the five years you own nothing."
     },
     {
       "index": 35,
-      "start": 198.85632599999997,
-      "voice": 4.41,
-      "hold": 4.71,
+      "start": 191.64652900000002,
+      "voice": 4.15,
+      "hold": 4.45,
       "text": "Now say the build costs one year of that rent, thirty-six thousand."
     },
     {
       "index": 36,
-      "start": 203.57101999999998,
-      "voice": 5.75,
-      "hold": 6.05,
+      "start": 196.09999800000003,
+      "voice": 5.43,
+      "hold": 5.73,
       "text": "Add hosting and upkeep at twenty percent a year, which is the high end of what the industry quotes."
     },
     {
       "index": 37,
-      "start": 209.61795899999998,
-      "voice": 3.74,
-      "hold": 4.04,
+      "start": 201.83346700000004,
+      "voice": 3.55,
+      "hold": 3.85,
       "text": "Five years of owning it comes to about seventy-two thousand."
     },
     {
       "index": 38,
-      "start": 213.65346899999997,
-      "voice": 4.88,
-      "hold": 5.18,
+      "start": 205.68612000000005,
+      "voice": 4.44,
+      "hold": 4.74,
       "text": "You keep roughly a hundred and fifty-seven thousand dollars, and you own the asset."
     },
     {
       "index": 39,
-      "start": 218.83836699999998,
-      "voice": 4.68,
-      "hold": 4.98,
+      "start": 210.42693600000004,
+      "voice": 4.65,
+      "hold": 4.95,
       "text": "The build pays for itself in twelve months, and every month after that is yours."
     },
     {
       "index": 40,
-      "start": 223.81428499999998,
-      "voice": 4.21,
-      "hold": 4.51,
+      "start": 215.37673200000003,
+      "voice": 2.85,
+      "hold": 3.15,
       "text": "There's a calculator on this page. Put your own numbers in."
     },
     {
       "index": 41,
-      "start": 228.319999,
-      "voice": 3.87,
-      "hold": 4.17,
+      "start": 218.52407900000003,
+      "voice": 3.58,
+      "hold": 3.88,
       "text": "It takes ten seconds, and the number is usually uncomfortable."
     },
     {
       "index": 42,
-      "start": 232.486121,
-      "voice": 6.48,
-      "hold": 6.78,
+      "start": 222.40285500000002,
+      "voice": 5.59,
+      "hold": 5.89,
       "text": "We've done this for a contracting company that was spending eighteen hours a week on estimates, invoices and QuickBooks."
     },
     {
       "index": 43,
-      "start": 239.264488,
-      "voice": 4.65,
-      "hold": 4.95,
+      "start": 228.29305900000003,
+      "voice": 4.7,
+      "hold": 5,
       "text": "Their own system does it now, and they went from getting paid in twenty-one days to four."
     },
     {
       "index": 44,
-      "start": 244.214284,
-      "voice": 8.83,
-      "hold": 9.13,
+      "start": 233.29510000000002,
+      "voice": 8.39,
+      "hold": 8.69,
       "text": "A law firm whose inquiries took forty-eight hours to route now answers them in minutes, which added four hundred twenty thousand dollars in billable work in ninety days."
     },
     {
       "index": 45,
-      "start": 253.343672,
-      "voice": 7.81,
-      "hold": 8.11,
+      "start": 241.98040600000002,
+      "voice": 6.22,
+      "hold": 6.52,
       "text": "A staffing agency went from five placements a month to fourteen on software that matches candidates and writes the outreach for them."
     },
     {
       "index": 46,
-      "start": 261.454284,
-      "voice": 6.3,
-      "hold": 6.6,
+      "start": 248.49754900000002,
+      "voice": 5.85,
+      "hold": 6.15,
       "text": "This is for owners doing at least five hundred thousand a year who pay real money for software and are tired of renting it."
     },
     {
       "index": 47,
-      "start": 268.04979399999996,
-      "voice": 4.68,
-      "hold": 4.98,
+      "start": 254.64897800000003,
+      "voice": 4.44,
+      "hold": 4.74,
       "text": "If you're pre-revenue, or you want someone to set up a chatbot, we're the wrong call."
     },
     {
       "index": 48,
-      "start": 273.02571199999994,
-      "voice": 6.84,
-      "hold": 7.14,
+      "start": 259.38979400000005,
+      "voice": 5.3,
+      "hold": 5.6,
       "text": "The next step is the short form below this video. Tell us what you're paying for and what you'd want to own."
     },
     {
       "index": 49,
-      "start": 280.16979399999997,
-      "voice": 4.05,
-      "hold": 4.35,
+      "start": 264.992651,
+      "voice": 3.47,
+      "hold": 3.77,
       "text": "Then you'll pick a time for a thirty minute call with one of our builders."
     },
     {
       "index": 50,
-      "start": 284.51877399999995,
-      "voice": 5.72,
-      "hold": 6.02,
+      "start": 268.76693700000004,
+      "voice": 6.03,
+      "hold": 6.33,
       "text": "On that call we map your tools, tell you what we'd build first, and give you a real number."
     },
     {
       "index": 51,
-      "start": 290.53959,
-      "voice": 6.37,
-      "hold": 6.67,
+      "start": 275.10122300000006,
+      "voice": 4.68,
+      "hold": 4.98,
       "text": "If it makes sense, we start. If it doesn't, you'll at least know what your software is costing you."
     },
     {
       "index": 52,
-      "start": 297.213468,
-      "voice": 5.88,
-      "hold": 6.18,
+      "start": 280.07714100000004,
+      "voice": 3.37,
+      "hold": 3.67,
       "text": "Stop renting your software. Own it. Own your business."
     },
     {
       "index": 53,
-      "start": 303.391019,
-      "voice": 1.83,
-      "hold": 2.13,
+      "start": 283.74693700000006,
+      "voice": 1.91,
+      "hold": 2.21,
       "text": "Fill out the form and let's talk."
     },
     {
       "index": "end",
-      "start": 305.51959,
+      "start": 285.95387600000004,
       "voice": 0,
       "hold": 4,
       "text": "(end card)"
