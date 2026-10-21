@@ -1,0 +1,640 @@
+{
+  "silenceDb": -32,
+  "minPause": 0.18,
+  "cards": [
+    {
+      "card": 1,
+      "paragraph": 1,
+      "from": 0.25,
+      "to": 4.08,
+      "seconds": 3.82,
+      "cut": {
+        "at": 4.079055,
+        "pause": 0.65,
+        "expected": 4.79,
+        "drift": 0.71
+      },
+      "text": "How much have you paid in software subscriptions since you started your business?"
+    },
+    {
+      "card": 2,
+      "paragraph": 1,
+      "from": 4.08,
+      "to": 6.28,
+      "seconds": 2.2,
+      "cut": {
+        "at": 6.281174999999999,
+        "pause": 0.71,
+        "expected": 6.81,
+        "drift": 0.53
+      },
+      "text": "Add it up from the month you opened."
+    },
+    {
+      "card": 3,
+      "paragraph": 1,
+      "from": 6.28,
+      "to": 14.32,
+      "seconds": 8.03,
+      "text": "Most owners I ask have never done it, and when they do, the number lands somewhere between a nice truck and a down payment on a house."
+    },
+    {
+      "card": 4,
+      "paragraph": 2,
+      "from": 0,
+      "to": 2.95,
+      "seconds": 2.95,
+      "cut": {
+        "at": 2.952495,
+        "pause": 0.67,
+        "expected": 2.56,
+        "drift": 0.39
+      },
+      "text": "Here's what you own at the end of it: nothing."
+    },
+    {
+      "card": 5,
+      "paragraph": 2,
+      "from": 2.95,
+      "to": 8.02,
+      "seconds": 5.07,
+      "text": "Cancel next month and it's gone, and the records, the workflows and the years of setup go with it."
+    },
+    {
+      "card": 6,
+      "paragraph": 3,
+      "from": 1.55,
+      "to": 3.82,
+      "seconds": 2.27,
+      "cut": {
+        "at": 3.824285,
+        "pause": 0.65,
+        "expected": 3.37,
+        "drift": 0.45
+      },
+      "text": "I'm Waynard with Capped Out Labs."
+    },
+    {
+      "card": 7,
+      "paragraph": 3,
+      "from": 3.82,
+      "to": 9.98,
+      "seconds": 6.15,
+      "text": "We build software for businesses, and I want to show you why the deal you're getting on software is worse than it looks."
+    },
+    {
+      "card": 8,
+      "paragraph": 4,
+      "from": 0.21,
+      "to": 3.42,
+      "seconds": 3.21,
+      "cut": {
+        "at": 3.422495,
+        "pause": 0.72,
+        "expected": 3.17,
+        "drift": 0.26
+      },
+      "text": "You pay for a CRM. A scheduler. A quoting tool."
+    },
+    {
+      "card": 9,
+      "paragraph": 4,
+      "from": 3.42,
+      "to": 8.33,
+      "seconds": 4.91,
+      "cut": {
+        "at": 8.33204,
+        "pause": 0.71,
+        "expected": 8.64,
+        "drift": 0.3
+      },
+      "text": "Something for invoices, something for the team chat, something for the customer portal."
+    },
+    {
+      "card": 10,
+      "paragraph": 4,
+      "from": 8.33,
+      "to": 12.72,
+      "seconds": 4.39,
+      "cut": {
+        "at": 12.7241,
+        "pause": 0.62,
+        "expected": 13.54,
+        "drift": 0.82
+      },
+      "text": "Each one is a few hundred a month, so none of them ever feels like a decision."
+    },
+    {
+      "card": 11,
+      "paragraph": 4,
+      "from": 12.72,
+      "to": 23.35,
+      "seconds": 10.63,
+      "text": "Add them up and most companies I talk to are paying somewhere between two and ten thousand dollars a month, every month, for as long as they're in business."
+    },
+    {
+      "card": 12,
+      "paragraph": 5,
+      "from": 0.2,
+      "to": 2.44,
+      "seconds": 2.24,
+      "cut": {
+        "at": 2.44058,
+        "pause": 1.34,
+        "expected": 2.16,
+        "drift": 0.28
+      },
+      "text": "And the price doesn't hold still."
+    },
+    {
+      "card": 13,
+      "paragraph": 5,
+      "from": 2.44,
+      "to": 11.35,
+      "seconds": 8.91,
+      "cut": {
+        "at": 11.3463,
+        "pause": 0.46,
+        "expected": 11.61,
+        "drift": 0.26
+      },
+      "text": "Vertice tracks what software vendors actually charge at renewal across thousands of contracts, and their index has been running at about twelve percent a year."
+    },
+    {
+      "card": 14,
+      "paragraph": 5,
+      "from": 11.35,
+      "to": 13.41,
+      "seconds": 2.07,
+      "cut": {
+        "at": 13.4134,
+        "pause": 0.67,
+        "expected": 13.27,
+        "drift": 0.14
+      },
+      "text": "That's four times inflation."
+    },
+    {
+      "card": 15,
+      "paragraph": 5,
+      "from": 13.41,
+      "to": 20.4,
+      "seconds": 6.99,
+      "text": "On their numbers, the bill you pay today roughly doubles over the next six years, for the same tools doing the same job."
+    },
+    {
+      "card": 16,
+      "paragraph": 6,
+      "from": 0.21,
+      "to": 5.08,
+      "seconds": 4.88,
+      "cut": {
+        "at": 5.084614999999999,
+        "pause": 0.67,
+        "expected": 5.02,
+        "drift": 0.07
+      },
+      "text": "Meanwhile none of it fits how you work. You bend your process to fit the software."
+    },
+    {
+      "card": 17,
+      "paragraph": 6,
+      "from": 5.08,
+      "to": 15.75,
+      "seconds": 10.67,
+      "text": "You pay for seats your team doesn't use and features you never turn on, and the one thing that would actually save you time is in the enterprise tier, or on the roadmap, or a flat no."
+    },
+    {
+      "card": 18,
+      "paragraph": 7,
+      "from": 0.22,
+      "to": 2.69,
+      "seconds": 2.48,
+      "cut": {
+        "at": 2.6945449999999997,
+        "pause": 0.38,
+        "expected": 2.85,
+        "drift": 0.15
+      },
+      "text": "Until recently the alternative was worse."
+    },
+    {
+      "card": 19,
+      "paragraph": 7,
+      "from": 2.69,
+      "to": 7.73,
+      "seconds": 5.04,
+      "cut": {
+        "at": 7.733495,
+        "pause": 0.67,
+        "expected": 7.65,
+        "drift": 0.08
+      },
+      "text": "Custom software meant an agency, a six figure quote and a year of meetings."
+    },
+    {
+      "card": 20,
+      "paragraph": 7,
+      "from": 7.73,
+      "to": 15.49,
+      "seconds": 7.76,
+      "cut": {
+        "at": 15.490549999999999,
+        "pause": 0.71,
+        "expected": 15.72,
+        "drift": 0.23
+      },
+      "text": "Clutch's 2026 pricing guide puts the average custom build at about a hundred and thirty thousand dollars over thirteen months."
+    },
+    {
+      "card": 21,
+      "paragraph": 7,
+      "from": 15.49,
+      "to": 19.57,
+      "seconds": 4.08,
+      "text": "For most owners that was never a real option, so you rented."
+    },
+    {
+      "card": 22,
+      "paragraph": 8,
+      "from": 0.25,
+      "to": 3.55,
+      "seconds": 3.29,
+      "cut": {
+        "at": 3.546215,
+        "pause": 0.63,
+        "expected": 3.62,
+        "drift": 0.07
+      },
+      "text": "That's the part that changed. We build software with AI now."
+    },
+    {
+      "card": 23,
+      "paragraph": 8,
+      "from": 3.55,
+      "to": 12.01,
+      "seconds": 8.46,
+      "cut": {
+        "at": 12.00805,
+        "pause": 0.68,
+        "expected": 12.41,
+        "drift": 0.4
+      },
+      "text": "I mean the application itself: the screens, the database, the integrations, written and tested by AI, with an engineer directing it and checking every piece."
+    },
+    {
+      "card": 24,
+      "paragraph": 8,
+      "from": 12.01,
+      "to": 18.18,
+      "seconds": 6.17,
+      "text": "What used to take a team a year takes us weeks. What used to cost six figures costs a fraction of that."
+    },
+    {
+      "card": 25,
+      "paragraph": 9,
+      "from": 1.61,
+      "to": 9.04,
+      "seconds": 7.43,
+      "cut": {
+        "at": 9.038525,
+        "pause": 0.75,
+        "expected": 9.29,
+        "drift": 0.25
+      },
+      "text": "We look at the tools you're renting and we build your own version. Your CRM, built around your sales process."
+    },
+    {
+      "card": 26,
+      "paragraph": 9,
+      "from": 9.04,
+      "to": 15.74,
+      "seconds": 6.7,
+      "cut": {
+        "at": 15.74175,
+        "pause": 0.86,
+        "expected": 15.91,
+        "drift": 0.17
+      },
+      "text": "Your scheduling and dispatch. Your quoting and invoicing, wired straight into your accounting."
+    },
+    {
+      "card": 27,
+      "paragraph": 9,
+      "from": 15.74,
+      "to": 22.88,
+      "seconds": 7.14,
+      "text": "A customer portal with your name on it. The reports you actually run the business on, in one place."
+    },
+    {
+      "card": 28,
+      "paragraph": 10,
+      "from": 0,
+      "to": 5.6,
+      "seconds": 5.6,
+      "cut": {
+        "at": 5.59653,
+        "pause": 0.71,
+        "expected": 5.01,
+        "drift": 0.59
+      },
+      "text": "And when it's done, you own it. The code sits in a repository under your account."
+    },
+    {
+      "card": 29,
+      "paragraph": 10,
+      "from": 5.6,
+      "to": 8.4,
+      "seconds": 2.8,
+      "cut": {
+        "at": 8.39549,
+        "pause": 0.63,
+        "expected": 7.48,
+        "drift": 0.92
+      },
+      "text": "The data sits in a database you control."
+    },
+    {
+      "card": 30,
+      "paragraph": 10,
+      "from": 8.4,
+      "to": 15.33,
+      "seconds": 6.93,
+      "cut": {
+        "at": 15.327,
+        "pause": 0.67,
+        "expected": 15.27,
+        "drift": 0.06
+      },
+      "text": "The hosting runs under your company's name and bills you directly, usually for less than one of the subscriptions it replaced."
+    },
+    {
+      "card": 31,
+      "paragraph": 10,
+      "from": 15.33,
+      "to": 21.76,
+      "seconds": 6.43,
+      "text": "If we got hit by a bus tomorrow, your software keeps running, and any competent developer can pick it up."
+    },
+    {
+      "card": 32,
+      "paragraph": 11,
+      "from": 0.2,
+      "to": 5.19,
+      "seconds": 4.98,
+      "cut": {
+        "at": 5.188325,
+        "pause": 0.39,
+        "expected": 5.17,
+        "drift": 0.02
+      },
+      "text": "Take a real-sized example. Say you're paying three thousand a month across your tools."
+    },
+    {
+      "card": 33,
+      "paragraph": 11,
+      "from": 5.19,
+      "to": 11.72,
+      "seconds": 6.53,
+      "cut": {
+        "at": 11.72215,
+        "pause": 0.74,
+        "expected": 12.44,
+        "drift": 0.72
+      },
+      "text": "Over the next five years, with twelve percent annual increases, that's about two hundred twenty-nine thousand dollars in rent."
+    },
+    {
+      "card": 34,
+      "paragraph": 11,
+      "from": 11.72,
+      "to": 18.16,
+      "seconds": 6.43,
+      "text": "Forty-nine thousand of that is price increases alone. At the end of the five years you own nothing."
+    },
+    {
+      "card": 35,
+      "paragraph": 12,
+      "from": 0.2,
+      "to": 4.59,
+      "seconds": 4.39,
+      "cut": {
+        "at": 4.591200000000001,
+        "pause": 0.71,
+        "expected": 4.22,
+        "drift": 0.37
+      },
+      "text": "Now say the build costs one year of that rent, thirty-six thousand."
+    },
+    {
+      "card": 36,
+      "paragraph": 12,
+      "from": 4.59,
+      "to": 10.3,
+      "seconds": 5.7,
+      "cut": {
+        "at": 10.295285,
+        "pause": 0.79,
+        "expected": 10.15,
+        "drift": 0.15
+      },
+      "text": "Add hosting and upkeep at twenty percent a year, which is the high end of what the industry quotes."
+    },
+    {
+      "card": 37,
+      "paragraph": 12,
+      "from": 10.3,
+      "to": 14,
+      "seconds": 3.71,
+      "cut": {
+        "at": 14.003350000000001,
+        "pause": 0.71,
+        "expected": 13.74,
+        "drift": 0.26
+      },
+      "text": "Five years of owning it comes to about seventy-two thousand."
+    },
+    {
+      "card": 38,
+      "paragraph": 12,
+      "from": 14,
+      "to": 18.85,
+      "seconds": 4.85,
+      "cut": {
+        "at": 18.849449999999997,
+        "pause": 0.7,
+        "expected": 18.72,
+        "drift": 0.13
+      },
+      "text": "You keep roughly a hundred and fifty-seven thousand dollars, and you own the asset."
+    },
+    {
+      "card": 39,
+      "paragraph": 12,
+      "from": 18.85,
+      "to": 23.51,
+      "seconds": 4.66,
+      "text": "The build pays for itself in twelve months, and every month after that is yours."
+    },
+    {
+      "card": 40,
+      "paragraph": 13,
+      "from": 0.23,
+      "to": 4.4,
+      "seconds": 4.17,
+      "cut": {
+        "at": 4.399275,
+        "pause": 0.73,
+        "expected": 4.14,
+        "drift": 0.25
+      },
+      "text": "There's a calculator on this page. Put your own numbers in."
+    },
+    {
+      "card": 41,
+      "paragraph": 13,
+      "from": 4.4,
+      "to": 8.25,
+      "seconds": 3.86,
+      "text": "It takes ten seconds, and the number is usually uncomfortable."
+    },
+    {
+      "card": 42,
+      "paragraph": 14,
+      "from": 0.21,
+      "to": 6.63,
+      "seconds": 6.43,
+      "cut": {
+        "at": 6.633335000000001,
+        "pause": 0.4,
+        "expected": 6.69,
+        "drift": 0.06
+      },
+      "text": "We've done this for a contracting company that was spending eighteen hours a week on estimates, invoices and QuickBooks."
+    },
+    {
+      "card": 43,
+      "paragraph": 14,
+      "from": 6.63,
+      "to": 11.23,
+      "seconds": 4.6,
+      "cut": {
+        "at": 11.232,
+        "pause": 0.67,
+        "expected": 11.5,
+        "drift": 0.27
+      },
+      "text": "Their own system does it now, and they went from getting paid in twenty-one days to four."
+    },
+    {
+      "card": 44,
+      "paragraph": 14,
+      "from": 11.23,
+      "to": 20.03,
+      "seconds": 8.79,
+      "cut": {
+        "at": 20.02595,
+        "pause": 0.63,
+        "expected": 20.63,
+        "drift": 0.61
+      },
+      "text": "A law firm whose inquiries took forty-eight hours to route now answers them in minutes, which added four hundred twenty thousand dollars in billable work in ninety days."
+    },
+    {
+      "card": 45,
+      "paragraph": 14,
+      "from": 20.03,
+      "to": 27.82,
+      "seconds": 7.79,
+      "text": "A staffing agency went from five placements a month to fourteen on software that matches candidates and writes the outreach for them."
+    },
+    {
+      "card": 46,
+      "paragraph": 15,
+      "from": 0.26,
+      "to": 6.51,
+      "seconds": 6.24,
+      "cut": {
+        "at": 6.508875,
+        "pause": 0.63,
+        "expected": 6.72,
+        "drift": 0.21
+      },
+      "text": "This is for owners doing at least five hundred thousand a year who pay real money for software and are tired of renting it."
+    },
+    {
+      "card": 47,
+      "paragraph": 15,
+      "from": 6.51,
+      "to": 11.18,
+      "seconds": 4.67,
+      "text": "If you're pre-revenue, or you want someone to set up a chatbot, we're the wrong call."
+    },
+    {
+      "card": 48,
+      "paragraph": 16,
+      "from": 0.22,
+      "to": 7.04,
+      "seconds": 6.82,
+      "cut": {
+        "at": 7.0412,
+        "pause": 0.71,
+        "expected": 6.86,
+        "drift": 0.18
+      },
+      "text": "The next step is the short form below this video. Tell us what you're paying for and what you'd want to own."
+    },
+    {
+      "card": 49,
+      "paragraph": 16,
+      "from": 7.04,
+      "to": 11.05,
+      "seconds": 4.01,
+      "cut": {
+        "at": 11.0516,
+        "pause": 0.85,
+        "expected": 11.41,
+        "drift": 0.36
+      },
+      "text": "Then you'll pick a time for a thirty minute call with one of our builders."
+    },
+    {
+      "card": 50,
+      "paragraph": 16,
+      "from": 11.05,
+      "to": 16.73,
+      "seconds": 5.68,
+      "cut": {
+        "at": 16.73125,
+        "pause": 0.7,
+        "expected": 17.01,
+        "drift": 0.28
+      },
+      "text": "On that call we map your tools, tell you what we'd build first, and give you a real number."
+    },
+    {
+      "card": 51,
+      "paragraph": 16,
+      "from": 16.73,
+      "to": 23.09,
+      "seconds": 6.36,
+      "text": "If it makes sense, we start. If it doesn't, you'll at least know what your software is costing you."
+    },
+    {
+      "card": 52,
+      "paragraph": 17,
+      "from": 0.28,
+      "to": 6.14,
+      "seconds": 5.86,
+      "text": "Stop renting your software. Own it. Own your business."
+    },
+    {
+      "card": 53,
+      "paragraph": 18,
+      "from": 0.31,
+      "to": 2.12,
+      "seconds": 1.81,
+      "text": "Fill out the form and let's talk."
+    }
+  ]
+}

@@ -96,10 +96,16 @@ letter with a "Keep reading" fold, so the funnel runs on day one.
 
 The video itself is rendered from the script by `tools/vsl-render` (see its
 README): white sentences on black with a voiceover, the same format as the
-live `/f/vsl` video. One card per spoken chunk, 53 cards, 6 minutes, 1080p.
-The 2026-10-20 render used the ElevenLabs "Brooks" preset through Higgsfield;
-swapping the voice means regenerating 53 short clips and re-running the
-render, about 50 credits and ten minutes. The card split is pure and tested
+live `/f/vsl` video. One card per spoken chunk, 53 cards, 5:10, 1080p.
+The voice is generated one take per paragraph (18 takes) and cut back into
+cards at the sentence pauses, because per-card clips sounded like a robot
+reading a list. The 2026-10-21 render clones the narrator of the 2023
+talking-head VSL (`VSL 7 Young.mp4`) through Higgsfield's Seed Audio; every
+preset voice tried before it (ElevenLabs Brooks, Jake, Benji, Leo, Dylan,
+Evan, Miles, Callan; MiniMax and Seed Jake and Cody) was rejected as fake.
+Swapping the voice means 18 takes, about 20 credits and ten minutes. Paragraph
+3 says "I'm Waynard"; with a cloned third-party voice that line needs changing
+or recording by Waynard. The card split is pure and tested
 (`src/lib/vsl-cards.ts`, `tests/vsl-cards.test.mts`), so a script edit that
 would overflow a card or orphan a number fails `npm test` before anyone
 records anything.

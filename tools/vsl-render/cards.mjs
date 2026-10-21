@@ -3,9 +3,9 @@
 //
 //   node tools/vsl-render/cards.mjs own > tools/vsl-render/out/own/cards.json
 //
-// The card text is exactly what gets spoken and shown, so this file is the
-// manifest for both the TTS step and the render step (see README.md).
-import { buildCards } from "../../src/lib/vsl-cards.ts";
+// paragraphs[] is what the voice reads, one take each (the TTS manifest);
+// cards[] is what is shown, and what split-paragraphs.mjs cuts the takes into.
+import { buildCards, buildParagraphs } from "../../src/lib/vsl-cards.ts";
 
 const slug = process.argv[2] || "own";
 const scripts = {
@@ -15,5 +15,7 @@ if (!scripts[slug]) {
   console.error(`unknown funnel "${slug}"; known: ${Object.keys(scripts).join(", ")}`);
   process.exit(1);
 }
-const cards = buildCards(await scripts[slug]());
-process.stdout.write(JSON.stringify({ slug, cards }, null, 2) + "\n");
+const script = await scripts[slug]();
+const cards = buildCards(script);
+const paragraphs = buildParagraphs(script);
+process.stdout.write(JSON.stringify({ slug, paragraphs, cards }, null, 2) + "\n");

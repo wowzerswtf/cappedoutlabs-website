@@ -15,6 +15,9 @@ export interface VslCard {
   beat: number;
   /** The editor's cue for that beat, carried along for the render log. */
   cue: string;
+  /** 1-based paragraph of the script the card was cut from. The voice is
+   *  generated per paragraph and split back into cards, so this is the join. */
+  paragraph: number;
   /** Exactly what is spoken and shown. */
   text: string;
 }
@@ -66,15 +69,34 @@ export function mergeShort(chunks: string[], upTo = MERGE_UP_TO_CHARS): string[]
 
 export function buildCards(script: ScriptSection[]): VslCard[] {
   const cards: VslCard[] = [];
+  let paragraph = 0;
   script.forEach((section, beat) => {
-    for (const paragraph of section.paragraphs) {
-      const chunks = mergeShort(splitSentences(paragraph).flatMap((s) => splitLong(s)));
-      for (const text of chunks) {
-        cards.push({ index: cards.length + 1, beat, cue: section.cue, text });
+    for (const text of section.paragraphs) {
+      paragraph++;
+      const chunks = mergeShort(splitSentences(text).flatMap((s) => splitLong(s)));
+      for (const chunk of chunks) {
+        cards.push({ index: cards.length + 1, beat, cue: section.cue, paragraph, text: chunk });
       }
     }
   });
   return cards;
+}
+
+export interface VslParagraph {
+  /** 1-based, matches VslCard.paragraph. */
+  index: number;
+  beat: number;
+  /** Exactly what the voice reads in one take. */
+  text: string;
+}
+
+/** The script's paragraphs in order: one TTS take each. */
+export function buildParagraphs(script: ScriptSection[]): VslParagraph[] {
+  const out: VslParagraph[] = [];
+  script.forEach((section, beat) => {
+    for (const text of section.paragraphs) out.push({ index: out.length + 1, beat, text });
+  });
+  return out;
 }
 
 /** Every word of the script, in order, with whitespace collapsed. Used by the

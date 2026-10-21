@@ -5,6 +5,8 @@
   "scripts": {
     "cards": "node cards.mjs own > out/own/cards.json",
     "fetch": "node fetch-audio.mjs out/own",
+    "fetch:paragraphs": "node fetch-audio.mjs out/own paragraphs",
+    "split": "node split-paragraphs.mjs out/own",
     "render": "node render.mjs out/own"
   },
   "keywords": [],

@@ -48,9 +48,11 @@ Meta `Lead` custom_data), keeps its slides and copy in
   `docs/own-your-software-funnel.md`.
 - **VSL videos** are text-on-black with a voiceover, rendered by
   `tools/vsl-render` (own package: Chrome screenshots + ffmpeg-static, never
-  part of the Next build). Cards come from `src/lib/vsl-cards.ts`, one voice
-  clip per card, so the text and the voice can never drift. README in the
-  folder.
+  part of the Next build). Cards come from `src/lib/vsl-cards.ts`. The voice
+  is one take per paragraph (per-card clips sound robotic), cut back into
+  cards at sentence pauses by `split-paragraphs.mjs`, so text and voice stay
+  in sync. Preset TTS voices were all rejected as fake; the current voice is a
+  clone of the narrator from `VSL 7 Young.mp4`. README in the folder.
 
 ## Telegram lead/booking notifier
 
